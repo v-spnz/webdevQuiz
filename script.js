@@ -96,8 +96,10 @@ function shuffle(arr) {
 }
 
 // Prepare a question — optionally shuffle its option order
+// Skip shuffling for fill-in-the-blank (no options) and true/false (order matters)
 function prepareQuestion(q) {
-  if (!shuffleEnabled) return { ...q };
+  if (!shuffleEnabled || q.type === 'fillin' || q.type === 'truefalse') return { ...q };
+  if (!q.options || q.options.length === 0) return { ...q };
   const idx = shuffle([0, 1, 2, 3]);
   return {
     ...q,
@@ -258,7 +260,13 @@ function renderQuestion() {
   // Type badge on question number
   const typeBadge = qType === 'truefalse' ? ' · T/F' : qType === 'fillin' ? ' · Fill in' : '';
   document.getElementById('q-number').textContent = 'Question ' + (currentIndex + 1) + ' of ' + quizQuestions.length + typeBadge;
-  document.getElementById('q-text').textContent   = q.question;
+
+  const qTextEl = document.getElementById('q-text');
+  if (qType === 'fillin' && q.question.includes('___')) {
+    renderFillInQuestion(q, chosen, isAnswered, qTextEl);
+  } else {
+    qTextEl.textContent = q.question;
+  }
 
   // Bookmark button
   const bmBtn = document.getElementById('btn-bookmark');
@@ -327,10 +335,10 @@ function renderQuestion() {
     fb.innerHTML =
       '<span class="feedback-label">' + label + '</span>' +
       wrongHint +
-      '<span class="fb-explanation" id="fb-explanation">' + q.explanation + '</span>' +
+      '<span class="fb-explanation" id="fb-explanation">' + escapeHtml(q.explanation) + '</span>' +
       (hasDumb
         ? '<button class="btn-dumb" id="btn-dumb" data-mode="normal">💡 Explain simply</button>' +
-          '<span class="fb-simple" id="fb-simple" style="display:none">' + q.simple_explanation + '</span>'
+          '<span class="fb-simple" id="fb-simple" style="display:none">' + escapeHtml(q.simple_explanation) + '</span>'
         : '');
 
     const dumbBtn = document.getElementById('btn-dumb');
@@ -362,54 +370,82 @@ function renderQuestion() {
   renderDots();
 }
 
-// ── RENDER FILL-IN INPUT ─────────────────────────────
+// ── RENDER FILL-IN QUESTION TEXT (inline blank) ──────
+function renderFillInQuestion(q, chosen, isAnswered, container) {
+  const parts = q.question.split('___');
+  const before = escapeHtml(parts[0]);
+  const after  = parts.length > 1 ? escapeHtml(parts[1]) : '';
+
+  if (!isAnswered) {
+    container.innerHTML =
+      before +
+      '<input type="text" id="fillin-input" class="fillin-input-inline" autocomplete="off" spellcheck="false" placeholder="?">' +
+      after;
+
+    const input = container.querySelector('#fillin-input');
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        const val = input.value.trim();
+        if (val) handleFillIn(val, q);
+      }
+    });
+    setTimeout(() => input.focus(), 50);
+  } else {
+    const gotItRight = chosen === '__correct__';
+    const displayVal = gotItRight ? q.answers[0] : chosen;
+    const cls = gotItRight ? 'fillin-answer-correct' : 'fillin-answer-wrong';
+    container.innerHTML =
+      before +
+      '<span class="fillin-answer-inline ' + cls + '">' + escapeHtml(displayVal) + '</span>' +
+      after;
+  }
+}
+
+// ── RENDER FILL-IN SUBMIT BUTTON ─────────────────────
 function renderFillIn(q, chosen, isAnswered, container) {
+  if (isAnswered) return;
+
   const wrap = document.createElement('div');
   wrap.className = 'fillin-wrap';
 
-  if (!isAnswered) {
-    const input = document.createElement('input');
-    input.type        = 'text';
-    input.className   = 'fillin-input';
-    input.placeholder = 'Type your answer here...';
-    input.id          = 'fillin-input';
-    input.autocomplete = 'off';
-    input.spellcheck  = false;
+  const submitBtn = document.createElement('button');
+  submitBtn.className   = 'fillin-submit';
+  submitBtn.textContent = 'Submit Answer';
+  submitBtn.id          = 'fillin-submit';
 
-    const submitBtn = document.createElement('button');
-    submitBtn.className   = 'fillin-submit';
-    submitBtn.textContent = 'Submit Answer';
-    submitBtn.id          = 'fillin-submit';
+  submitBtn.addEventListener('click', () => {
+    const input = document.getElementById('fillin-input');
+    if (!input) return;
+    const val = input.value.trim();
+    if (val === '') { input.focus(); return; }
+    handleFillIn(val, q);
+  });
 
-    const doSubmit = () => {
-      const val = input.value.trim();
-      if (val === '') { input.focus(); return; }
-      handleFillIn(val, q);
-    };
+  wrap.appendChild(submitBtn);
+  container.appendChild(wrap);
+}
 
-    submitBtn.addEventListener('click', doSubmit);
-    input.addEventListener('keydown', e => {
-      if (e.key === 'Enter') { e.preventDefault(); doSubmit(); }
-    });
+// ── HANDLE MCQ / TRUE-FALSE ANSWER ───────────────────
+function handleAnswer(chosenIndex) {
+  if (answers[currentIndex] !== null) return;
+  const q = quizQuestions[currentIndex];
+  answers[currentIndex] = chosenIndex;
 
-    wrap.appendChild(input);
-    wrap.appendChild(submitBtn);
-
-    // Auto-focus the input after render
-    setTimeout(() => input.focus(), 50);
-
+  const isCorrect = chosenIndex === q.answer;
+  if (isCorrect) {
+    streak++;
+    if (streak > maxStreak) maxStreak = streak;
   } else {
-    // Show what they typed, locked
-    const gotItRight = chosen === '__correct__';
-    const display = document.createElement('div');
-    display.className = 'fillin-submitted ' + (gotItRight ? 'fillin-correct' : 'fillin-wrong');
-    display.innerHTML =
-      '<span class="fillin-submitted-label">' + (gotItRight ? '✓ Your answer:' : '✗ Your answer:') + '</span>' +
-      '<span class="fillin-submitted-value">' + escapeHtml(chosen === '__correct__' ? q.answers[0] : chosen) + '</span>';
-    wrap.appendChild(display);
+    streak = 0;
   }
 
-  container.appendChild(wrap);
+  if (streak >= 2) {
+    document.getElementById('streak-badge').style.display = 'block';
+    document.getElementById('streak-num').textContent = streak;
+  }
+
+  renderQuestion();
 }
 
 // ── HANDLE FILL-IN ANSWER ────────────────────────────
@@ -702,9 +738,9 @@ function buildReview() {
         '<span class="topic-tag">' + q.topic + '</span>' +
         (bookmarks.has(i) ? '<span class="bookmark-marker">⭐</span>' : '') +
       '</div>' +
-      '<p class="question-text">Q' + (i + 1) + '. ' + q.question + '</p>' +
+      '<p class="question-text">Q' + (i + 1) + '. ' + escapeHtml(q.question) + '</p>' +
       answerHTML +
-      '<p class="review-explanation">' + q.explanation + '</p>';
+      '<p class="review-explanation">' + escapeHtml(q.explanation) + '</p>';
 
     list.appendChild(div);
   });

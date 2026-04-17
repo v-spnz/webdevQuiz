@@ -391,6 +391,30 @@ kbd {
 /* ── FILL-IN-THE-BLANK ── */
 .fillin-wrap { display: flex; flex-direction: column; gap: .75rem; }
 
+.fillin-input-inline {
+  display: inline-block; min-width: 120px; width: auto;
+  font-family: var(--font-m); font-size: .9em; color: var(--text);
+  background: var(--surface-2); border: none; border-bottom: 2.5px solid var(--accent);
+  border-radius: 3px 3px 0 0; padding: .05em .4em; outline: none;
+  vertical-align: baseline; letter-spacing: .04em;
+  transition: border-color .2s, box-shadow .2s, background .2s;
+}
+.fillin-input-inline:focus {
+  background: rgba(79,142,247,.09);
+  box-shadow: 0 2px 0 var(--accent);
+}
+
+.fillin-answer-inline {
+  display: inline-block; font-family: var(--font-m); font-weight: 700;
+  padding: .05em .4em; border-radius: 3px; vertical-align: baseline;
+}
+.fillin-answer-correct {
+  color: var(--green); background: rgba(62,207,142,.13); border-bottom: 2px solid var(--green);
+}
+.fillin-answer-wrong {
+  color: var(--red); background: rgba(247,111,111,.13); border-bottom: 2px solid var(--red);
+}
+
 .fillin-input {
   width: 100%; font-family: var(--font-m); font-size: 1rem; color: var(--text);
   background: var(--surface-2); border: 1.5px solid var(--border); border-radius: var(--radius-md);
