@@ -11,6 +11,17 @@ const EXAM_QS        = 15;       // questions in the real quiz
 const MAX_HISTORY    = 10;
 const STORAGE_KEY    = 'comp721_history';
 
+// Escape HTML so option text like <php> or <?php doesn't vanish when
+// inserted via innerHTML — replaces <, >, &, etc. with safe entities
+function escapeHtml(str) {
+  return String(str)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;');
+}
+
 // ── STATE ────────────────────────────────────────────
 let allQuestions  = [];   // raw from JSON
 let quizQuestions = [];   // prepared (shuffled options) for this session
@@ -267,7 +278,7 @@ function renderQuestion() {
     btn.dataset.index = i;
     btn.innerHTML =
       '<span class="option-letter">' + letters[i] + '</span>' +
-      '<span class="option-text">'   + opt         + '</span>';
+      '<span class="option-text">'   + escapeHtml(opt) + '</span>';
 
     if (isAnswered) {
       btn.disabled = true;
@@ -586,11 +597,11 @@ function buildReview() {
     if (chosen === null) {
       answerHTML = '<div class="review-answer unanswered">— Not answered (timer ran out)</div>';
     } else if (isCorrect) {
-      answerHTML = '<div class="review-answer your-answer correct">✓ You answered: ' + letters[chosen] + '. ' + q.options[chosen] + '</div>';
+      answerHTML = '<div class="review-answer your-answer correct">✓ You answered: ' + letters[chosen] + '. ' + escapeHtml(q.options[chosen]) + '</div>';
     } else {
       answerHTML =
-        '<div class="review-answer your-answer wrong">✗ You answered: ' + letters[chosen] + '. ' + q.options[chosen] + '</div>' +
-        '<div class="review-answer correct-answer">✓ Correct: ' + letters[q.answer] + '. ' + q.options[q.answer] + '</div>';
+        '<div class="review-answer your-answer wrong">✗ You answered: ' + letters[chosen] + '. ' + escapeHtml(q.options[chosen]) + '</div>' +
+        '<div class="review-answer correct-answer">✓ Correct: ' + letters[q.answer] + '. ' + escapeHtml(q.options[q.answer]) + '</div>';
     }
 
     div.innerHTML =
