@@ -285,9 +285,29 @@ function renderQuestion() {
   fb.innerHTML = '';
   if (isAnswered) {
     fb.classList.add('visible', chosen === q.answer ? 'correct-fb' : 'wrong-fb');
+    const label   = chosen === q.answer ? '✓ Correct!' : '✗ Incorrect';
+    const hasDumb = q.simple_explanation && q.simple_explanation.trim() !== '';
     fb.innerHTML =
-      '<span class="feedback-label">' + (chosen === q.answer ? '✓ Correct!' : '✗ Incorrect') + '</span>' +
-      q.explanation;
+      '<span class="feedback-label">' + label + '</span>' +
+      '<span class="fb-explanation" id="fb-explanation">' + q.explanation + '</span>' +
+      (hasDumb
+        ? '<button class="btn-dumb" id="btn-dumb" data-mode="normal">💡 Explain simply</button>' +
+          '<span class="fb-simple" id="fb-simple" style="display:none">' + q.simple_explanation + '</span>'
+        : '');
+
+    // Wire up the toggle button after injecting HTML
+    const dumbBtn = document.getElementById('btn-dumb');
+    if (dumbBtn) {
+      dumbBtn.addEventListener('click', () => {
+        const expl  = document.getElementById('fb-explanation');
+        const simp  = document.getElementById('fb-simple');
+        const isNormal = dumbBtn.dataset.mode === 'normal';
+        expl.style.display  = isNormal ? 'none'   : 'inline';
+        simp.style.display  = isNormal ? 'inline' : 'none';
+        dumbBtn.textContent = isNormal ? '📖 Show original' : '💡 Explain simply';
+        dumbBtn.dataset.mode = isNormal ? 'simple' : 'normal';
+      });
+    }
   }
 
   // Nav buttons

@@ -10,7 +10,8 @@
       "It is strictly ring-shaped"
     ],
     "answer": 2,
-    "explanation": "The WWW has a complex topology that contains all types: star-shaped, grid-shaped, tree-shaped, ring-shaped, and fully-connected."
+    "explanation": "The WWW has a complex topology that contains all types: star-shaped, grid-shaped, tree-shaped, ring-shaped, and fully-connected.",
+    "simple_explanation": "Think of the web like a city road network — it's not a neat grid or a simple ring. It's a messy combination of all those shapes mixed together."
   },
   {
     "week": 1,
@@ -23,7 +24,8 @@
       "Node.js, Ruby, Python"
     ],
     "answer": 1,
-    "explanation": "The client tier (browser) runs HTML + CSS + JavaScript. The server tier runs PHP/Java/etc. and the database tier runs MySQL/Oracle/etc."
+    "explanation": "The client tier (browser) runs HTML + CSS + JavaScript. The server tier runs PHP/Java/etc. and the database tier runs MySQL/Oracle/etc.",
+    "simple_explanation": "A web app has 3 layers: your browser (HTML/CSS/JS), a server (PHP/Java), and a database (MySQL). The client tier is just what runs inside your browser."
   },
   {
     "week": 1,
@@ -36,7 +38,8 @@
       "Server-side logic"
     ],
     "answer": 2,
-    "explanation": "In client-side technologies: HTML = content, CSS = style and appearance, JavaScript = action. This principle was introduced by Edsger Dijkstra."
+    "explanation": "In client-side technologies: HTML = content, CSS = style and appearance, JavaScript = action. This principle was introduced by Edsger Dijkstra.",
+    "simple_explanation": "HTML is the words on a page, CSS is what makes it look nice (colours, fonts, layout), and JavaScript makes things happen when you click. CSS = looks."
   },
   {
     "week": 1,
@@ -49,7 +52,8 @@
       "id"
     ],
     "answer": 3,
-    "explanation": "All HTML tags share these global attributes: id (unique identifier), title (tooltip text), style (inline CSS), and class (one or more CSS class names)."
+    "explanation": "All HTML tags share these global attributes: id (unique identifier), title (tooltip text), style (inline CSS), and class (one or more CSS class names).",
+    "simple_explanation": "The 'id' attribute is like a name tag — it's unique to one specific element on the page. Only one element can have a given id, so you can target it directly."
   },
   {
     "week": 1,
@@ -62,7 +66,8 @@
       "<url>"
     ],
     "answer": 1,
-    "explanation": "The <a> tag creates a hyperlink. Its main attribute is href, which specifies the URL — either absolute (e.g. http://www.google.com) or relative (e.g. 1/test.html)."
+    "explanation": "The <a> tag creates a hyperlink. Its main attribute is href, which specifies the URL — either absolute (e.g. http://www.google.com) or relative (e.g. 1/test.html).",
+    "simple_explanation": "The <a> tag stands for 'anchor'. You put the destination URL in its href attribute and the clickable text between the tags: <a href=\"url\">Click here</a>."
   },
   {
     "week": 1,
@@ -75,7 +80,8 @@
       "<thead>"
     ],
     "answer": 2,
-    "explanation": "In an HTML table: <table> defines the table, <tr> defines a row, <th> defines a header cell (bold by default), and <td> defines a data cell."
+    "explanation": "In an HTML table: <table> defines the table, <tr> defines a row, <th> defines a header cell (bold by default), and <td> defines a data cell.",
+    "simple_explanation": "Think of a spreadsheet: <th> is for the column headers (bold text), and <td> is for the regular data cells. <tr> wraps each row."
   },
   {
     "week": 1,
@@ -88,20 +94,22 @@
       "The attribute value"
     ],
     "answer": 2,
-    "explanation": "An Element = Tag + Content. For example: <statement>The mobile phone...</statement> — the opening tag, content, and closing tag together form the element."
+    "explanation": "An Element = Tag + Content. For example: <p>Hello</p> — the opening tag, the text content, and the closing tag together form the element.",
+    "simple_explanation": "A tag is the label (<p>), content is what's inside (Hello), and the whole thing together — <p>Hello</p> — is the element."
   },
   {
     "week": 1,
     "topic": "HTML",
     "question": "Which of the following is TRUE about HTML tag case sensitivity?",
     "options": [
-      "Tags are not case sensitive — <NAME> and <name> are the same",
+      "Tags are not case sensitive — <P> and <p> are the same",
       "Only attribute names are case sensitive",
-      "Tags are case sensitive — <name>, <NAME>, and <Name> are treated differently",
+      "Tags are case sensitive — <P>, <p>, and <P> are treated differently",
       "Only closing tags are case sensitive"
     ],
     "answer": 2,
-    "explanation": "HTML tags are case sensitive. <name>, <NAME>, and <Name> are treated as different tags, which CAUSES MANY ERRORS. JSON, by contrast, has no such issue."
+    "explanation": "HTML tags are case sensitive. <P>, <p>, and <P> are treated as different tags, which causes many errors. Best practice is to always use lowercase.",
+    "simple_explanation": "In HTML, <P> and <p> are NOT the same thing. Using the wrong case causes bugs. Just always write your tags in lowercase to be safe."
   },
   {
     "week": 2,
@@ -114,7 +122,8 @@
       "<!--php"
     ],
     "answer": 1,
-    "explanation": "PHP code blocks begin with <?php and end with ?>. These are called PHP declaration blocks."
+    "explanation": "PHP code blocks begin with <?php and end with ?>. These are called PHP declaration blocks.",
+    "simple_explanation": "PHP code is wrapped in <?php ... ?> tags — like putting your code inside a special container so the server knows to run it as PHP."
   },
   {
     "week": 2,
@@ -127,7 +136,8 @@
       "Only when the user submits a form"
     ],
     "answer": 1,
-    "explanation": "PHP code declaration blocks execute on a web server BEFORE the web page is sent to a client. The generated HTML is what gets returned to the browser."
+    "explanation": "PHP code executes on a web server BEFORE the web page is sent to a client. The generated HTML is what gets returned to the browser.",
+    "simple_explanation": "PHP runs on the server before you see anything in your browser. The server processes all the PHP first, then sends plain HTML to your browser. Your browser never sees the PHP code itself."
   },
   {
     "week": 2,
@@ -140,7 +150,8 @@
       "&"
     ],
     "answer": 2,
-    "explanation": "All PHP variables start with a $ sign, for example: $votingAge, $name, $count."
+    "explanation": "All PHP variables start with a $ sign, for example: $votingAge, $name, $count.",
+    "simple_explanation": "Every PHP variable starts with a $ sign. It's how PHP knows it's a variable and not just a word. So $name is a variable, but name is not."
   },
   {
     "week": 2,
@@ -153,7 +164,8 @@
       ".phtml"
     ],
     "answer": 2,
-    "explanation": ".php is the default extension that most web servers use to process PHP scripts. A PHP file that contains NO PHP code should use .html instead."
+    "explanation": ".php is the default extension that most web servers use to process PHP scripts. A PHP file that contains NO PHP code should use .html instead.",
+    "simple_explanation": "Just like Word documents end in .docx, PHP files end in .php. The server uses this extension to know it needs to run the PHP engine on that file."
   },
   {
     "week": 2,
@@ -166,7 +178,8 @@
       "The legal voting age is ."
     ],
     "answer": 1,
-    "explanation": "When a variable is surrounded by SINGLE quotation marks, the literal text '$votingAge' is printed — the variable is NOT interpolated. Double quotes would print the variable's value."
+    "explanation": "When a variable is surrounded by SINGLE quotation marks, the literal text '$votingAge' is printed — the variable is NOT interpolated. Double quotes would print the variable's value.",
+    "simple_explanation": "Single quotes in PHP are 'what you see is what you get'. They print everything exactly as typed, including the dollar sign and variable name. No magic happens."
   },
   {
     "week": 2,
@@ -179,12 +192,13 @@
       "Nothing — echo doesn't interpolate"
     ],
     "answer": 1,
-    "explanation": "When a variable is surrounded by DOUBLE quotation marks, the content of $votingAge is printed. So the output is: The legal voting age is 18."
+    "explanation": "When a variable is surrounded by DOUBLE quotation marks, PHP looks up the variable's value and inserts it. So $votingAge gets replaced with 18 in the output.",
+    "simple_explanation": "Double quotes are 'smart' — PHP looks inside them for any $ variables and swaps them out for their actual values. Single quotes don't do this."
   },
   {
     "week": 2,
     "topic": "PHP Arrays",
-    "question": "What are the two types of PHP arrays introduced in the lecture?",
+    "question": "What are the two types of PHP arrays?",
     "options": [
       "Static arrays and dynamic arrays",
       "Indexed arrays and associative arrays",
@@ -192,7 +206,8 @@
       "Fixed arrays and variable arrays"
     ],
     "answer": 1,
-    "explanation": "PHP has indexed arrays (accessed by a numeric index, starting at 0) and associative arrays (accessed by a named key)."
+    "explanation": "PHP has indexed arrays (accessed by a numeric index, starting at 0) and associative arrays (accessed by a named key).",
+    "simple_explanation": "Indexed arrays are like a numbered list (item 0, item 1, item 2...). Associative arrays are like a dictionary — each item has a name (key) instead of a number."
   },
   {
     "week": 2,
@@ -205,7 +220,8 @@
       "A type of PHP loop"
     ],
     "answer": 1,
-    "explanation": "An array contains a set of data represented by a single variable name. For example, $provinces[] could hold all province names."
+    "explanation": "An array contains a set of data represented by a single variable name. For example, $provinces[] could hold all province names.",
+    "simple_explanation": "An array is a box that holds multiple values under one variable name. Instead of $city1, $city2, $city3, you just have one $cities array with all of them inside."
   },
   {
     "week": 2,
@@ -218,7 +234,8 @@
       "String operator"
     ],
     "answer": 2,
-    "explanation": "Comparison operators compare operands and return a Boolean value (true/false). Arithmetic operators perform math, assignment operators assign values, and string operators perform operations on strings."
+    "explanation": "Comparison operators compare operands and return a Boolean value (true/false). Arithmetic operators perform math, assignment operators assign values, and string operators perform operations on strings.",
+    "simple_explanation": "Comparison operators ask a yes/no question — like 'is 5 greater than 3?' and return either true or false. Examples: ==, !=, >, <, >=, <="
   },
   {
     "week": 2,
@@ -231,7 +248,8 @@
       "Appends a string to another string"
     ],
     "answer": 1,
-    "explanation": "+= is the compound addition assignment operator. It combines the value of the right operand with the left operand (adds them) and assigns the new value to the left operand."
+    "explanation": "+= is the compound addition assignment operator. It adds the right operand to the left operand and assigns the new value back to the left operand.",
+    "simple_explanation": "$x += 5 is shorthand for $x = $x + 5. It takes whatever $x currently is, adds 5 to it, and saves the result back into $x."
   },
   {
     "week": 2,
@@ -244,7 +262,8 @@
       "No operands"
     ],
     "answer": 2,
-    "explanation": "A unary operator requires a single operand, either before or after the operator (e.g. $count++ or ++$count). A binary operator requires an operand both before and after the operator."
+    "explanation": "A unary operator requires a single operand, either before or after the operator (e.g. $count++ or ++$count). A binary operator requires an operand both before and after the operator.",
+    "simple_explanation": "Unary means 'one'. A unary operator only needs one value to work — like $count++ which just adds 1 to $count. No second value needed."
   },
   {
     "week": 3,
@@ -257,7 +276,8 @@
       "An array of server information"
     ],
     "answer": 1,
-    "explanation": "$_GET contains an array of values from a form submitted with the GET method. $_POST does the same for POST. $_SESSION holds session variables, and $_COOKIE holds cookie values."
+    "explanation": "$_GET contains an array of values from a form submitted with the GET method. $_POST does the same for POST. $_SESSION holds session variables, and $_COOKIE holds cookie values.",
+    "simple_explanation": "$_GET grabs data sent via the URL. When you search Google and see ?q=cats in the address bar, PHP would read that 'cats' using $_GET['q']."
   },
   {
     "week": 3,
@@ -270,7 +290,8 @@
       "$GLOBALS"
     ],
     "answer": 2,
-    "explanation": "$_REQUEST is an array of all elements found in $_COOKIE, $_GET, and $_POST arrays combined."
+    "explanation": "$_REQUEST is an array of all elements found in $_COOKIE, $_GET, and $_POST arrays combined.",
+    "simple_explanation": "$_REQUEST is the lazy option — it combines $_GET, $_POST, and $_COOKIE into one array so you don't have to care how the data was sent."
   },
   {
     "week": 3,
@@ -283,7 +304,8 @@
       "An array of session variables available to the current script"
     ],
     "answer": 3,
-    "explanation": "$_SESSION is an array of session variables that are available to the current script. Sessions allow data to persist across multiple page requests for the same user."
+    "explanation": "$_SESSION is an array of session variables that are available to the current script. Sessions allow data to persist across multiple page requests for the same user.",
+    "simple_explanation": "$_SESSION lets you store info about a user that sticks around as they browse different pages — like keeping them logged in or remembering items in their cart."
   },
   {
     "week": 3,
@@ -296,12 +318,13 @@
       "is_float()"
     ],
     "answer": 2,
-    "explanation": "is_numeric() tests whether a variable contains a numeric string (or a numeric value). It is commonly used to validate form input before performing calculations."
+    "explanation": "is_numeric() tests whether a variable contains a numeric string (or a numeric value). It is commonly used to validate form input before performing calculations.",
+    "simple_explanation": "is_numeric() asks 'is this a number?' — useful when someone fills in a form and you want to make sure they typed a number before doing maths with it."
   },
   {
     "week": 3,
     "topic": "PHP Form Handling",
-    "question": "In the lecture's BMI example, which function was used to check that the form fields were NOT empty?",
+    "question": "When validating a PHP form, which function is used to check that a field value is NOT empty?",
     "options": [
       "isset()",
       "!empty()",
@@ -309,7 +332,8 @@
       "strlen()"
     ],
     "answer": 1,
-    "explanation": "!empty() was used to check that both the height and weight fields were provided before processing. empty() returns true if the variable is empty, so !empty() means 'is not empty'."
+    "explanation": "!empty() checks that a variable has a value. empty() returns true if the variable is empty, so !empty() means 'this variable is NOT empty' — used to ensure form fields were filled in.",
+    "simple_explanation": "empty() checks if something is blank. The ! flips the result — so !empty() means 'this field has something in it'. Use it before processing form data to avoid errors."
   },
   {
     "week": 3,
@@ -322,7 +346,8 @@
       "Four"
     ],
     "answer": 2,
-    "explanation": "substr() takes three parameters: (1) the string to take a substring of, (2) the start position, (3) the length to select. If the third parameter is blank, it selects until the end of the string."
+    "explanation": "substr() takes three parameters: (1) the string to take a substring of, (2) the start position, (3) the length to select. If the third parameter is blank, it selects until the end of the string.",
+    "simple_explanation": "substr() cuts a piece out of a string. You tell it: which string, where to start cutting, and how many characters to take. Leave out the third parameter to grab everything from the start position onwards."
   },
   {
     "week": 3,
@@ -335,7 +360,8 @@
       "strindex()"
     ],
     "answer": 1,
-    "explanation": "substr() is often combined with strpos() to find occurrences within a string. strpos() returns the position (index) of the first occurrence of a substring."
+    "explanation": "substr() is often combined with strpos() to find occurrences within a string. strpos() returns the position (index) of the first occurrence of a substring.",
+    "simple_explanation": "strpos() is like Ctrl+F — it searches inside a string and tells you the position (index number) where it found the match. You then use substr() to extract that part."
   },
   {
     "week": 3,
@@ -348,7 +374,8 @@
       "Automated Standard Code for Information Input"
     ],
     "answer": 0,
-    "explanation": "ASCII stands for American Standard Code for Information Interchange. It provides numeric representations of English characters, with values ranging from 0 to 255."
+    "explanation": "ASCII stands for American Standard Code for Information Interchange. It provides numeric representations of English characters, with values ranging from 0 to 255.",
+    "simple_explanation": "ASCII is a system that gives every letter, number, and symbol a unique number so computers can store and compare them. 'A' is 65, 'a' is 97, '0' is 48, and so on."
   },
   {
     "week": 3,
@@ -361,7 +388,8 @@
       "It depends on the PHP version"
     ],
     "answer": 1,
-    "explanation": "Lowercase letters (values 97–122) have higher ASCII numeric values than uppercase letters (values 65–90). Since string comparison is based on these values, lowercase letters are evaluated as 'greater'."
+    "explanation": "Lowercase letters (values 97–122) have higher ASCII numeric values than uppercase letters (values 65–90). Since string comparison is based on these values, lowercase letters are evaluated as 'greater'.",
+    "simple_explanation": "Computers compare letters by their ASCII number. 'a' = 97, 'A' = 65. Since 97 > 65, the lowercase 'a' is considered 'bigger' than uppercase 'A' when compared."
   },
   {
     "week": "Control Structures",
@@ -374,7 +402,8 @@
       "Only when the if block has an error"
     ],
     "answer": 1,
-    "explanation": "The else clause executes when the condition in the if...else statement evaluates to FALSE. If the condition is true, only the if block runs."
+    "explanation": "The else clause executes when the condition in the if...else statement evaluates to FALSE. If the condition is true, only the if block runs.",
+    "simple_explanation": "Think of it like: 'if it's raining, take an umbrella — else, leave it at home.' The else only happens when the if condition wasn't true."
   },
   {
     "week": "Control Structures",
@@ -387,12 +416,13 @@
       "A while loop can only count up, not down"
     ],
     "answer": 2,
-    "explanation": "do...while statements always execute once before the conditional expression is evaluated. A while loop checks the condition BEFORE each iteration, so it may never execute if the condition starts as false."
+    "explanation": "do...while statements always execute once before the conditional expression is evaluated. A while loop checks the condition BEFORE each iteration, so it may never execute if the condition starts as false.",
+    "simple_explanation": "A while loop checks first, then runs. A do...while runs first, then checks. The difference? A do...while is GUARANTEED to execute at least once, even if the condition is already false."
   },
   {
     "week": "Control Structures",
     "topic": "PHP Control Structures",
-    "question": "In the lecture's while loop example ($count = 1; while ($count <= 5)), how many times does the loop body execute?",
+    "question": "Given this PHP code:\n\n$count = 1;\nwhile ($count <= 5) {\n  echo $count;\n  $count++;\n}\n\nHow many times does the loop body execute?",
     "options": [
       "4 times",
       "5 times",
@@ -400,12 +430,13 @@
       "Infinite times"
     ],
     "answer": 1,
-    "explanation": "The loop runs while $count <= 5, starting at 1 and incrementing each time with $count++. It executes for values 1, 2, 3, 4, 5 — a total of 5 times."
+    "explanation": "The loop runs while $count <= 5, starting at 1 and incrementing each time with $count++. It executes for values 1, 2, 3, 4, 5 — a total of 5 times.",
+    "simple_explanation": "Start at 1, keep going while 1, 2, 3, 4, 5 are all ≤ 5 — that's 5 rounds. When $count becomes 6, the condition (6 ≤ 5) is false, so the loop stops."
   },
   {
     "week": "Control Structures",
     "topic": "PHP Control Structures",
-    "question": "In the lecture's do...while example ($count = 2; do { ... } while ($count < 2)), how many times does the loop body execute?",
+    "question": "Given this PHP code:\n\n$count = 2;\ndo {\n  echo $count;\n  $count++;\n} while ($count < 2);\n\nHow many times does the loop body execute?",
     "options": [
       "0 times — the condition is immediately false",
       "1 time — it runs once before checking the condition",
@@ -413,12 +444,13 @@
       "Infinitely"
     ],
     "answer": 1,
-    "explanation": "Because $count starts at 2 and the condition is ($count < 2), a regular while loop would never execute. But do...while always runs the body ONCE first, then checks. So it executes exactly once."
+    "explanation": "$count starts at 2 and the condition is ($count < 2). A regular while loop would never execute since 2 < 2 is false. But do...while always runs the body ONCE first, then checks — so it executes exactly once.",
+    "simple_explanation": "Normally 2 < 2 is false so nothing would run. But do...while always runs at least once before checking the condition. So the body runs once, $count becomes 3, the condition (3 < 2) fails, and it stops."
   },
   {
     "week": "Control Structures",
     "topic": "PHP Control Structures",
-    "question": "PHP control structures are described in the lecture as being 'very similar to' which other languages?",
+    "question": "The syntax of PHP control structures (if, while, for, switch) is most similar to which other programming languages?",
     "options": [
       "Python and Ruby",
       "Java and C",
@@ -426,12 +458,13 @@
       "SQL and HTML"
     ],
     "answer": 1,
-    "explanation": "The PHP control structures slide states they are 'very similar to Java/C'. This is why the syntax (if, while, for, do...while, switch) looks familiar to Java/C developers."
+    "explanation": "PHP control structures are very similar to Java and C. This is why the syntax (if, while, for, do...while, switch) looks familiar to developers with a Java or C background.",
+    "simple_explanation": "If you've done Java or C before, PHP's if/while/for loops will look almost identical. The curly brace style and syntax are borrowed from those languages."
   },
   {
     "week": 5,
     "topic": "Web Services & XML/JSON",
-    "question": "In the Ajax Technology Family listed in the lecture, what role does 'fetch' play?",
+    "question": "In the Ajax Technology Family, which role does 'fetch' play?",
     "options": [
       "Standards-based presentation",
       "Dynamic display and interaction",
@@ -439,12 +472,13 @@
       "Asynchronous data retrieval"
     ],
     "answer": 3,
-    "explanation": "According to the Ajax Technology Family slide: HTML+CSS = standards-based presentation, DOM = dynamic display/interaction, JSON = data interchange, fetch = asynchronous data retrieval, JavaScript = binding everything together."
+    "explanation": "In the Ajax Technology Family: HTML+CSS = standards-based presentation, DOM = dynamic display/interaction, JSON = data interchange, fetch = asynchronous data retrieval, JavaScript = binding everything together.",
+    "simple_explanation": "fetch is the modern JavaScript tool for requesting data from a server in the background — without reloading the page. It 'fetches' data asynchronously (quietly, behind the scenes)."
   },
   {
     "week": 5,
     "topic": "Web Services & XML/JSON",
-    "question": "What does DOM stand for in the Ajax Technology Family?",
+    "question": "What does DOM stand for?",
     "options": [
       "Dynamic Object Mechanism",
       "Document Object Model",
@@ -452,12 +486,13 @@
       "Distributed Object Management"
     ],
     "answer": 1,
-    "explanation": "DOM stands for Document Object Model. It is used for dynamic display and interaction on the client, and management of JSON/XML on both client and server."
+    "explanation": "DOM stands for Document Object Model. It is used for dynamic display and interaction on the client, and for managing JSON/XML on both client and server.",
+    "simple_explanation": "The DOM is like a live map of your webpage that JavaScript can read and change. When you click a button and text appears without reloading — that's JavaScript editing the DOM."
   },
   {
     "week": 5,
     "topic": "Web Services & XML/JSON",
-    "question": "In the lecture's JSON example, what JavaScript code would display 'Chuck' if the object was called 'who'?",
+    "question": "Given a JavaScript object:\n\nwho = { \"name\": 'Chuck', \"age\": 29 }\n\nWhich code would display 'Chuck' in an alert?",
     "options": [
       "alert(who[\"name\"]())",
       "alert(who.name)",
@@ -465,12 +500,13 @@
       "echo(who.name)"
     ],
     "answer": 1,
-    "explanation": "In JavaScript, object properties are accessed with dot notation: alert(who.name) would display 'Chuck'. This was shown directly on the lecture slide as an example."
+    "explanation": "In JavaScript, object properties are accessed with dot notation: objectName.propertyName. So who.name accesses the 'name' property of the 'who' object, which holds 'Chuck'.",
+    "simple_explanation": "In JavaScript, to get a property from an object you write: objectName.propertyName. So who.name gives you whatever is stored in the 'name' field — which is 'Chuck'."
   },
   {
     "week": 5,
     "topic": "Web Services & XML/JSON",
-    "question": "According to the lecture, what does WSDL stand for?",
+    "question": "What does WSDL stand for?",
     "options": [
       "Web Software Development Language",
       "Web Service Data Layer",
@@ -478,38 +514,41 @@
       "Worldwide Standard Definition Language"
     ],
     "answer": 2,
-    "explanation": "WSDL stands for Web Service Description Language. It is used to describe web services in a standardised format."
+    "explanation": "WSDL stands for Web Service Description Language. It is used to describe web services in a standardised format — defining what operations the service offers and what data it expects.",
+    "simple_explanation": "WSDL is like a menu for a web service — it describes what the service can do, what info you need to send it, and what it'll send back. It's a formal description document."
   },
   {
     "week": 5,
     "topic": "Web 2.0 / AJAX",
-    "question": "The AJAX application model is described in the lecture as a:",
+    "question": "Which term best describes how AJAX handles user interactions on a web page?",
     "options": [
       "Full page reload model",
-      "Partial screen update user interaction model",
+      "Partial screen update model",
       "Server-side rendering model",
       "Database synchronisation model"
     ],
     "answer": 1,
-    "explanation": "The Ajax Application Model is a 'partial screen update' user interaction model — only interface elements containing new information are updated; the rest of the interface remains displayed without interruption."
+    "explanation": "The Ajax application model is a 'partial screen update' model — only the interface elements containing new information are updated; the rest of the page remains displayed without interruption.",
+    "simple_explanation": "AJAX only updates the part of the page that changed. Like on Facebook — when a new comment appears, the whole page doesn't reload. Just that section updates quietly."
   },
   {
     "week": 5,
     "topic": "Web 2.0 / AJAX",
-    "question": "According to the lecture, how is the 'partial update' in AJAX effected?",
+    "question": "How does AJAX achieve its 'partial screen update' model?",
     "options": [
       "By reloading the entire HTML page",
       "By submitting a form to the server",
-      "Through dynamic change of the internal representation of the 'document' displayed in the browser",
+      "Through dynamic change of the internal representation of the document displayed in the browser",
       "By refreshing only the CSS stylesheet"
     ],
     "answer": 2,
-    "explanation": "The partial update is effected through dynamic change of the internal representation of the 'document' displayed in the browser — i.e., manipulating the DOM without a full page reload."
+    "explanation": "The partial update is achieved through dynamic change of the DOM — the internal representation of the document in the browser — using JavaScript, without a full page reload.",
+    "simple_explanation": "AJAX updates the page by changing the DOM (the browser's internal map of the page) using JavaScript. No server round-trip needed — it just edits what's already on screen."
   },
   {
     "week": 5,
     "topic": "Web Services & XML/JSON",
-    "question": "JSON is described in the lecture as being hierarchical. Which data type in the JSON example held multiple string values in a list?",
+    "question": "In JSON, which data type is used to hold an ordered list of multiple values?",
     "options": [
       "String",
       "Integer",
@@ -517,12 +556,13 @@
       "List/Array"
     ],
     "answer": 3,
-    "explanation": "In the lecture's JSON example, 'offices': ['3350DMC', '3437NQ'] was labelled as a List/Array type. JSON supports String, Integer, Boolean, List/Array, and Object types."
+    "explanation": "JSON supports multiple data types: String, Integer, Boolean, Object, and List/Array. A List/Array holds multiple ordered values, for example: \"offices\": [\"3350DMC\", \"3437NQ\"].",
+    "simple_explanation": "In JSON, square brackets [ ] mean a list/array — it holds multiple values in order. Like \"colours\": [\"red\", \"blue\", \"green\"] — three values stored as one list."
   },
   {
     "week": 5,
     "topic": "Web Services & XML/JSON",
-    "question": "According to the lecture, which server-side language is listed as part of the Ajax Technology Family for handling server interaction?",
+    "question": "Which of the following server-side languages is part of the Ajax Technology Family for handling server interaction?",
     "options": [
       "Ruby",
       "Python",
@@ -530,6 +570,7 @@
       "Node.js"
     ],
     "answer": 2,
-    "explanation": "The Ajax Technology Family slide specifically lists PHP (alongside ASP.NET* and Java) as the server-side language needed to handle any interaction with the server."
+    "explanation": "PHP is part of the Ajax Technology Family alongside ASP.NET and Java. A server-side language is needed to handle interactions with the server and database.",
+    "simple_explanation": "AJAX is mostly front-end, but when it needs to talk to a server or database, it needs a back-end language. PHP is the one used in this course for that role."
   }
 ]
