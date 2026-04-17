@@ -249,14 +249,15 @@ function renderQuestion() {
   const q          = quizQuestions[currentIndex];
   const chosen     = answers[currentIndex]; // null = unanswered
   const isAnswered = chosen !== null;
-  const letters    = ['A', 'B', 'C', 'D'];
+  const qType      = q.type || 'mcq'; // default to mcq for backwards compat
 
   // Tags
   document.getElementById('q-week').textContent  = 'Week ' + q.week;
   document.getElementById('q-topic').textContent = q.topic;
 
-  // Number + text
-  document.getElementById('q-number').textContent = 'Question ' + (currentIndex + 1) + ' of ' + quizQuestions.length;
+  // Type badge on question number
+  const typeBadge = qType === 'truefalse' ? ' · T/F' : qType === 'fillin' ? ' · Fill in' : '';
+  document.getElementById('q-number').textContent = 'Question ' + (currentIndex + 1) + ' of ' + quizQuestions.length + typeBadge;
   document.getElementById('q-text').textContent   = q.question;
 
   // Bookmark button
@@ -264,49 +265,74 @@ function renderQuestion() {
   bmBtn.textContent = bookmarks.has(currentIndex) ? '★' : '☆';
   bmBtn.className   = 'btn-bookmark' + (bookmarks.has(currentIndex) ? ' bookmarked' : '');
 
-  // Progress bar — based on number of answered questions
+  // Progress bar
   const answeredCount = answers.filter(a => a !== null).length;
   document.getElementById('progress-fill').style.width = (answeredCount / quizQuestions.length * 100) + '%';
   document.getElementById('progress-text').textContent = (currentIndex + 1) + ' / ' + quizQuestions.length;
 
-  // Options
+  // ── Render input area based on type ──
   const list = document.getElementById('options-list');
   list.innerHTML = '';
-  q.options.forEach((opt, i) => {
-    const btn = document.createElement('button');
-    btn.className = 'option-btn';
-    btn.dataset.index = i;
-    btn.innerHTML =
-      '<span class="option-letter">' + letters[i] + '</span>' +
-      '<span class="option-text">'   + escapeHtml(opt) + '</span>';
 
-    if (isAnswered) {
-      btn.disabled = true;
-      if (i === q.answer)                         btn.classList.add('correct');
-      if (i === chosen && chosen !== q.answer)    btn.classList.add('wrong');
-    } else {
-      btn.addEventListener('click', () => handleAnswer(i));
-    }
-    list.appendChild(btn);
-  });
+  if (qType === 'fillin') {
+    renderFillIn(q, chosen, isAnswered, list);
+  } else {
+    // mcq and truefalse both use option buttons
+    const letters = qType === 'truefalse' ? ['', ''] : ['A', 'B', 'C', 'D'];
+    q.options.forEach((opt, i) => {
+      const btn = document.createElement('button');
+      btn.className = 'option-btn' + (qType === 'truefalse' ? ' tf-btn' : '');
+      btn.dataset.index = i;
 
-  // Feedback
+      if (qType === 'truefalse') {
+        const icon = opt === 'True' ? '✓' : '✗';
+        const cls  = opt === 'True' ? 'tf-true' : 'tf-false';
+        btn.innerHTML = '<span class="tf-icon ' + cls + '">' + icon + '</span><span class="option-text">' + escapeHtml(opt) + '</span>';
+      } else {
+        btn.innerHTML =
+          '<span class="option-letter">' + letters[i] + '</span>' +
+          '<span class="option-text">'   + escapeHtml(opt) + '</span>';
+      }
+
+      if (isAnswered) {
+        btn.disabled = true;
+        if (i === q.answer)                      btn.classList.add('correct');
+        if (i === chosen && chosen !== q.answer) btn.classList.add('wrong');
+      } else {
+        btn.addEventListener('click', () => handleAnswer(i));
+      }
+      list.appendChild(btn);
+    });
+  }
+
+  // ── Feedback ──
   const fb = document.getElementById('feedback');
   fb.className = 'feedback';
   fb.innerHTML = '';
   if (isAnswered) {
-    fb.classList.add('visible', chosen === q.answer ? 'correct-fb' : 'wrong-fb');
-    const label   = chosen === q.answer ? '✓ Correct!' : '✗ Incorrect';
+    // For fillin, chosen is either 'correct' or the typed string
+    const gotItRight = qType === 'fillin'
+      ? chosen === '__correct__'
+      : chosen === q.answer;
+
+    fb.classList.add('visible', gotItRight ? 'correct-fb' : 'wrong-fb');
+    const label   = gotItRight ? '✓ Correct!' : '✗ Incorrect';
     const hasDumb = q.simple_explanation && q.simple_explanation.trim() !== '';
+
+    // For fillin wrong answers, show what the correct answer was
+    const wrongHint = (!gotItRight && qType === 'fillin')
+      ? '<div class="fillin-correct-hint">Correct answer: <strong>' + escapeHtml(q.answers[0]) + '</strong></div>'
+      : '';
+
     fb.innerHTML =
       '<span class="feedback-label">' + label + '</span>' +
+      wrongHint +
       '<span class="fb-explanation" id="fb-explanation">' + q.explanation + '</span>' +
       (hasDumb
         ? '<button class="btn-dumb" id="btn-dumb" data-mode="normal">💡 Explain simply</button>' +
           '<span class="fb-simple" id="fb-simple" style="display:none">' + q.simple_explanation + '</span>'
         : '');
 
-    // Wire up the toggle button after injecting HTML
     const dumbBtn = document.getElementById('btn-dumb');
     if (dumbBtn) {
       dumbBtn.addEventListener('click', () => {
@@ -333,17 +359,69 @@ function renderQuestion() {
     nextBtn.style.display = 'none';
   }
 
-  // Dots
   renderDots();
 }
 
-// ── HANDLE ANSWER ────────────────────────────────────
-function handleAnswer(chosenIndex) {
-  if (answers[currentIndex] !== null) return; // already answered
-  const q = quizQuestions[currentIndex];
-  answers[currentIndex] = chosenIndex;
+// ── RENDER FILL-IN INPUT ─────────────────────────────
+function renderFillIn(q, chosen, isAnswered, container) {
+  const wrap = document.createElement('div');
+  wrap.className = 'fillin-wrap';
 
-  const isCorrect = chosenIndex === q.answer;
+  if (!isAnswered) {
+    const input = document.createElement('input');
+    input.type        = 'text';
+    input.className   = 'fillin-input';
+    input.placeholder = 'Type your answer here...';
+    input.id          = 'fillin-input';
+    input.autocomplete = 'off';
+    input.spellcheck  = false;
+
+    const submitBtn = document.createElement('button');
+    submitBtn.className   = 'fillin-submit';
+    submitBtn.textContent = 'Submit Answer';
+    submitBtn.id          = 'fillin-submit';
+
+    const doSubmit = () => {
+      const val = input.value.trim();
+      if (val === '') { input.focus(); return; }
+      handleFillIn(val, q);
+    };
+
+    submitBtn.addEventListener('click', doSubmit);
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Enter') { e.preventDefault(); doSubmit(); }
+    });
+
+    wrap.appendChild(input);
+    wrap.appendChild(submitBtn);
+
+    // Auto-focus the input after render
+    setTimeout(() => input.focus(), 50);
+
+  } else {
+    // Show what they typed, locked
+    const gotItRight = chosen === '__correct__';
+    const display = document.createElement('div');
+    display.className = 'fillin-submitted ' + (gotItRight ? 'fillin-correct' : 'fillin-wrong');
+    display.innerHTML =
+      '<span class="fillin-submitted-label">' + (gotItRight ? '✓ Your answer:' : '✗ Your answer:') + '</span>' +
+      '<span class="fillin-submitted-value">' + escapeHtml(chosen === '__correct__' ? q.answers[0] : chosen) + '</span>';
+    wrap.appendChild(display);
+  }
+
+  container.appendChild(wrap);
+}
+
+// ── HANDLE FILL-IN ANSWER ────────────────────────────
+function handleFillIn(typed, q) {
+  if (answers[currentIndex] !== null) return;
+
+  const normalise = s => s.trim().toLowerCase().replace(/[^a-z0-9_$*%.]/g, '');
+  const isCorrect = q.answers.some(a => normalise(typed) === normalise(a));
+
+  // Store '__correct__' for correct answers so we can still show q.answers[0]
+  answers[currentIndex] = isCorrect ? '__correct__' : typed;
+
   if (isCorrect) {
     streak++;
     if (streak > maxStreak) maxStreak = streak;
@@ -351,10 +429,8 @@ function handleAnswer(chosenIndex) {
     streak = 0;
   }
 
-  // Update streak badge
   if (streak >= 2) {
-    const sb = document.getElementById('streak-badge');
-    sb.style.display = 'block';
+    document.getElementById('streak-badge').style.display = 'block';
     document.getElementById('streak-num').textContent = streak;
   }
 
@@ -392,13 +468,15 @@ function renderDots() {
     d.className = 'dot';
     if (i === currentIndex) d.classList.add('dot-current');
     else if (answers[i] !== null) {
-      d.classList.add(answers[i] === q.answer ? 'dot-correct' : 'dot-wrong');
+      const isCorrect = q.type === 'fillin'
+        ? answers[i] === '__correct__'
+        : answers[i] === q.answer;
+      d.classList.add(isCorrect ? 'dot-correct' : 'dot-wrong');
     }
     if (bookmarks.has(i)) d.classList.add('dot-bookmarked');
     strip.appendChild(d);
   });
 
-  // Scroll current dot into view
   const currentDot = strip.children[currentIndex];
   if (currentDot) currentDot.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
 }
@@ -414,9 +492,11 @@ function toggleBookmark(idx) {
 // ── KEYBOARD SHORTCUTS ───────────────────────────────
 document.addEventListener('keydown', e => {
   if (!screens.quiz.classList.contains('active')) return;
+  // Don't intercept keypresses when the fill-in input is focused
+  if (document.activeElement && document.activeElement.id === 'fillin-input') return;
+
   const isAnswered = answers[currentIndex] !== null;
   const optBtns = document.querySelectorAll('.option-btn');
-
   const keyMap = { '1': 0, '2': 1, '3': 2, '4': 3 };
 
   if (!isAnswered && keyMap[e.key] !== undefined) {
@@ -461,7 +541,11 @@ function showResults(timedOut = false) {
   showScreen('results');
 
   const total   = quizQuestions.length;
-  const score   = answers.filter((a, i) => a !== null && a === quizQuestions[i].answer).length;
+  const score   = answers.filter((a, i) => {
+    if (a === null) return false;
+    const q = quizQuestions[i];
+    return q.type === 'fillin' ? a === '__correct__' : a === q.answer;
+  }).length;
   const pct     = Math.round(score / total * 100);
 
   // Score circle
@@ -506,7 +590,8 @@ function showResults(timedOut = false) {
     const t = q.topic;
     if (!topicMap[t]) topicMap[t] = { correct: 0, total: 0 };
     topicMap[t].total++;
-    if (answers[i] === q.answer) topicMap[t].correct++;
+    const isCorrect = q.type === 'fillin' ? answers[i] === '__correct__' : answers[i] === q.answer;
+    if (isCorrect) topicMap[t].correct++;
   });
 
   const bd = document.getElementById('breakdown');
@@ -575,7 +660,7 @@ function buildReview() {
   const items = quizQuestions.map((q, i) => ({
     q, i,
     chosen:    answers[i],
-    isCorrect: answers[i] !== null && answers[i] === q.answer
+    isCorrect: answers[i] !== null && (q.type === 'fillin' ? answers[i] === '__correct__' : answers[i] === q.answer)
   }));
 
   const filtered = items.filter(({ i, isCorrect, chosen }) => {
@@ -596,9 +681,16 @@ function buildReview() {
     let answerHTML = '';
     if (chosen === null) {
       answerHTML = '<div class="review-answer unanswered">— Not answered (timer ran out)</div>';
+    } else if (q.type === 'fillin') {
+      const gotRight = chosen === '__correct__';
+      answerHTML = '<div class="review-answer your-answer ' + (gotRight ? 'correct' : 'wrong') + '">' +
+        (gotRight ? '✓ You typed: ' : '✗ You typed: ') + escapeHtml(gotRight ? q.answers[0] : chosen) + '</div>';
+      if (!gotRight) answerHTML += '<div class="review-answer correct-answer">✓ Correct: ' + escapeHtml(q.answers[0]) + '</div>';
     } else if (isCorrect) {
+      const letters = ['A','B','C','D'];
       answerHTML = '<div class="review-answer your-answer correct">✓ You answered: ' + letters[chosen] + '. ' + escapeHtml(q.options[chosen]) + '</div>';
     } else {
+      const letters = ['A','B','C','D'];
       answerHTML =
         '<div class="review-answer your-answer wrong">✗ You answered: ' + letters[chosen] + '. ' + escapeHtml(q.options[chosen]) + '</div>' +
         '<div class="review-answer correct-answer">✓ Correct: ' + letters[q.answer] + '. ' + escapeHtml(q.options[q.answer]) + '</div>';
@@ -620,7 +712,11 @@ function buildReview() {
 
 // ── SAVE SESSION TO LOCALSTORAGE ─────────────────────
 function saveSession() {
-  const score = answers.filter((a, i) => a !== null && a === quizQuestions[i].answer).length;
+  const score = answers.filter((a, i) => {
+    if (a === null) return false;
+    const q = quizQuestions[i];
+    return q.type === 'fillin' ? a === '__correct__' : a === q.answer;
+  }).length;
   const total = quizQuestions.length;
 
   const topicScores = {};
@@ -692,8 +788,7 @@ function buildStats() {
   const wl = document.getElementById('weak-topics-list');
   const aggregate = {};
   history.forEach(s => {
-    Object.entries(s.topicScores || {}).forEach(([topic, d]) => {
-      if (!aggregate[topic]) aggregate[topic] = { correct: 0, total: 0 };
+    Object.entries(s.topicScores || {}).forEach(([topic, d]) => {      if (!aggregate[topic]) aggregate[topic] = { correct: 0, total: 0 };
       aggregate[topic].correct += d.correct;
       aggregate[topic].total   += d.total;
     });
