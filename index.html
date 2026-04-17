@@ -8,41 +8,88 @@
 </head>
 <body>
 
-  <!-- ── LANDING SCREEN ── -->
+  <!-- ══════════════════════════════════════
+       START SCREEN
+  ══════════════════════════════════════ -->
   <div id="screen-start" class="screen active">
     <div class="start-card">
+
       <div class="badge">COMP721</div>
       <h1>Quiz Prep</h1>
       <p class="subtitle">Weeks 1–5 · Multiple Choice</p>
 
-      <div class="topic-grid">
-        <div class="topic-chip">Week 1 — HTML &amp; HTTP</div>
-        <div class="topic-chip">Week 2 — PHP Basics</div>
-        <div class="topic-chip">Week 3 — PHP Part 2</div>
-        <div class="topic-chip">Control Structures</div>
-        <div class="topic-chip">Week 5 — AJAX &amp; JSON</div>
+      <!-- Topic Filter -->
+      <p class="section-label">Filter Topics</p>
+      <div class="week-filter" id="week-filter">
+        <button class="week-pill active" data-week="1">Week 1 — HTML &amp; HTTP</button>
+        <button class="week-pill active" data-week="2">Week 2 — PHP Basics</button>
+        <button class="week-pill active" data-week="3">Week 3 — PHP Part 2</button>
+        <button class="week-pill active" data-week="Control Structures">Control Structures</button>
+        <button class="week-pill active" data-week="5">Week 5 — AJAX &amp; JSON</button>
       </div>
 
-      <div class="mode-section">
-        <p class="mode-label">Quiz Mode</p>
-        <div class="mode-buttons">
-          <button class="mode-btn active" data-mode="all">All Questions</button>
-          <button class="mode-btn" data-mode="random">Random 15</button>
-        </div>
+      <!-- Mode -->
+      <p class="section-label">Mode</p>
+      <div class="mode-buttons">
+        <button class="mode-btn active" data-mode="all">All Questions</button>
+        <button class="mode-btn" data-mode="random">Random 15 <span class="exam-badge">EXAM</span></button>
+      </div>
+
+      <!-- Options toggles -->
+      <div class="toggle-group">
+        <label class="toggle-row">
+          <div class="toggle-info">
+            <span class="toggle-title">⏱ Exam Timer</span>
+            <span class="toggle-sub" id="timer-sub">40 min for 15 questions — as per lecturer</span>
+          </div>
+          <div class="toggle-switch">
+            <input type="checkbox" id="timer-toggle" />
+            <span class="toggle-track"><span class="toggle-thumb"></span></span>
+          </div>
+        </label>
+        <label class="toggle-row">
+          <div class="toggle-info">
+            <span class="toggle-title">🔀 Shuffle Answer Options</span>
+            <span class="toggle-sub">Randomise A/B/C/D each session</span>
+          </div>
+          <div class="toggle-switch">
+            <input type="checkbox" id="shuffle-toggle" checked />
+            <span class="toggle-track"><span class="toggle-thumb"></span></span>
+          </div>
+        </label>
       </div>
 
       <button id="btn-start" class="btn-primary">Start Quiz</button>
       <p class="q-count" id="total-count"></p>
+
+      <!-- Recent scores + stats -->
+      <div id="recent-section" style="display:none">
+        <div class="section-divider"></div>
+        <div class="section-row">
+          <span class="section-label" style="margin:0">Recent Scores</span>
+          <button class="btn-link" id="btn-view-stats">Full Stats →</button>
+        </div>
+        <div class="recent-scores" id="recent-scores"></div>
+      </div>
+
     </div>
   </div>
 
-  <!-- ── QUIZ SCREEN ── -->
+
+  <!-- ══════════════════════════════════════
+       QUIZ SCREEN
+  ══════════════════════════════════════ -->
   <div id="screen-quiz" class="screen">
+
     <header class="quiz-header">
       <div class="header-left">
-        <button class="btn-icon" id="btn-home" title="Back to Home">⌂</button>
+        <button class="btn-icon" id="btn-home" title="Home">⌂</button>
         <span class="week-tag" id="q-week"></span>
         <span class="topic-tag" id="q-topic"></span>
+      </div>
+      <div class="header-center">
+        <div class="timer-display" id="timer-display" style="display:none">40:00</div>
+        <div class="streak-badge" id="streak-badge" style="display:none">🔥 <span id="streak-num">0</span></div>
       </div>
       <div class="header-right">
         <div class="progress-wrap">
@@ -51,48 +98,117 @@
           </div>
           <span class="progress-text" id="progress-text"></span>
         </div>
-        <button class="btn-reset" id="btn-reset" title="Reset Quiz">↺ Reset</button>
+        <button class="btn-reset" id="btn-reset" title="Reset Quiz">↺</button>
       </div>
     </header>
 
+    <!-- Question dot strip -->
+    <div class="dots-strip-wrap">
+      <div class="dots-strip" id="dots-strip"></div>
+    </div>
+
     <main class="quiz-main">
       <div class="question-card" id="question-card">
-        <p class="question-number" id="q-number"></p>
+
+        <div class="q-top-row">
+          <p class="question-number" id="q-number"></p>
+          <button class="btn-bookmark" id="btn-bookmark" title="Bookmark (F)">☆</button>
+        </div>
+
         <p class="question-text" id="q-text"></p>
+        <p class="kbd-hint">Press <kbd>1–4</kbd> to select &nbsp;·&nbsp; <kbd>↵</kbd> to continue &nbsp;·&nbsp; <kbd>← →</kbd> to navigate &nbsp;·&nbsp; <kbd>F</kbd> to bookmark</p>
+
         <div class="options-list" id="options-list"></div>
         <div class="feedback" id="feedback"></div>
-        <button class="btn-next" id="btn-next" style="display:none;">Next Question →</button>
+
+        <div class="nav-row">
+          <button class="btn-prev" id="btn-prev">← Prev</button>
+          <button class="btn-next" id="btn-next" style="display:none">Next →</button>
+        </div>
+
       </div>
     </main>
   </div>
 
-  <!-- ── RESULTS SCREEN ── -->
+
+  <!-- ══════════════════════════════════════
+       RESULTS SCREEN
+  ══════════════════════════════════════ -->
   <div id="screen-results" class="screen">
     <div class="results-card">
+
       <div class="score-circle" id="score-circle">
         <span class="score-num" id="score-num"></span>
         <span class="score-denom" id="score-denom"></span>
       </div>
+
       <h2 id="results-heading"></h2>
       <p id="results-msg"></p>
 
+      <!-- Highlight pills: streak, timer, etc. -->
+      <div class="result-pills" id="result-pills"></div>
+
       <div class="breakdown" id="breakdown"></div>
 
-      <div class="result-actions">
-        <button class="btn-primary" id="btn-review">Review Answers</button>
-        <button class="btn-secondary" id="btn-restart">Try Again</button>
+      <!-- Bookmarked questions -->
+      <div id="bookmarked-section" style="display:none">
+        <div class="section-divider"></div>
+        <p class="section-label" style="text-align:left;margin-bottom:.6rem">⭐ Your Bookmarked Questions</p>
+        <div id="bookmarked-list"></div>
       </div>
+
+      <div class="result-actions">
+        <button class="btn-primary"   id="btn-review">Review Answers</button>
+        <button class="btn-secondary" id="btn-restart">Try Again</button>
+        <button class="btn-secondary" id="btn-home-results">← Home</button>
+      </div>
+
     </div>
   </div>
 
-  <!-- ── REVIEW SCREEN ── -->
+
+  <!-- ══════════════════════════════════════
+       REVIEW SCREEN
+  ══════════════════════════════════════ -->
   <div id="screen-review" class="screen">
     <div class="review-header">
       <h2>Answer Review</h2>
-      <button class="btn-secondary" id="btn-back-results">← Back to Results</button>
+      <div class="filter-tabs" id="filter-tabs">
+        <button class="filter-tab active" data-filter="all">All</button>
+        <button class="filter-tab" data-filter="wrong">Wrong only</button>
+        <button class="filter-tab" data-filter="bookmarked">⭐ Bookmarked</button>
+      </div>
+      <button class="btn-secondary" id="btn-back-results">← Results</button>
     </div>
     <div class="review-list" id="review-list"></div>
   </div>
+
+
+  <!-- ══════════════════════════════════════
+       STATS SCREEN
+  ══════════════════════════════════════ -->
+  <div id="screen-stats" class="screen">
+    <div class="stats-wrap">
+
+      <div class="stats-header">
+        <h2>Stats &amp; History</h2>
+        <button class="btn-secondary" id="btn-back-home-stats">← Home</button>
+      </div>
+
+      <div class="stats-card">
+        <p class="stats-card-title">📉 Weak Topics</p>
+        <p class="stats-card-sub">Aggregated across all your sessions — topics with the lowest success rate</p>
+        <div id="weak-topics-list"><p class="empty-msg">Complete at least one quiz to see your weak spots.</p></div>
+      </div>
+
+      <div class="stats-card">
+        <p class="stats-card-title">📋 Session History</p>
+        <div id="history-list"><p class="empty-msg">No sessions recorded yet.</p></div>
+      </div>
+
+    </div>
+  </div>
+
 
   <script src="script.js"></script>
 </body>
