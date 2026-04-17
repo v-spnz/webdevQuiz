@@ -396,17 +396,17 @@ kbd {
 
 /* dumbed-down toggle */
 .btn-dumb {
-  display: inline-flex; align-items: center; gap: .35rem;
-  margin-top: .75rem; font-family: var(--font-m); font-size: .72rem; letter-spacing: .04em;
+  display: block; width: fit-content;
+  margin-top: .85rem; font-family: var(--font-m); font-size: .72rem; letter-spacing: .04em;
   background: rgba(167,139,250,.1); color: var(--purple); border: 1px solid rgba(167,139,250,.3);
-  border-radius: 100px; padding: .3rem .85rem; cursor: pointer; transition: all .2s;
+  border-radius: 100px; padding: .32rem .9rem; cursor: pointer; transition: all .2s;
 }
 .btn-dumb:hover { background: rgba(167,139,250,.2); border-color: rgba(167,139,250,.5); }
 .fb-simple {
-  display: block; margin-top: .6rem; padding: .75rem .9rem;
-  background: rgba(167,139,250,.07); border-left: 3px solid var(--purple);
-  border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
-  font-size: .9rem; line-height: 1.65; color: var(--text);
+  display: none; margin-top: .75rem; padding: .85rem 1rem;
+  background: rgba(167,139,250,.07); border: 1px solid rgba(167,139,250,.2);
+  border-left: 3px solid var(--purple); border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+  font-size: .93rem; line-height: 1.7; color: var(--text);
 }
 
 /* nav row */

@@ -302,8 +302,8 @@ function renderQuestion() {
         const expl  = document.getElementById('fb-explanation');
         const simp  = document.getElementById('fb-simple');
         const isNormal = dumbBtn.dataset.mode === 'normal';
-        expl.style.display  = isNormal ? 'none'   : 'inline';
-        simp.style.display  = isNormal ? 'inline' : 'none';
+        expl.style.display  = isNormal ? 'none'  : 'block';
+        simp.style.display  = isNormal ? 'block' : 'none';
         dumbBtn.textContent = isNormal ? '📖 Show original' : '💡 Explain simply';
         dumbBtn.dataset.mode = isNormal ? 'simple' : 'normal';
       });
