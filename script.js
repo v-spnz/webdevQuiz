@@ -193,6 +193,7 @@ function startQuiz() {
   if (timerEnabled) startTimer();
   document.getElementById('timer-display').style.display = timerEnabled ? 'block' : 'none';
   document.getElementById('streak-badge').style.display = 'none';
+  document.getElementById('search-bar-strip').style.display = quizMode === 'all' ? 'block' : 'none';
 }
 
 // ── TIMER ────────────────────────────────────────────
@@ -402,12 +403,44 @@ function renderFillInQuestion(q, chosen, isAnswered, container) {
   }
 }
 
-// ── RENDER FILL-IN SUBMIT BUTTON ─────────────────────
+// ── RENDER FILL-IN SUBMIT BUTTON (+ input for no-blank questions) ──
 function renderFillIn(q, chosen, isAnswered, container) {
-  if (isAnswered) return;
+  if (isAnswered && q.question.includes('___')) return; // answered state shown inline
+
+  if (isAnswered) {
+    // No-blank question: show submitted answer in a box
+    const gotItRight = chosen === '__correct__';
+    const wrap = document.createElement('div');
+    wrap.className = 'fillin-submitted ' + (gotItRight ? 'fillin-correct' : 'fillin-wrong');
+    wrap.innerHTML =
+      '<span class="fillin-submitted-label">' + (gotItRight ? '✓ Your answer:' : '✗ Your answer:') + '</span>' +
+      '<span class="fillin-submitted-value">' + escapeHtml(gotItRight ? q.answers[0] : chosen) + '</span>';
+    container.appendChild(wrap);
+    return;
+  }
 
   const wrap = document.createElement('div');
   wrap.className = 'fillin-wrap';
+
+  // Questions without ___ need a standalone input here
+  if (!q.question.includes('___')) {
+    const input = document.createElement('input');
+    input.type         = 'text';
+    input.className    = 'fillin-input';
+    input.placeholder  = 'Type your answer here...';
+    input.id           = 'fillin-input';
+    input.autocomplete = 'off';
+    input.spellcheck   = false;
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        const val = input.value.trim();
+        if (val) handleFillIn(val, q);
+      }
+    });
+    wrap.appendChild(input);
+    setTimeout(() => input.focus(), 50);
+  }
 
   const submitBtn = document.createElement('button');
   submitBtn.className   = 'fillin-submit';
@@ -528,8 +561,7 @@ function toggleBookmark(idx) {
 // ── KEYBOARD SHORTCUTS ───────────────────────────────
 document.addEventListener('keydown', e => {
   if (!screens.quiz.classList.contains('active')) return;
-  // Don't intercept keypresses when the fill-in input is focused
-  if (document.activeElement && document.activeElement.id === 'fillin-input') return;
+  if (document.activeElement && (document.activeElement.id === 'fillin-input' || document.activeElement.id === 'search-input')) return;
 
   const isAnswered = answers[currentIndex] !== null;
   const optBtns = document.querySelectorAll('.option-btn');
@@ -564,6 +596,75 @@ document.addEventListener('keydown', e => {
       break;
   }
 });
+
+// ── QUESTION SEARCH ──────────────────────────────────
+document.getElementById('btn-search').addEventListener('click', openSearch);
+document.getElementById('search-close').addEventListener('click', closeSearch);
+document.getElementById('search-overlay').addEventListener('click', e => {
+  if (e.target === document.getElementById('search-overlay')) closeSearch();
+});
+document.getElementById('search-input').addEventListener('input', e => {
+  renderSearchResults(e.target.value);
+});
+document.getElementById('search-input').addEventListener('keydown', e => {
+  if (e.key === 'Escape') closeSearch();
+});
+
+function openSearch() {
+  document.getElementById('search-overlay').style.display = 'flex';
+  const input = document.getElementById('search-input');
+  input.value = '';
+  renderSearchResults('');
+  setTimeout(() => input.focus(), 50);
+}
+
+function closeSearch() {
+  document.getElementById('search-overlay').style.display = 'none';
+}
+
+function renderSearchResults(query) {
+  const list = document.getElementById('search-results');
+  list.innerHTML = '';
+  const q = query.toLowerCase().trim();
+
+  const matches = quizQuestions
+    .map((question, i) => ({ question, i }))
+    .filter(({ question }) =>
+      !q ||
+      question.question.toLowerCase().includes(q) ||
+      question.topic.toLowerCase().includes(q)
+    );
+
+  if (matches.length === 0) {
+    list.innerHTML = '<p class="search-empty">No questions match.</p>';
+    return;
+  }
+
+  matches.forEach(({ question, i }) => {
+    const isAnswered = answers[i] !== null;
+    const isCorrect  = isAnswered && (question.type === 'fillin' ? answers[i] === '__correct__' : answers[i] === question.answer);
+    const statusCls  = !isAnswered ? '' : isCorrect ? 'result-correct' : 'result-wrong';
+    const statusIcon = !isAnswered ? '' : isCorrect ? '✓' : '✗';
+
+    const btn = document.createElement('button');
+    btn.className = 'search-result-item' + (i === currentIndex ? ' result-current' : '');
+    btn.innerHTML =
+      '<div class="result-meta">' +
+        '<span class="result-num">Q' + (i + 1) + '</span>' +
+        '<span class="result-topic-tag">' + escapeHtml(question.topic) + '</span>' +
+        (isAnswered ? '<span class="result-status ' + statusCls + '">' + statusIcon + '</span>' : '') +
+      '</div>' +
+      '<span class="result-text">' + escapeHtml(question.question.replace(/\n/g, ' ').slice(0, 100)) + (question.question.length > 100 ? '…' : '') + '</span>';
+
+    btn.addEventListener('click', () => {
+      currentIndex = i;
+      renderQuestion();
+      scrollCardTop();
+      closeSearch();
+    });
+    list.appendChild(btn);
+  });
+}
 
 // ── FINISH QUIZ ──────────────────────────────────────
 function finishQuiz(timedOut) {

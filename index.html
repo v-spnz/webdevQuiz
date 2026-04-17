@@ -107,6 +107,15 @@
       <div class="dots-strip" id="dots-strip"></div>
     </div>
 
+    <!-- Search bar (All Questions mode only) -->
+    <div class="search-bar-strip" id="search-bar-strip" style="display:none">
+      <button class="search-bar-trigger" id="btn-search">
+        <span class="search-bar-icon">🔍</span>
+        <span class="search-bar-label">Search questions…</span>
+        <span class="search-bar-hint">Jump to any question by keyword or topic</span>
+      </button>
+    </div>
+
     <main class="quiz-main">
       <div class="question-card" id="question-card">
 
@@ -209,6 +218,18 @@
     </div>
   </div>
 
+
+  <!-- Search overlay (quiz screen only) -->
+  <div id="search-overlay" class="search-overlay" style="display:none">
+    <div class="search-panel">
+      <div class="search-input-wrap">
+        <span class="search-icon">🔍</span>
+        <input type="text" id="search-input" class="search-input" placeholder="Search by question text or topic…" autocomplete="off" spellcheck="false" />
+        <button id="search-close" class="search-close-btn">✕</button>
+      </div>
+      <div id="search-results" class="search-results"></div>
+    </div>
+  </div>
 
   <script src="script.js"></script>
 </body>
