@@ -1,15 +1,13 @@
 /* ─────────────────────────────────────────────
    COMP721 Quiz — script.js
-   Loads questions from questions.json, runs the
-   quiz, tracks answers, and shows a review.
 ───────────────────────────────────────────── */
 
 // ── STATE ──────────────────────────────────
-let allQuestions  = [];   // full bank loaded from JSON
-let quizQuestions = [];   // questions for this session
+let allQuestions  = [];
+let quizQuestions = [];
 let currentIndex  = 0;
 let score         = 0;
-let userAnswers   = [];   // { question, chosen, correct, isCorrect }
+let userAnswers   = [];
 let quizMode      = 'all';
 
 // ── ELEMENT REFS ───────────────────────────
@@ -27,12 +25,48 @@ function showScreen(name) {
     s.style.display = 'none';
   });
   screens[name].style.display = 'flex';
-  // trigger animation by re-adding active after paint
   requestAnimationFrame(() => {
     requestAnimationFrame(() => screens[name].classList.add('active'));
   });
-  // scroll to top
   window.scrollTo(0, 0);
+}
+
+// ── CONFIRM DIALOG ─────────────────────────
+// Shows a modal asking the user to confirm an action.
+// onConfirm callback runs if they click the confirm button.
+function showConfirm(heading, message, confirmLabel, onConfirm) {
+  // remove any existing overlay
+  const existing = document.getElementById('confirm-overlay');
+  if (existing) existing.remove();
+
+  const overlay = document.createElement('div');
+  overlay.className = 'confirm-overlay';
+  overlay.id = 'confirm-overlay';
+
+  overlay.innerHTML =
+    '<div class="confirm-box">' +
+      '<h3>' + heading + '</h3>' +
+      '<p>' + message + '</p>' +
+      '<div class="confirm-actions">' +
+        '<button class="btn-danger" id="confirm-yes">' + confirmLabel + '</button>' +
+        '<button class="btn-cancel" id="confirm-no">Cancel</button>' +
+      '</div>' +
+    '</div>';
+
+  document.body.appendChild(overlay);
+
+  document.getElementById('confirm-yes').addEventListener('click', () => {
+    overlay.remove();
+    onConfirm();
+  });
+  document.getElementById('confirm-no').addEventListener('click', () => {
+    overlay.remove();
+  });
+
+  // click outside to cancel
+  overlay.addEventListener('click', e => {
+    if (e.target === overlay) overlay.remove();
+  });
 }
 
 // ── LOAD QUESTIONS ─────────────────────────
@@ -57,7 +91,6 @@ document.getElementById('btn-start').addEventListener('click', startQuiz);
 
 function startQuiz() {
   if (quizMode === 'random') {
-    // shuffle and take 15
     const shuffled = [...allQuestions].sort(() => Math.random() - 0.5);
     quizQuestions = shuffled.slice(0, 15);
   } else {
@@ -72,25 +105,50 @@ function startQuiz() {
   renderQuestion();
 }
 
+// ── HOME BUTTON (in quiz header) ───────────
+document.getElementById('btn-home').addEventListener('click', () => {
+  showConfirm(
+    'Back to Home?',
+    'Your current quiz progress will be lost.',
+    'Yes, go home',
+    () => showScreen('start')
+  );
+});
+
+// ── RESET BUTTON (in quiz header) ──────────
+document.getElementById('btn-reset').addEventListener('click', () => {
+  showConfirm(
+    'Reset Quiz?',
+    'This will restart from question 1 with the same question set.',
+    'Reset',
+    () => {
+      currentIndex = 0;
+      score        = 0;
+      userAnswers  = [];
+      renderQuestion();
+    }
+  );
+});
+
 // ── RENDER QUESTION ────────────────────────
 function renderQuestion() {
   const q = quizQuestions[currentIndex];
 
-  // progress
-  const pct = ((currentIndex) / quizQuestions.length) * 100;
+  // progress bar
+  const pct = (currentIndex / quizQuestions.length) * 100;
   document.getElementById('progress-fill').style.width = pct + '%';
   document.getElementById('progress-text').textContent =
     (currentIndex + 1) + ' / ' + quizQuestions.length;
 
-  // week / topic tags
+  // tags
   document.getElementById('q-week').textContent  = 'Week ' + q.week;
   document.getElementById('q-topic').textContent = q.topic;
 
-  // question number + text
-  document.getElementById('q-number').textContent  = 'Question ' + (currentIndex + 1);
-  document.getElementById('q-text').textContent    = q.question;
+  // question text
+  document.getElementById('q-number').textContent = 'Question ' + (currentIndex + 1);
+  document.getElementById('q-text').textContent   = q.question;
 
-  // clear feedback and next button
+  // clear feedback + next button
   const feedback = document.getElementById('feedback');
   feedback.className = 'feedback';
   feedback.innerHTML = '';
@@ -106,8 +164,7 @@ function renderQuestion() {
     btn.className = 'option-btn';
     btn.innerHTML =
       '<span class="option-letter">' + letters[i] + '</span>' +
-      '<span class="option-text">' + optText + '</span>';
-
+      '<span class="option-text">'   + optText    + '</span>';
     btn.addEventListener('click', () => handleAnswer(i));
     optionsList.appendChild(btn);
   });
@@ -121,7 +178,6 @@ function handleAnswer(chosenIndex) {
 
   if (isRight) score++;
 
-  // record answer
   userAnswers.push({
     question:  q,
     chosen:    chosenIndex,
@@ -129,12 +185,12 @@ function handleAnswer(chosenIndex) {
     isCorrect: isRight
   });
 
-  // disable all buttons, colour them
+  // colour options, disable all
   const btns = document.querySelectorAll('.option-btn');
   btns.forEach((btn, i) => {
     btn.disabled = true;
-    if (i === correct)  btn.classList.add('correct');
-    if (i === chosenIndex && !isRight) btn.classList.add('wrong');
+    if (i === correct)                  btn.classList.add('correct');
+    if (i === chosenIndex && !isRight)  btn.classList.add('wrong');
   });
 
   // show feedback
@@ -163,7 +219,6 @@ document.getElementById('btn-next').addEventListener('click', () => {
   currentIndex++;
   if (currentIndex < quizQuestions.length) {
     renderQuestion();
-    // scroll question card to top on mobile
     document.getElementById('question-card').scrollIntoView({ behavior: 'smooth', block: 'start' });
   } else {
     showResults();
@@ -172,15 +227,12 @@ document.getElementById('btn-next').addEventListener('click', () => {
 
 // ── RESULTS ────────────────────────────────
 function showResults() {
-  // update progress to 100%
   document.getElementById('progress-fill').style.width = '100%';
-
   showScreen('results');
 
-  const total  = quizQuestions.length;
-  const pct    = Math.round((score / total) * 100);
+  const total = quizQuestions.length;
+  const pct   = Math.round((score / total) * 100);
 
-  // score circle
   const circle = document.getElementById('score-circle');
   document.getElementById('score-num').textContent   = score;
   document.getElementById('score-denom').textContent = '/ ' + total;
@@ -189,7 +241,6 @@ function showResults() {
   else if (pct >= 50) circle.classList.add('ok');
   else circle.classList.add('poor');
 
-  // heading + message
   let heading, msg;
   if (pct >= 85) {
     heading = 'Excellent work! 🎉';
@@ -221,16 +272,13 @@ function showResults() {
   Object.entries(topicMap).forEach(([topic, data]) => {
     const row = document.createElement('div');
     row.className = 'breakdown-row';
-
     const topicPct = Math.round((data.correct / data.total) * 100);
     let scoreClass = 'poor';
     if (topicPct >= 75) scoreClass = 'perfect';
     else if (topicPct >= 50) scoreClass = 'partial';
-
     row.innerHTML =
       '<span class="breakdown-topic">' + topic + '</span>' +
-      '<span class="breakdown-score ' + scoreClass + '">' +
-      data.correct + '/' + data.total + '</span>';
+      '<span class="breakdown-score ' + scoreClass + '">' + data.correct + '/' + data.total + '</span>';
     breakdown.appendChild(row);
   });
 }
@@ -255,20 +303,17 @@ function buildReview() {
     const div = document.createElement('div');
     div.className = 'review-item ' + (a.isCorrect ? 'correct-item' : 'wrong-item');
 
-    const yourText    = q.options[a.chosen];
-    const correctText = q.options[a.correct];
-
-    let yourAnswerHTML = '';
+    let answerHTML = '';
     if (a.isCorrect) {
-      yourAnswerHTML =
+      answerHTML =
         '<div class="review-answer your-answer correct">✓ You answered: ' +
-        letters[a.chosen] + '. ' + yourText + '</div>';
+        letters[a.chosen] + '. ' + q.options[a.chosen] + '</div>';
     } else {
-      yourAnswerHTML =
+      answerHTML =
         '<div class="review-answer your-answer wrong">✗ You answered: ' +
-        letters[a.chosen] + '. ' + yourText + '</div>' +
-        '<div class="review-answer correct-answer">✓ Correct answer: ' +
-        letters[a.correct] + '. ' + correctText + '</div>';
+        letters[a.chosen] + '. ' + q.options[a.chosen] + '</div>' +
+        '<div class="review-answer correct-answer">✓ Correct: ' +
+        letters[a.correct] + '. ' + q.options[a.correct] + '</div>';
     }
 
     div.innerHTML =
@@ -276,8 +321,8 @@ function buildReview() {
         '<span class="week-tag">Week ' + q.week + '</span>' +
         '<span class="topic-tag">' + q.topic + '</span>' +
       '</div>' +
-      '<p class="question-text">Q' + (i+1) + '. ' + q.question + '</p>' +
-      yourAnswerHTML +
+      '<p class="question-text">Q' + (i + 1) + '. ' + q.question + '</p>' +
+      answerHTML +
       '<p class="review-explanation">' + q.explanation + '</p>';
 
     list.appendChild(div);
