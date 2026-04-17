@@ -1,0 +1,535 @@
+[
+  {
+    "week": 1,
+    "topic": "WWW & HTTP",
+    "question": "Which of the following best describes the topology/structure of the World Wide Web?",
+    "options": [
+      "It is strictly tree-shaped",
+      "It is strictly star-shaped",
+      "It is a complex structure containing all topology types",
+      "It is strictly ring-shaped"
+    ],
+    "answer": 2,
+    "explanation": "The WWW has a complex topology that contains all types: star-shaped, grid-shaped, tree-shaped, ring-shaped, and fully-connected."
+  },
+  {
+    "week": 1,
+    "topic": "WWW & HTTP",
+    "question": "In a traditional 3-tier web architecture, which technologies run on the CLIENT tier?",
+    "options": [
+      "PHP engine, Java, ASP.NET",
+      "HTML + CSS + JavaScript",
+      "MySQL, Oracle, MongoDB",
+      "Node.js, Ruby, Python"
+    ],
+    "answer": 1,
+    "explanation": "The client tier (browser) runs HTML + CSS + JavaScript. The server tier runs PHP/Java/etc. and the database tier runs MySQL/Oracle/etc."
+  },
+  {
+    "week": 1,
+    "topic": "WWW & HTTP",
+    "question": "In the separation of concerns principle applied to client-side technologies, what is the role of CSS?",
+    "options": [
+      "Content",
+      "Action",
+      "Style and appearance",
+      "Server-side logic"
+    ],
+    "answer": 2,
+    "explanation": "In client-side technologies: HTML = content, CSS = style and appearance, JavaScript = action. This principle was introduced by Edsger Dijkstra."
+  },
+  {
+    "week": 1,
+    "topic": "HTML",
+    "question": "Which HTML attribute is used to give an element a unique identifier?",
+    "options": [
+      "class",
+      "style",
+      "title",
+      "id"
+    ],
+    "answer": 3,
+    "explanation": "All HTML tags share these global attributes: id (unique identifier), title (tooltip text), style (inline CSS), and class (one or more CSS class names)."
+  },
+  {
+    "week": 1,
+    "topic": "HTML",
+    "question": "Which HTML tag is used to create a hyperlink?",
+    "options": [
+      "<link>",
+      "<a>",
+      "<href>",
+      "<url>"
+    ],
+    "answer": 1,
+    "explanation": "The <a> tag creates a hyperlink. Its main attribute is href, which specifies the URL — either absolute (e.g. http://www.google.com) or relative (e.g. 1/test.html)."
+  },
+  {
+    "week": 1,
+    "topic": "HTML",
+    "question": "In an HTML table, which tag is used to create a HEADER cell?",
+    "options": [
+      "<td>",
+      "<tr>",
+      "<th>",
+      "<thead>"
+    ],
+    "answer": 2,
+    "explanation": "In an HTML table: <table> defines the table, <tr> defines a row, <th> defines a header cell (bold by default), and <td> defines a data cell."
+  },
+  {
+    "week": 1,
+    "topic": "HTML",
+    "question": "An HTML Element is defined as:",
+    "options": [
+      "Just the opening tag",
+      "The tag name only",
+      "Tag + Content",
+      "The attribute value"
+    ],
+    "answer": 2,
+    "explanation": "An Element = Tag + Content. For example: <statement>The mobile phone...</statement> — the opening tag, content, and closing tag together form the element."
+  },
+  {
+    "week": 1,
+    "topic": "HTML",
+    "question": "Which of the following is TRUE about HTML tag case sensitivity?",
+    "options": [
+      "Tags are not case sensitive — <NAME> and <name> are the same",
+      "Only attribute names are case sensitive",
+      "Tags are case sensitive — <name>, <NAME>, and <Name> are treated differently",
+      "Only closing tags are case sensitive"
+    ],
+    "answer": 2,
+    "explanation": "HTML tags are case sensitive. <name>, <NAME>, and <Name> are treated as different tags, which CAUSES MANY ERRORS. JSON, by contrast, has no such issue."
+  },
+  {
+    "week": 2,
+    "topic": "PHP Basics",
+    "question": "What is the correct way to start a PHP code block?",
+    "options": [
+      "<php>",
+      "<?php",
+      "<script type='php'>",
+      "<!--php"
+    ],
+    "answer": 1,
+    "explanation": "PHP code blocks begin with <?php and end with ?>. These are called PHP declaration blocks."
+  },
+  {
+    "week": 2,
+    "topic": "PHP Basics",
+    "question": "When does PHP code execute?",
+    "options": [
+      "In the browser, after the page loads",
+      "On the web server, before the page is sent to the client",
+      "On the client, as the user interacts with the page",
+      "Only when the user submits a form"
+    ],
+    "answer": 1,
+    "explanation": "PHP code declaration blocks execute on a web server BEFORE the web page is sent to a client. The generated HTML is what gets returned to the browser."
+  },
+  {
+    "week": 2,
+    "topic": "PHP Basics",
+    "question": "What character do PHP variable names start with?",
+    "options": [
+      "@",
+      "#",
+      "$",
+      "&"
+    ],
+    "answer": 2,
+    "explanation": "All PHP variables start with a $ sign, for example: $votingAge, $name, $count."
+  },
+  {
+    "week": 2,
+    "topic": "PHP Basics",
+    "question": "What is the correct file extension for a PHP file that contains PHP code?",
+    "options": [
+      ".html",
+      ".htm",
+      ".php",
+      ".phtml"
+    ],
+    "answer": 2,
+    "explanation": ".php is the default extension that most web servers use to process PHP scripts. A PHP file that contains NO PHP code should use .html instead."
+  },
+  {
+    "week": 2,
+    "topic": "PHP Variables & Strings",
+    "question": "What will the following PHP code output?\n\necho '<p>The legal voting age is $votingAge.</p>';",
+    "options": [
+      "The legal voting age is 18.",
+      "The legal voting age is $votingAge.",
+      "A syntax error",
+      "The legal voting age is ."
+    ],
+    "answer": 1,
+    "explanation": "When a variable is surrounded by SINGLE quotation marks, the literal text '$votingAge' is printed — the variable is NOT interpolated. Double quotes would print the variable's value."
+  },
+  {
+    "week": 2,
+    "topic": "PHP Variables & Strings",
+    "question": "What will the following PHP code output if $votingAge = 18?\n\necho \"<p>The legal voting age is $votingAge.</p>\";",
+    "options": [
+      "The legal voting age is $votingAge.",
+      "The legal voting age is 18.",
+      "A syntax error",
+      "Nothing — echo doesn't interpolate"
+    ],
+    "answer": 1,
+    "explanation": "When a variable is surrounded by DOUBLE quotation marks, the content of $votingAge is printed. So the output is: The legal voting age is 18."
+  },
+  {
+    "week": 2,
+    "topic": "PHP Arrays",
+    "question": "What are the two types of PHP arrays introduced in the lecture?",
+    "options": [
+      "Static arrays and dynamic arrays",
+      "Indexed arrays and associative arrays",
+      "Numeric arrays and string arrays",
+      "Fixed arrays and variable arrays"
+    ],
+    "answer": 1,
+    "explanation": "PHP has indexed arrays (accessed by a numeric index, starting at 0) and associative arrays (accessed by a named key)."
+  },
+  {
+    "week": 2,
+    "topic": "PHP Arrays",
+    "question": "An array in PHP is best described as:",
+    "options": [
+      "A function that returns multiple values",
+      "A set of data represented by a single variable name",
+      "A database table in PHP",
+      "A type of PHP loop"
+    ],
+    "answer": 1,
+    "explanation": "An array contains a set of data represented by a single variable name. For example, $provinces[] could hold all province names."
+  },
+  {
+    "week": 2,
+    "topic": "PHP Operators",
+    "question": "Which PHP operator type compares operands and returns a Boolean value?",
+    "options": [
+      "Arithmetic operator",
+      "Assignment operator",
+      "Comparison operator",
+      "String operator"
+    ],
+    "answer": 2,
+    "explanation": "Comparison operators compare operands and return a Boolean value (true/false). Arithmetic operators perform math, assignment operators assign values, and string operators perform operations on strings."
+  },
+  {
+    "week": 2,
+    "topic": "PHP Operators",
+    "question": "What does the += operator do in PHP?",
+    "options": [
+      "Checks if two values are equal",
+      "Combines the right operand value with the left operand and assigns the result to the left operand",
+      "Divides the left operand by the right operand",
+      "Appends a string to another string"
+    ],
+    "answer": 1,
+    "explanation": "+= is the compound addition assignment operator. It combines the value of the right operand with the left operand (adds them) and assigns the new value to the left operand."
+  },
+  {
+    "week": 2,
+    "topic": "PHP Operators",
+    "question": "A UNARY operator requires:",
+    "options": [
+      "An operand before AND after the operator",
+      "Three operands",
+      "A single operand either before or after the operator",
+      "No operands"
+    ],
+    "answer": 2,
+    "explanation": "A unary operator requires a single operand, either before or after the operator (e.g. $count++ or ++$count). A binary operator requires an operand both before and after the operator."
+  },
+  {
+    "week": 3,
+    "topic": "PHP Superglobals",
+    "question": "What does the $_GET superglobal contain?",
+    "options": [
+      "An array of values passed via HTTP cookies",
+      "An array of values from a form submitted with the GET method",
+      "An array of session variables",
+      "An array of server information"
+    ],
+    "answer": 1,
+    "explanation": "$_GET contains an array of values from a form submitted with the GET method. $_POST does the same for POST. $_SESSION holds session variables, and $_COOKIE holds cookie values."
+  },
+  {
+    "week": 3,
+    "topic": "PHP Superglobals",
+    "question": "Which superglobal array contains values from BOTH $_GET and $_POST (and cookies)?",
+    "options": [
+      "$_SERVER",
+      "$_ENV",
+      "$_REQUEST",
+      "$GLOBALS"
+    ],
+    "answer": 2,
+    "explanation": "$_REQUEST is an array of all elements found in $_COOKIE, $_GET, and $_POST arrays combined."
+  },
+  {
+    "week": 3,
+    "topic": "PHP Superglobals",
+    "question": "What does the $_SESSION superglobal contain?",
+    "options": [
+      "An array of information about uploaded files",
+      "An array of environment information",
+      "An array of values passed as HTTP cookies",
+      "An array of session variables available to the current script"
+    ],
+    "answer": 3,
+    "explanation": "$_SESSION is an array of session variables that are available to the current script. Sessions allow data to persist across multiple page requests for the same user."
+  },
+  {
+    "week": 3,
+    "topic": "PHP Form Handling",
+    "question": "Which PHP function is used to test whether a variable contains a numeric string?",
+    "options": [
+      "is_int()",
+      "is_string()",
+      "is_numeric()",
+      "is_float()"
+    ],
+    "answer": 2,
+    "explanation": "is_numeric() tests whether a variable contains a numeric string (or a numeric value). It is commonly used to validate form input before performing calculations."
+  },
+  {
+    "week": 3,
+    "topic": "PHP Form Handling",
+    "question": "In the lecture's BMI example, which function was used to check that the form fields were NOT empty?",
+    "options": [
+      "isset()",
+      "!empty()",
+      "is_null()",
+      "strlen()"
+    ],
+    "answer": 1,
+    "explanation": "!empty() was used to check that both the height and weight fields were provided before processing. empty() returns true if the variable is empty, so !empty() means 'is not empty'."
+  },
+  {
+    "week": 3,
+    "topic": "PHP String Functions",
+    "question": "How many parameters does the substr() function take?",
+    "options": [
+      "One",
+      "Two",
+      "Three",
+      "Four"
+    ],
+    "answer": 2,
+    "explanation": "substr() takes three parameters: (1) the string to take a substring of, (2) the start position, (3) the length to select. If the third parameter is blank, it selects until the end of the string."
+  },
+  {
+    "week": 3,
+    "topic": "PHP String Functions",
+    "question": "What function can substr() be combined with to find the position of a substring?",
+    "options": [
+      "strfind()",
+      "strpos()",
+      "strsearch()",
+      "strindex()"
+    ],
+    "answer": 1,
+    "explanation": "substr() is often combined with strpos() to find occurrences within a string. strpos() returns the position (index) of the first occurrence of a substring."
+  },
+  {
+    "week": 3,
+    "topic": "PHP Strings",
+    "question": "What does ASCII stand for?",
+    "options": [
+      "American Standard Code for Information Interchange",
+      "Advanced System Code for Internet Interchange",
+      "American Standard Computer Interface Instructions",
+      "Automated Standard Code for Information Input"
+    ],
+    "answer": 0,
+    "explanation": "ASCII stands for American Standard Code for Information Interchange. It provides numeric representations of English characters, with values ranging from 0 to 255."
+  },
+  {
+    "week": 3,
+    "topic": "PHP Strings",
+    "question": "In ASCII, why are lowercase letters evaluated as 'greater than' uppercase letters when compared?",
+    "options": [
+      "Lowercase letters were added to ASCII later",
+      "Lowercase letters have HIGHER numeric values (97–122) than uppercase (65–90)",
+      "Uppercase letters are stored differently in memory",
+      "It depends on the PHP version"
+    ],
+    "answer": 1,
+    "explanation": "Lowercase letters (values 97–122) have higher ASCII numeric values than uppercase letters (values 65–90). Since string comparison is based on these values, lowercase letters are evaluated as 'greater'."
+  },
+  {
+    "week": "Control Structures",
+    "topic": "PHP Control Structures",
+    "question": "When does the else clause execute in an if...else statement?",
+    "options": [
+      "When the if condition is true",
+      "When the if condition is false",
+      "Always, regardless of the condition",
+      "Only when the if block has an error"
+    ],
+    "answer": 1,
+    "explanation": "The else clause executes when the condition in the if...else statement evaluates to FALSE. If the condition is true, only the if block runs."
+  },
+  {
+    "week": "Control Structures",
+    "topic": "PHP Control Structures",
+    "question": "What is the key difference between a while loop and a do...while loop?",
+    "options": [
+      "while loops run faster than do...while loops",
+      "do...while loops cannot use a counter variable",
+      "A do...while loop always executes at least once before checking the condition",
+      "A while loop can only count up, not down"
+    ],
+    "answer": 2,
+    "explanation": "do...while statements always execute once before the conditional expression is evaluated. A while loop checks the condition BEFORE each iteration, so it may never execute if the condition starts as false."
+  },
+  {
+    "week": "Control Structures",
+    "topic": "PHP Control Structures",
+    "question": "In the lecture's while loop example ($count = 1; while ($count <= 5)), how many times does the loop body execute?",
+    "options": [
+      "4 times",
+      "5 times",
+      "6 times",
+      "Infinite times"
+    ],
+    "answer": 1,
+    "explanation": "The loop runs while $count <= 5, starting at 1 and incrementing each time with $count++. It executes for values 1, 2, 3, 4, 5 — a total of 5 times."
+  },
+  {
+    "week": "Control Structures",
+    "topic": "PHP Control Structures",
+    "question": "In the lecture's do...while example ($count = 2; do { ... } while ($count < 2)), how many times does the loop body execute?",
+    "options": [
+      "0 times — the condition is immediately false",
+      "1 time — it runs once before checking the condition",
+      "2 times",
+      "Infinitely"
+    ],
+    "answer": 1,
+    "explanation": "Because $count starts at 2 and the condition is ($count < 2), a regular while loop would never execute. But do...while always runs the body ONCE first, then checks. So it executes exactly once."
+  },
+  {
+    "week": "Control Structures",
+    "topic": "PHP Control Structures",
+    "question": "PHP control structures are described in the lecture as being 'very similar to' which other languages?",
+    "options": [
+      "Python and Ruby",
+      "Java and C",
+      "JavaScript and TypeScript",
+      "SQL and HTML"
+    ],
+    "answer": 1,
+    "explanation": "The PHP control structures slide states they are 'very similar to Java/C'. This is why the syntax (if, while, for, do...while, switch) looks familiar to Java/C developers."
+  },
+  {
+    "week": 5,
+    "topic": "Web Services & XML/JSON",
+    "question": "In the Ajax Technology Family listed in the lecture, what role does 'fetch' play?",
+    "options": [
+      "Standards-based presentation",
+      "Dynamic display and interaction",
+      "Data interchange and manipulation",
+      "Asynchronous data retrieval"
+    ],
+    "answer": 3,
+    "explanation": "According to the Ajax Technology Family slide: HTML+CSS = standards-based presentation, DOM = dynamic display/interaction, JSON = data interchange, fetch = asynchronous data retrieval, JavaScript = binding everything together."
+  },
+  {
+    "week": 5,
+    "topic": "Web Services & XML/JSON",
+    "question": "What does DOM stand for in the Ajax Technology Family?",
+    "options": [
+      "Dynamic Object Mechanism",
+      "Document Object Model",
+      "Data Output Method",
+      "Distributed Object Management"
+    ],
+    "answer": 1,
+    "explanation": "DOM stands for Document Object Model. It is used for dynamic display and interaction on the client, and management of JSON/XML on both client and server."
+  },
+  {
+    "week": 5,
+    "topic": "Web Services & XML/JSON",
+    "question": "In the lecture's JSON example, what JavaScript code would display 'Chuck' if the object was called 'who'?",
+    "options": [
+      "alert(who[\"name\"]())",
+      "alert(who.name)",
+      "console.log(who->name)",
+      "echo(who.name)"
+    ],
+    "answer": 1,
+    "explanation": "In JavaScript, object properties are accessed with dot notation: alert(who.name) would display 'Chuck'. This was shown directly on the lecture slide as an example."
+  },
+  {
+    "week": 5,
+    "topic": "Web Services & XML/JSON",
+    "question": "According to the lecture, what does WSDL stand for?",
+    "options": [
+      "Web Software Development Language",
+      "Web Service Data Layer",
+      "Web Service Description Language",
+      "Worldwide Standard Definition Language"
+    ],
+    "answer": 2,
+    "explanation": "WSDL stands for Web Service Description Language. It is used to describe web services in a standardised format."
+  },
+  {
+    "week": 5,
+    "topic": "Web 2.0 / AJAX",
+    "question": "The AJAX application model is described in the lecture as a:",
+    "options": [
+      "Full page reload model",
+      "Partial screen update user interaction model",
+      "Server-side rendering model",
+      "Database synchronisation model"
+    ],
+    "answer": 1,
+    "explanation": "The Ajax Application Model is a 'partial screen update' user interaction model — only interface elements containing new information are updated; the rest of the interface remains displayed without interruption."
+  },
+  {
+    "week": 5,
+    "topic": "Web 2.0 / AJAX",
+    "question": "According to the lecture, how is the 'partial update' in AJAX effected?",
+    "options": [
+      "By reloading the entire HTML page",
+      "By submitting a form to the server",
+      "Through dynamic change of the internal representation of the 'document' displayed in the browser",
+      "By refreshing only the CSS stylesheet"
+    ],
+    "answer": 2,
+    "explanation": "The partial update is effected through dynamic change of the internal representation of the 'document' displayed in the browser — i.e., manipulating the DOM without a full page reload."
+  },
+  {
+    "week": 5,
+    "topic": "Web Services & XML/JSON",
+    "question": "JSON is described in the lecture as being hierarchical. Which data type in the JSON example held multiple string values in a list?",
+    "options": [
+      "String",
+      "Integer",
+      "Boolean",
+      "List/Array"
+    ],
+    "answer": 3,
+    "explanation": "In the lecture's JSON example, 'offices': ['3350DMC', '3437NQ'] was labelled as a List/Array type. JSON supports String, Integer, Boolean, List/Array, and Object types."
+  },
+  {
+    "week": 5,
+    "topic": "Web Services & XML/JSON",
+    "question": "According to the lecture, which server-side language is listed as part of the Ajax Technology Family for handling server interaction?",
+    "options": [
+      "Ruby",
+      "Python",
+      "PHP",
+      "Node.js"
+    ],
+    "answer": 2,
+    "explanation": "The Ajax Technology Family slide specifically lists PHP (alongside ASP.NET* and Java) as the server-side language needed to handle any interaction with the server."
+  }
+]

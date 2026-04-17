@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>COMP721 Quiz Prep — Week 1–5</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- ── LANDING SCREEN ── -->
+  <div id="screen-start" class="screen active">
+    <div class="start-card">
+      <div class="badge">COMP721</div>
+      <h1>Quiz Prep</h1>
+      <p class="subtitle">Weeks 1–5 · Multiple Choice</p>
+
+      <div class="topic-grid">
+        <div class="topic-chip">Week 1 — HTML &amp; HTTP</div>
+        <div class="topic-chip">Week 2 — PHP Basics</div>
+        <div class="topic-chip">Week 3 — PHP Part 2</div>
+        <div class="topic-chip">Control Structures</div>
+        <div class="topic-chip">Week 5 — AJAX &amp; JSON</div>
+      </div>
+
+      <div class="mode-section">
+        <p class="mode-label">Quiz Mode</p>
+        <div class="mode-buttons">
+          <button class="mode-btn active" data-mode="all">All Questions</button>
+          <button class="mode-btn" data-mode="random">Random 15</button>
+        </div>
+      </div>
+
+      <button id="btn-start" class="btn-primary">Start Quiz</button>
+      <p class="q-count" id="total-count"></p>
+    </div>
+  </div>
+
+  <!-- ── QUIZ SCREEN ── -->
+  <div id="screen-quiz" class="screen">
+    <header class="quiz-header">
+      <div class="header-left">
+        <span class="week-tag" id="q-week"></span>
+        <span class="topic-tag" id="q-topic"></span>
+      </div>
+      <div class="progress-wrap">
+        <div class="progress-bar">
+          <div class="progress-fill" id="progress-fill"></div>
+        </div>
+        <span class="progress-text" id="progress-text"></span>
+      </div>
+    </header>
+
+    <main class="quiz-main">
+      <div class="question-card" id="question-card">
+        <p class="question-number" id="q-number"></p>
+        <p class="question-text" id="q-text"></p>
+        <div class="options-list" id="options-list"></div>
+        <div class="feedback" id="feedback"></div>
+        <button class="btn-next" id="btn-next" style="display:none;">Next Question →</button>
+      </div>
+    </main>
+  </div>
+
+  <!-- ── RESULTS SCREEN ── -->
+  <div id="screen-results" class="screen">
+    <div class="results-card">
+      <div class="score-circle" id="score-circle">
+        <span class="score-num" id="score-num"></span>
+        <span class="score-denom" id="score-denom"></span>
+      </div>
+      <h2 id="results-heading"></h2>
+      <p id="results-msg"></p>
+
+      <div class="breakdown" id="breakdown"></div>
+
+      <div class="result-actions">
+        <button class="btn-primary" id="btn-review">Review Answers</button>
+        <button class="btn-secondary" id="btn-restart">Try Again</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── REVIEW SCREEN ── -->
+  <div id="screen-review" class="screen">
+    <div class="review-header">
+      <h2>Answer Review</h2>
+      <button class="btn-secondary" id="btn-back-results">← Back to Results</button>
+    </div>
+    <div class="review-list" id="review-list"></div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
