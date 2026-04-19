@@ -21,6 +21,93 @@ function escapeHtml(str) {
     .replace(/"/g, '&quot;')
     .replace(/'/g, '&#39;');
 }
+// ── ANSWER CORRECTNESS HELPER ────────────────────────────────
+function isAnswerCorrect(q, a) {
+  if (a === null || a === undefined) return false;
+  if (q.type === 'fillin')      return a === '__correct__';
+  if (q.type === 'multianswer') {
+    if (!Array.isArray(a)) return false;
+    const sel = [...a].sort((x,y) => x-y);
+    const cor = [...q.answers].sort((x,y) => x-y);
+    return sel.length === cor.length && sel.every((v,i) => v === cor[i]);
+  }
+  return a === q.answer;
+}
+
+// ── RENDER MULTI-ANSWER ──────────────────────────────────────
+function renderMultiAnswer(q, chosen, isAnswered, container) {
+  const letters    = ['A','B','C','D','E'];
+  const selected   = isAnswered ? (Array.isArray(chosen) ? chosen : []) : [];
+  const correctSet = new Set(q.answers);
+
+  const hint = document.createElement('p');
+  hint.className   = 'ma-hint';
+  hint.textContent = '☑ Select all that apply, then click Submit';
+  container.appendChild(hint);
+
+  const optList = document.createElement('div');
+  optList.className = 'options-list';
+
+  q.options.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className  = 'option-btn ma-btn';
+    btn.dataset.index = i;
+    btn.innerHTML  =
+      '<span class="option-letter ma-check" data-idx="' + i + '">□</span>' +
+      '<span class="option-text">' + escapeHtml(opt) + '</span>';
+
+    if (isAnswered) {
+      btn.disabled = true;
+      const wasPicked = selected.includes(i);
+      const correct   = correctSet.has(i);
+      if (correct)              btn.classList.add('correct');
+      if (wasPicked && !correct) btn.classList.add('wrong');
+      if (!correct && !wasPicked) btn.classList.add('faded');
+      btn.querySelector('.ma-check').textContent =
+        wasPicked ? (correct ? '☑' : '☒') : (correct ? '☑' : '□');
+    } else {
+      btn.addEventListener('click', () => toggleMultiAnswer(i, btn, submitBtn));
+    }
+    optList.appendChild(btn);
+  });
+  container.appendChild(optList);
+
+  const submitBtn = document.createElement('button');
+  submitBtn.className   = 'fillin-submit ma-submit';
+  submitBtn.textContent = 'SUBMIT';
+  submitBtn.id          = 'ma-submit';
+  submitBtn.disabled    = true;
+  if (!isAnswered) container.appendChild(submitBtn);
+  submitBtn.addEventListener('click', () => handleMultiAnswer(q));
+}
+
+let maSelected = new Set();
+
+function toggleMultiAnswer(idx, btn, submitBtn) {
+  if (maSelected.has(idx)) {
+    maSelected.delete(idx);
+    btn.classList.remove('ma-selected');
+    btn.querySelector('.ma-check').textContent = '□';
+  } else {
+    maSelected.add(idx);
+    btn.classList.add('ma-selected');
+    btn.querySelector('.ma-check').textContent = '☑';
+  }
+  submitBtn.disabled = maSelected.size === 0;
+}
+
+function handleMultiAnswer(q) {
+  if (answers[currentIndex] !== null) return;
+  const sel = [...maSelected].sort((a,b) => a-b);
+  answers[currentIndex] = sel;
+  maSelected = new Set();
+  const ok = isAnswerCorrect(q, sel);
+  if (ok) { streak++; if (streak > maxStreak) maxStreak = streak; } else streak = 0;
+  updateStreakBadge();
+  renderQuestion();
+}
+
+
 
 // ── STATE ────────────────────────────────────────────
 let allQuestions  = [];   // raw from JSON
@@ -35,7 +122,7 @@ let maxStreak     = 0;
 let quizMode      = 'all';   // 'all' | 'random'
 let timerEnabled  = false;
 let shuffleEnabled = true;
-let activeWeeks   = new Set(['1', '2', '3', '4', 'Control Structures', '5']);
+let activeWeeks   = new Set(['1', '2', '3', '4', 'Control Structures', '5', 'Real Quiz']);
 
 // timer
 let timerInterval = null;
@@ -100,12 +187,14 @@ function shuffle(arr) {
 function prepareQuestion(q) {
   if (!shuffleEnabled || q.type === 'fillin' || q.type === 'truefalse') return { ...q };
   if (!q.options || q.options.length === 0) return { ...q };
-  const idx = shuffle([0, 1, 2, 3]);
-  return {
-    ...q,
-    options: idx.map(i => q.options[i]),
-    answer:  idx.indexOf(q.answer),
-  };
+  if (q.type === 'multianswer') {
+    const len = q.options.length;
+    const idx = shuffle([...Array(len).keys()]);
+    return { ...q, options: idx.map(i => q.options[i]), answers: q.answers.map(a => idx.indexOf(a)) };
+  }
+  const n   = Math.min(q.options.length, 4);
+  const idx = shuffle([...Array(n).keys()]);
+  return { ...q, options: idx.map(i => q.options[i]), answer: idx.indexOf(q.answer) };
 }
 
 // ── START SCREEN SETUP ───────────────────────────────
@@ -181,6 +270,7 @@ function startQuiz() {
   quizQuestions = picked.map(prepareQuestion);
   answers       = new Array(quizQuestions.length).fill(null);
   bookmarks     = new Set();
+  maSelected    = new Set();
   currentIndex  = 0;
   streak        = 0;
   maxStreak     = 0;
@@ -252,9 +342,10 @@ function renderQuestion() {
   const chosen     = answers[currentIndex]; // null = unanswered
   const isAnswered = chosen !== null;
   const qType      = q.type || 'mcq'; // default to mcq for backwards compat
+  if (qType === 'multianswer' && !isAnswered) maSelected = new Set();
 
   // Tags + week colour
-  const weekColors = { '1': '#4f8ef7', '2': '#3ecf8e', '3': '#a78bfa', 'Control Structures': '#f7c44f', '4': '#fb923c', '5': '#f76f6f' };
+  const weekColors = { '1': '#4f8ef7', '2': '#3ecf8e', '3': '#a78bfa', 'Control Structures': '#f7c44f', '4': '#fb923c', '5': '#f76f6f', 'Real Quiz': '#fbbf24' };
   const wColor = weekColors[String(q.week)] || '#4f8ef7';
   document.getElementById('question-card').style.setProperty('--week-color', wColor);
   document.querySelector('.quiz-header').style.setProperty('--week-color', wColor);
@@ -262,7 +353,7 @@ function renderQuestion() {
   document.getElementById('q-topic').textContent = q.topic;
 
   // Type badge on question number
-  const typeBadge = qType === 'truefalse' ? ' · T/F' : qType === 'fillin' ? ' · Fill in' : '';
+  const typeBadge = qType === 'truefalse' ? ' · T/F' : qType === 'fillin' ? ' · Fill in' : qType === 'multianswer' ? ' · Select all' : '';
   document.getElementById('q-number').textContent = 'Question ' + (currentIndex + 1) + ' of ' + quizQuestions.length + typeBadge;
 
   // For fill-in: split on ___ and inject inline input or answered span
@@ -304,6 +395,8 @@ function renderQuestion() {
 
   if (qType === 'fillin') {
     renderFillIn(q, chosen, isAnswered, list);
+  } else if (qType === 'multianswer') {
+    renderMultiAnswer(q, chosen, isAnswered, list);
   } else {
     // mcq and truefalse both use option buttons
     const letters = qType === 'truefalse' ? ['', ''] : ['A', 'B', 'C', 'D'];
@@ -338,19 +431,20 @@ function renderQuestion() {
   fb.className = 'feedback';
   fb.innerHTML = '';
   if (isAnswered) {
-    // For fillin, chosen is either 'correct' or the typed string
-    const gotItRight = qType === 'fillin'
-      ? chosen === '__correct__'
-      : chosen === q.answer;
+    const gotItRight = isAnswerCorrect(q, chosen);
 
     fb.classList.add('visible', gotItRight ? 'correct-fb' : 'wrong-fb');
     const label   = gotItRight ? '✓ Correct!' : '✗ Incorrect';
     const hasDumb = q.simple_explanation && q.simple_explanation.trim() !== '';
 
-    // For fillin wrong answers, show what the correct answer was
-    const wrongHint = (!gotItRight && qType === 'fillin')
-      ? '<div class="fillin-correct-hint">Correct answer: <strong>' + escapeHtml(q.answers[0]) + '</strong></div>'
-      : '';
+    let wrongHint = '';
+    if (!gotItRight && qType === 'fillin') {
+      wrongHint = '<div class="fillin-correct-hint">Correct answer: <strong>' + escapeHtml(q.answers[0]) + '</strong></div>';
+    } else if (!gotItRight && qType === 'multianswer') {
+      const L = ['A','B','C','D','E'];
+      const cl = q.answers.map(idx => L[idx] + '. ' + escapeHtml(q.options[idx])).join(', ');
+      wrongHint = '<div class="fillin-correct-hint">Correct answers: <strong>' + cl + '</strong></div>';
+    }
 
     fb.innerHTML =
       '<span class="feedback-label">' + label + '</span>' +
@@ -526,10 +620,7 @@ function renderDots() {
     d.className = 'dot';
     if (i === currentIndex) d.classList.add('dot-current');
     else if (answers[i] !== null) {
-      const isCorrect = q.type === 'fillin'
-        ? answers[i] === '__correct__'
-        : answers[i] === q.answer;
-      d.classList.add(isCorrect ? 'dot-correct' : 'dot-wrong');
+      d.classList.add(isAnswerCorrect(q, answers[i]) ? 'dot-correct' : 'dot-wrong');
     }
     if (bookmarks.has(i)) d.classList.add('dot-bookmarked');
     strip.appendChild(d);
@@ -572,6 +663,7 @@ if (
   if (document.activeElement && document.activeElement.id === 'fillin-input') return;
 
   const isAnswered = answers[currentIndex] !== null;
+  if ((quizQuestions[currentIndex]?.type || 'mcq') === 'multianswer') return;
   const optBtns = document.querySelectorAll('.option-btn');
   const keyMap = { '1': 0, '2': 1, '3': 2, '4': 3 };
 
@@ -620,7 +712,7 @@ function showResults(timedOut = false) {
   const score   = answers.filter((a, i) => {
     if (a === null) return false;
     const q = quizQuestions[i];
-    return q.type === 'fillin' ? a === '__correct__' : a === q.answer;
+    return isAnswerCorrect(q, a);
   }).length;
   const pct     = Math.round(score / total * 100);
 
@@ -666,8 +758,7 @@ function showResults(timedOut = false) {
     const t = q.topic;
     if (!topicMap[t]) topicMap[t] = { correct: 0, total: 0 };
     topicMap[t].total++;
-    const isCorrect = q.type === 'fillin' ? answers[i] === '__correct__' : answers[i] === q.answer;
-    if (isCorrect) topicMap[t].correct++;
+    if (isAnswerCorrect(q, answers[i])) topicMap[t].correct++;
   });
 
   const bd = document.getElementById('breakdown');
@@ -736,7 +827,7 @@ function buildReview() {
   const items = quizQuestions.map((q, i) => ({
     q, i,
     chosen:    answers[i],
-    isCorrect: answers[i] !== null && (q.type === 'fillin' ? answers[i] === '__correct__' : answers[i] === q.answer)
+    isCorrect: answers[i] !== null && isAnswerCorrect(q, answers[i])
   }));
 
   const filtered = items.filter(({ i, isCorrect, chosen }) => {
@@ -754,22 +845,28 @@ function buildReview() {
     const div = document.createElement('div');
     div.className = 'review-item ' + (isCorrect ? 'correct-item' : 'wrong-item');
 
+    const revLetters = ['A','B','C','D','E'];
     let answerHTML = '';
     if (chosen === null) {
       answerHTML = '<div class="review-answer unanswered">— Not answered (timer ran out)</div>';
+    } else if (q.type === 'multianswer') {
+      const sel = Array.isArray(chosen) ? chosen : [];
+      const yourList = sel.length > 0 ? sel.map(idx => revLetters[idx] + '. ' + escapeHtml(q.options[idx])).join(', ') : '(nothing)';
+      const correctList = q.answers.map(idx => revLetters[idx] + '. ' + escapeHtml(q.options[idx])).join(', ');
+      answerHTML = '<div class="review-answer your-answer ' + (isCorrect ? 'correct' : 'wrong') + '">' +
+        (isCorrect ? '✓ ' : '✗ ') + 'You selected: ' + yourList + '</div>';
+      if (!isCorrect) answerHTML += '<div class="review-answer correct-answer">✓ Correct: ' + correctList + '</div>';
     } else if (q.type === 'fillin') {
       const gotRight = chosen === '__correct__';
       answerHTML = '<div class="review-answer your-answer ' + (gotRight ? 'correct' : 'wrong') + '">' +
         (gotRight ? '✓ You typed: ' : '✗ You typed: ') + escapeHtml(gotRight ? q.answers[0] : chosen) + '</div>';
       if (!gotRight) answerHTML += '<div class="review-answer correct-answer">✓ Correct: ' + escapeHtml(q.answers[0]) + '</div>';
     } else if (isCorrect) {
-      const letters = ['A','B','C','D'];
-      answerHTML = '<div class="review-answer your-answer correct">✓ You answered: ' + letters[chosen] + '. ' + escapeHtml(q.options[chosen]) + '</div>';
+      answerHTML = '<div class="review-answer your-answer correct">✓ You answered: ' + revLetters[chosen] + '. ' + escapeHtml(q.options[chosen]) + '</div>';
     } else {
-      const letters = ['A','B','C','D'];
       answerHTML =
-        '<div class="review-answer your-answer wrong">✗ You answered: ' + letters[chosen] + '. ' + escapeHtml(q.options[chosen]) + '</div>' +
-        '<div class="review-answer correct-answer">✓ Correct: ' + letters[q.answer] + '. ' + escapeHtml(q.options[q.answer]) + '</div>';
+        '<div class="review-answer your-answer wrong">✗ You answered: ' + revLetters[chosen] + '. ' + escapeHtml(q.options[chosen]) + '</div>' +
+        '<div class="review-answer correct-answer">✓ Correct: ' + revLetters[q.answer] + '. ' + escapeHtml(q.options[q.answer]) + '</div>';
     }
 
     div.innerHTML =
@@ -791,7 +888,7 @@ function saveSession() {
   const score = answers.filter((a, i) => {
     if (a === null) return false;
     const q = quizQuestions[i];
-    return q.type === 'fillin' ? a === '__correct__' : a === q.answer;
+    return isAnswerCorrect(q, a);
   }).length;
   const total = quizQuestions.length;
 
@@ -800,7 +897,7 @@ function saveSession() {
     const t = q.topic;
     if (!topicScores[t]) topicScores[t] = { correct: 0, total: 0 };
     topicScores[t].total++;
-    if (answers[i] === q.answer) topicScores[t].correct++;
+    if (isAnswerCorrect(q, answers[i])) topicScores[t].correct++;
   });
 
   const session = {

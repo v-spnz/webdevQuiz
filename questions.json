@@ -1724,5 +1724,229 @@
     "answer": 0,
     "explanation": "The Week 5 lecture states that in the Web 2.0 model the original web page remains displayed, while messages are sent asynchronously and only relevant sections are updated when results come back.",
     "simple_explanation": "The page stays there while the browser quietly talks to the server in the background. Then only the needed parts update."
+  },
+  {
+    "week": "Real Quiz",
+    "topic": "PHP Operators",
+    "type": "multianswer",
+    "question": "Given the following PHP code:\n\n$a = \"2\";\n$b = 2;\n\nif ($a == $b)  { echo \"1\"; }\nif ($a === $b) { echo \"2\"; }\n\nWhich statement is correct?",
+    "options": [
+      "Both \"1\" and \"2\" will print",
+      "\"1\" will print, but not \"2\"",
+      "\"2\" will print, but not \"1\"",
+      "Neither \"1\" nor \"2\" will print"
+    ],
+    "answers": [
+      1
+    ],
+    "explanation": "== checks value only (loose). \"2\" == 2 is TRUE — PHP converts the string. === checks value AND type (strict). \"2\" === 2 is FALSE — string vs integer. So only \"1\" prints.",
+    "simple_explanation": "== is lenient (ignores type), === is strict (type must match too). \"2\" the string equals 2 loosely, but not strictly. Only the first if runs."
+  },
+  {
+    "week": "Real Quiz",
+    "topic": "WWW & HTTP",
+    "type": "fillin",
+    "question": "What HTTP status code is used for a successful request?\n\nStatus code: ___",
+    "answers": [
+      "200"
+    ],
+    "explanation": "HTTP 200 OK means the request succeeded and the server returned the resource. Other codes: 404 = Not Found, 301 = Redirect, 500 = Server Error.",
+    "simple_explanation": "200 = everything worked. The server is saying 'yes, here is what you asked for'. You see this in DevTools on every successful page load."
+  },
+  {
+    "week": "Real Quiz",
+    "topic": "MySQL",
+    "type": "mcq",
+    "question": "A table called 'people' has columns: id, firstname, lastname, age, email.\n\nWhich SQL query selects only first names and emails, sorted by highest age first?",
+    "options": [
+      "SELECT * FROM people ORDER BY age DESC",
+      "SELECT firstname, email FROM people GROUP BY age",
+      "SELECT firstname, email FROM people ORDER BY age DESC",
+      "SELECT firstname, email FROM people ORDER BY age ASC"
+    ],
+    "answer": 2,
+    "explanation": "SELECT firstname, email picks only those columns. ORDER BY age DESC sorts descending (highest first). GROUP BY is for aggregation not sorting. SELECT * returns all columns.",
+    "simple_explanation": "SELECT picks columns, ORDER BY sorts, DESC = highest first. GROUP BY is different — it groups rows for aggregate functions like COUNT. Don't mix them up."
+  },
+  {
+    "week": "Real Quiz",
+    "topic": "Regular Expressions",
+    "type": "multianswer",
+    "question": "For the following regular expression, select ALL inputs that match:\n\n/^([a-z0-9\\.\\-]+)@([a-z]+)\\.([a-z]{3})$/i",
+    "options": [
+      "bob-jones@gmail.com",
+      "bobjones@aut.ac.nz",
+      "BOBJONES@gmail.com",
+      "bobjones@gmail.com",
+      "bob.jones@gmail.com"
+    ],
+    "answers": [
+      0,
+      2,
+      3,
+      4
+    ],
+    "explanation": "The domain part [a-z]+ allows letters only — no dots. bobjones@aut.ac.nz fails because 'aut.ac' contains a dot and 'nz' is only 2 chars (TLD needs exactly 3). The /i flag makes BOBJONES valid.",
+    "simple_explanation": "The domain [a-z]+ means NO dots. aut.ac.nz has two dots — fails. Also the TLD must be exactly 3 letters so .nz (2 chars) fails too. /i makes uppercase work."
+  },
+  {
+    "week": "Real Quiz",
+    "topic": "PHP Operators",
+    "type": "fillin",
+    "question": "What is the final value of $num?\n\n$num = 1;\n$num += 5;\n$num *= 3;\n$num /= 2;\n\nFinal value: ___",
+    "answers": [
+      "9"
+    ],
+    "explanation": "Step by step: start=1, +=5 → 6, *=3 → 18, /=2 → 9. Each compound operator applies to the current value.",
+    "simple_explanation": "1 + 5 = 6, then 6 × 3 = 18, then 18 ÷ 2 = 9. Work through each step in order."
+  },
+  {
+    "week": "Real Quiz",
+    "topic": "WWW & HTTP",
+    "type": "multianswer",
+    "question": "Which statements are TRUE about HTTP GET and POST methods?\n\nSelect ALL that apply.",
+    "options": [
+      "GET requests are more secure than POST requests",
+      "POST requests only allow text data",
+      "GET requests are limited in their content length",
+      "GET requests transmit data as key-value pairs in the URL",
+      "POST requests are not cached by the browser"
+    ],
+    "answers": [
+      2,
+      3,
+      4
+    ],
+    "explanation": "GET appends data to the URL (visible, limited to ~2048 chars). POST sends data in the request body (hidden, unlimited, supports binary). GET is LESS secure not more. POST can carry binary data, not just text.",
+    "simple_explanation": "GET data goes in the URL — you can see it in the address bar and it has a length limit. POST hides data in the request body, has no length limit, and isn't cached."
+  },
+  {
+    "week": "Real Quiz",
+    "topic": "PHP Basics",
+    "type": "multianswer",
+    "question": "Which statements are TRUE about PHP variable names?\n\nSelect ALL that apply.",
+    "options": [
+      "PHP variable names can include any symbol (@, #, !, etc.)",
+      "PHP variable names cannot start with a number",
+      "PHP variable names must begin with a dollar sign ($)",
+      "PHP variable names are not case sensitive",
+      "PHP variable names can include spaces"
+    ],
+    "answers": [
+      1,
+      2
+    ],
+    "explanation": "Variables must start with $ and the character after $ must be a letter or underscore (not a digit). They ARE case-sensitive ($Name ≠ $name). Spaces and special symbols are not allowed.",
+    "simple_explanation": "Two rules: must start with $, and the first character after $ can't be a number. $name and $Name are completely different variables — PHP cares about case."
+  },
+  {
+    "week": "Real Quiz",
+    "topic": "HTML",
+    "type": "mcq",
+    "question": "How many of the following are syntactically correct HTML?\n\n(1) <div><p>Hello World!</p></div>\n(2) <p class=text>Hello World!</p>\n(3) <input type=\"text\" name=\"name\" />\n(4) <div><p>Hello World!</div></p>",
+    "options": [
+      "2",
+      "1",
+      "4",
+      "3"
+    ],
+    "answer": 0,
+    "explanation": "(1) ✓ correct nesting. (2) ✗ attribute value must be quoted: class=\"text\". (3) ✓ valid self-closing void element. (4) ✗ wrong closing order — </p> must come before </div>.",
+    "simple_explanation": "Attributes need quoted values (class=text should be class=\"text\"). Tags must close in reverse order — open div then p, so close p then div. (1) and (3) are the only correct ones."
+  },
+  {
+    "week": "Real Quiz",
+    "topic": "WWW & HTTP",
+    "type": "mcq",
+    "question": "What is the default port number for TCP/IP HTTP servers?",
+    "options": [
+      "443",
+      "8080",
+      "80",
+      "22"
+    ],
+    "answer": 2,
+    "explanation": "Port 80 is HTTP. Port 443 is HTTPS. Port 8080 is an alternative HTTP port. Port 22 is SSH. When you visit http://example.com your browser connects on port 80 automatically.",
+    "simple_explanation": "80 = HTTP, 443 = HTTPS. You never type the port because browsers assume it. http:// → port 80, https:// → port 443."
+  },
+  {
+    "week": "Real Quiz",
+    "topic": "PHP Superglobals",
+    "type": "fillin",
+    "question": "Given this HTML form:\n\n<form action=\"login.php\" method=\"post\">\n  <input type=\"text\" name=\"username\" />\n</form>\n\nIn login.php, complete the code:\n\n$username = ___['username'];",
+    "answers": [
+      "$_POST",
+      "_POST",
+      "POST"
+    ],
+    "explanation": "$_POST holds all values submitted via the POST method, keyed by the input's name attribute. Since method=\"post\" and name=\"username\", you access it as $_POST['username'].",
+    "simple_explanation": "The form uses method=post so PHP puts the data in $_POST. The key is the input's name attribute. name=\"username\" → $_POST['username']."
+  },
+  {
+    "week": "Real Quiz",
+    "topic": "PHP String Functions",
+    "type": "fillin",
+    "question": "What will this PHP code output?\n\n$str = \"Nathan;Muhammad;Jane;Joshua;Jishen\";\n$names = explode(\";\", $str);\necho $names[2];",
+    "answers": [
+      "Jane"
+    ],
+    "explanation": "explode(\";\", $str) splits by semicolons: [0]=Nathan, [1]=Muhammad, [2]=Jane, [3]=Joshua, [4]=Jishen. Array indexes start at 0, so $names[2] = Jane.",
+    "simple_explanation": "explode splits a string into an array. Arrays start at index 0, so index 2 is the third item = Jane."
+  },
+  {
+    "week": "Real Quiz",
+    "topic": "Database Concepts",
+    "type": "mcq",
+    "question": "A student can enrol in many courses, and a course can have many students.\n\nWhat is the correct database relationship type?",
+    "options": [
+      "Many-to-Many Relationship",
+      "One-to-One Relationship",
+      "One-to-Many Relationship",
+      "Flat-file database"
+    ],
+    "answer": 0,
+    "explanation": "Many-to-Many: both sides can relate to multiple records on the other side. Implemented with a junction table (e.g. enrolments) containing student_id and course_id foreign keys.",
+    "simple_explanation": "Many students can take many courses = Many-to-Many. In SQL you'd need a third linking table (like enrolments) to connect them."
+  },
+  {
+    "week": "Real Quiz",
+    "topic": "CSS",
+    "type": "mcq",
+    "question": "Which correctly ranks CSS priority from HIGHEST to LOWEST?",
+    "options": [
+      "Browser defaults → External stylesheet → Inline styles",
+      "Inline styles → External/Internal stylesheet → Browser defaults",
+      "External stylesheet → Inline styles → Browser defaults",
+      "Browser defaults → Inline styles → External stylesheet"
+    ],
+    "answer": 1,
+    "explanation": "Priority (high to low): Inline styles (on the element) → External/Internal stylesheets → Browser defaults. Inline wins because it is the most specific. !important can override this order.",
+    "simple_explanation": "Inline styles always win because they're the most specific — right there on the element. Browser defaults always lose. External CSS files are in the middle."
+  },
+  {
+    "week": "Real Quiz",
+    "topic": "PHP Arrays",
+    "type": "fillin",
+    "question": "Given this PHP array, what is the value of $arr[2][1]?\n\n$arr = array(\n  array(1, 5, 9),\n  array(2, 6, 10),\n  array(3, 7, 11),\n  array(4, 8, 12)\n);",
+    "answers": [
+      "7"
+    ],
+    "explanation": "$arr[2] = third row (0-indexed) = array(3, 7, 11). [1] = second element = 7. Arrays always start at index 0.",
+    "simple_explanation": "$arr[2] = third row = (3, 7, 11). Then [1] = second item = 7. Remember: counting starts at 0."
+  },
+  {
+    "week": "Real Quiz",
+    "topic": "CSS",
+    "type": "mcq",
+    "question": "Which CSS selector correctly targets all <p> elements inside <div class=\"content\"> elements?",
+    "options": [
+      ".content div p",
+      "div.content p",
+      "div p.content",
+      "#content p"
+    ],
+    "answer": 1,
+    "explanation": "div.content means 'a div element that has class content'. Adding p selects all p descendants inside it. .content div p would look for p inside div inside any .content element. div p.content selects p elements with class=content inside a div.",
+    "simple_explanation": "div.content = a div with class=content. Then p = all p tags inside that div. It reads like a sentence: find div with class content, then find p inside it."
   }
 ]
