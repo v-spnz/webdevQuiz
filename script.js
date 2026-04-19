@@ -415,8 +415,12 @@ function renderFillIn(q, chosen, isAnswered, container) {
       submitBtn.disabled = input.value.trim().length === 0;
     });
     input.addEventListener('keydown', e => {
-      if (e.key === 'Enter' && !submitBtn.disabled) { e.preventDefault(); doSubmit(); }
-    });
+  if (e.key === 'Enter' && !submitBtn.disabled) {
+    e.preventDefault();
+    e.stopPropagation(); // stop the global Enter shortcut from firing too
+    doSubmit();
+  }
+});
     setTimeout(() => input.focus(), 50);
   }
 
