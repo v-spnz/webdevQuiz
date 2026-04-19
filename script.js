@@ -35,7 +35,8 @@ let maxStreak     = 0;
 let quizMode      = 'all';   // 'all' | 'random'
 let timerEnabled  = false;
 let shuffleEnabled = true;
-let activeWeeks   = new Set(['1', '2', '3', 'Control Structures', '5']);
+let shuffleQuestions = false;
+let activeWeeks   = new Set(['1', '2', '3', '4', 'Control Structures', '5']);
 
 // timer
 let timerInterval = null;
@@ -147,6 +148,11 @@ document.getElementById('shuffle-toggle').addEventListener('change', e => {
   shuffleEnabled = e.target.checked;
 });
 
+// Shuffle questions toggle
+document.getElementById('shuffle-questions-toggle').addEventListener('change', e => {
+  shuffleQuestions = e.target.checked;
+});
+
 function updateTimerSub() {
   const filteredCount = allQuestions.filter(q => activeWeeks.has(String(q.week))).length;
   const n = quizMode === 'random' ? Math.min(15, filteredCount) : filteredCount;
@@ -176,7 +182,7 @@ function startQuiz() {
 
   let picked = quizMode === 'random'
     ? shuffle([...pool]).slice(0, EXAM_QS)
-    : [...pool];
+    : shuffleQuestions ? shuffle([...pool]) : [...pool];
 
   quizQuestions = picked.map(prepareQuestion);
   answers       = new Array(quizQuestions.length).fill(null);
