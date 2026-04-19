@@ -12,7 +12,7 @@
     ],
     "answer": 2,
     "explanation": "The WWW has a complex topology containing all types: star-shaped, grid-shaped, tree-shaped, ring-shaped, and fully-connected.",
-    "simple_explanation": "Think of the web like a city road network — not a neat grid or a simple ring. It's a messy combination of all those shapes mixed together."
+    "simple_explanation": "Think of the web like a city road network \u2014 not a neat grid or a simple ring. It's a messy combination of all those shapes mixed together."
   },
   {
     "week": 1,
@@ -96,7 +96,7 @@
     ],
     "answer": 3,
     "explanation": "All HTML tags share these global attributes: id (unique identifier), title (tooltip text), style (inline CSS), and class (one or more CSS class names).",
-    "simple_explanation": "The 'id' attribute is like a name tag — it's unique to one specific element on the page. Only one element can have a given id."
+    "simple_explanation": "The 'id' attribute is like a name tag \u2014 it's unique to one specific element on the page. Only one element can have a given id."
   },
   {
     "week": 1,
@@ -110,7 +110,7 @@
       "<url>"
     ],
     "answer": 1,
-    "explanation": "The <a> tag creates a hyperlink. Its main attribute is href, which specifies the URL — either absolute (http://www.google.com) or relative (1/test.html).",
+    "explanation": "The <a> tag creates a hyperlink. Its main attribute is href, which specifies the URL \u2014 either absolute (http://www.google.com) or relative (1/test.html).",
     "simple_explanation": "The <a> tag stands for 'anchor'. You put the URL in its href attribute and clickable text between the tags: <a href=\"url\">Click here</a>."
   },
   {
@@ -140,8 +140,8 @@
       "The attribute value"
     ],
     "answer": 2,
-    "explanation": "An Element = Tag + Content. For example: <p>Hello</p> — the opening tag, the text content, and the closing tag together form the element.",
-    "simple_explanation": "A tag is the label (<p>), content is what's inside (Hello), and the whole thing together — <p>Hello</p> — is the element."
+    "explanation": "An Element = Tag + Content. For example: <p>Hello</p> \u2014 the opening tag, the text content, and the closing tag together form the element.",
+    "simple_explanation": "A tag is the label (<p>), content is what's inside (Hello), and the whole thing together \u2014 <p>Hello</p> \u2014 is the element."
   },
   {
     "week": 1,
@@ -154,20 +154,20 @@
     ],
     "answer": 1,
     "explanation": "False. <br> is a self-closing (void) tag and does not require a closing tag. It can be written as <br> or <br /> in XHTML.",
-    "simple_explanation": "Some HTML tags are self-contained and don't wrap around any content — like <br> (line break) and <img>. They don't need a </closing> tag."
+    "simple_explanation": "Some HTML tags are self-contained and don't wrap around any content \u2014 like <br> (line break) and <img>. They don't need a </closing> tag."
   },
   {
     "week": 1,
     "topic": "HTML",
     "type": "truefalse",
-    "question": "True or False: HTML tag names are case sensitive — <P> and <p> are treated as different tags.",
+    "question": "True or False: HTML tag names are case sensitive \u2014 <P> and <p> are treated as different tags.",
     "options": [
       "True",
       "False"
     ],
     "answer": 1,
-    "explanation": "False. HTML tag names are case INsensitive — <p> and <P> produce the same result in browsers. However, best practice (and XHTML requirement) is always lowercase.",
-    "simple_explanation": "HTML tag names don't care about case — <P> and <p> do the same thing. However, always write tags in lowercase as good practice, and be aware XML IS case sensitive."
+    "explanation": "False. HTML tag names are case INsensitive \u2014 <p> and <P> produce the same result in browsers. However, best practice (and XHTML requirement) is always lowercase.",
+    "simple_explanation": "HTML tag names don't care about case \u2014 <P> and <p> do the same thing. However, always write tags in lowercase as good practice, and be aware XML IS case sensitive."
   },
   {
     "week": 1,
@@ -189,7 +189,7 @@
       "href"
     ],
     "explanation": "The href attribute (short for Hypertext Reference) specifies the URL that the hyperlink points to. Without it, the <a> tag is just text.",
-    "simple_explanation": "href stands for 'hypertext reference' — it's the attribute that tells the link WHERE to go. Without href, an <a> tag doesn't actually go anywhere."
+    "simple_explanation": "href stands for 'hypertext reference' \u2014 it's the attribute that tells the link WHERE to go. Without href, an <a> tag doesn't actually go anywhere."
   },
   {
     "week": 2,
@@ -204,7 +204,7 @@
     ],
     "answer": 1,
     "explanation": "PHP code blocks begin with <?php and end with ?>. These are called PHP declaration blocks.",
-    "simple_explanation": "PHP code is wrapped in <?php ... ?> — like putting your code inside a special container so the server knows to run it as PHP."
+    "simple_explanation": "PHP code is wrapped in <?php ... ?> \u2014 like putting your code inside a special container so the server knows to run it as PHP."
   },
   {
     "week": 2,
@@ -253,14 +253,14 @@
     "week": 2,
     "topic": "PHP Basics",
     "type": "truefalse",
-    "question": "True or False: PHP variables are case-sensitive — $Name and $name are treated as different variables.",
+    "question": "True or False: PHP variables are case-sensitive \u2014 $Name and $name are treated as different variables.",
     "options": [
       "True",
       "False"
     ],
     "answer": 0,
     "explanation": "True. PHP variable names are case-sensitive. $Name, $name, and $NAME are three completely different variables.",
-    "simple_explanation": "In PHP, $Name and $name are two completely different variables. A very common source of bugs for beginners — always use consistent capitalisation."
+    "simple_explanation": "In PHP, $Name and $name are two completely different variables. A very common source of bugs for beginners \u2014 always use consistent capitalisation."
   },
   {
     "week": 2,
@@ -272,7 +272,7 @@
       "< ?php"
     ],
     "explanation": "PHP code blocks are opened with <?php and closed with ?>. Everything between these tags is processed as PHP by the server.",
-    "simple_explanation": "PHP starts with <?php and ends with ?>. Think of them like brackets — everything inside gets run as PHP code on the server."
+    "simple_explanation": "PHP starts with <?php and ends with ?>. Think of them like brackets \u2014 everything inside gets run as PHP code on the server."
   },
   {
     "week": 2,
@@ -286,7 +286,7 @@
       "The legal voting age is ."
     ],
     "answer": 1,
-    "explanation": "Single quotation marks in PHP print everything literally — the variable name '$votingAge' is printed as text, not its value.",
+    "explanation": "Single quotation marks in PHP print everything literally \u2014 the variable name '$votingAge' is printed as text, not its value.",
     "simple_explanation": "Single quotes in PHP are 'what you see is what you get'. They print everything exactly as typed, including the dollar sign. No magic happens."
   },
   {
@@ -298,11 +298,11 @@
       "The legal voting age is $votingAge.",
       "The legal voting age is 18.",
       "A syntax error",
-      "Nothing — echo doesn't interpolate"
+      "Nothing \u2014 echo doesn't interpolate"
     ],
     "answer": 1,
-    "explanation": "Double quotation marks in PHP interpolate variables — $votingAge is replaced with its value (18) in the output.",
-    "simple_explanation": "Double quotes are 'smart' — PHP looks inside them for $ variables and swaps them for their actual values. Single quotes don't do this."
+    "explanation": "Double quotation marks in PHP interpolate variables \u2014 $votingAge is replaced with its value (18) in the output.",
+    "simple_explanation": "Double quotes are 'smart' \u2014 PHP looks inside them for $ variables and swaps them for their actual values. Single quotes don't do this."
   },
   {
     "week": 2,
@@ -315,7 +315,7 @@
     ],
     "answer": 1,
     "explanation": "False. Variable substitution (interpolation) only happens inside double-quoted strings. Inside single quotes, the variable name is printed literally.",
-    "simple_explanation": "Only double quotes do the variable swap trick. Single quotes are dumb — they print exactly what you type, dollar sign and all."
+    "simple_explanation": "Only double quotes do the variable swap trick. Single quotes are dumb \u2014 they print exactly what you type, dollar sign and all."
   },
   {
     "week": 2,
@@ -342,7 +342,7 @@
     ],
     "answer": 1,
     "explanation": "PHP has indexed arrays (accessed by a numeric index, starting at 0) and associative arrays (accessed by a named key).",
-    "simple_explanation": "Indexed arrays are like a numbered list (item 0, 1, 2...). Associative arrays are like a dictionary — each item has a name (key) instead of a number."
+    "simple_explanation": "Indexed arrays are like a numbered list (item 0, 1, 2...). Associative arrays are like a dictionary \u2014 each item has a name (key) instead of a number."
   },
   {
     "week": 2,
@@ -381,7 +381,7 @@
     ],
     "answer": 2,
     "explanation": "Comparison operators compare operands and return a Boolean value (true/false). Examples: ==, !=, >, <, >=, <=",
-    "simple_explanation": "Comparison operators ask a yes/no question — like 'is 5 greater than 3?' and return true or false."
+    "simple_explanation": "Comparison operators ask a yes/no question \u2014 like 'is 5 greater than 3?' and return true or false."
   },
   {
     "week": 2,
@@ -409,7 +409,7 @@
     ],
     "answer": 1,
     "explanation": "False. == checks value equality only (1 == '1' is true). === checks both value AND type (1 === '1' is false because one is an integer and the other is a string).",
-    "simple_explanation": "== just checks if the values match. === is stricter — it also checks that they're the same TYPE. So 1 == '1' is true, but 1 === '1' is false."
+    "simple_explanation": "== just checks if the values match. === is stricter \u2014 it also checks that they're the same TYPE. So 1 == '1' is true, but 1 === '1' is false."
   },
   {
     "week": 2,
@@ -420,7 +420,7 @@
       "1"
     ],
     "explanation": "%= is the compound modulus assignment operator. 10 % 3 = 1 (the remainder when 10 is divided by 3). So $x becomes 1.",
-    "simple_explanation": "The % operator finds the remainder after division. 10 ÷ 3 = 3 remainder 1. So 10 % 3 = 1. The %= just saves that result back into $x."
+    "simple_explanation": "The % operator finds the remainder after division. 10 \u00f7 3 = 3 remainder 1. So 10 % 3 = 1. The %= just saves that result back into $x."
   },
   {
     "week": 3,
@@ -450,7 +450,7 @@
     ],
     "answer": 2,
     "explanation": "$_REQUEST is an array of all elements found in $_COOKIE, $_GET, and $_POST arrays combined.",
-    "simple_explanation": "$_REQUEST is the lazy option — it combines $_GET, $_POST, and $_COOKIE into one array so you don't have to care how the data was sent."
+    "simple_explanation": "$_REQUEST is the lazy option \u2014 it combines $_GET, $_POST, and $_COOKIE into one array so you don't have to care how the data was sent."
   },
   {
     "week": 3,
@@ -489,7 +489,7 @@
     ],
     "answer": 2,
     "explanation": "is_numeric() tests whether a variable contains a numeric string or value. Commonly used to validate form input before calculations.",
-    "simple_explanation": "is_numeric() asks 'is this a number?' — useful when someone fills in a form and you want to make sure they typed a number before doing maths with it."
+    "simple_explanation": "is_numeric() asks 'is this a number?' \u2014 useful when someone fills in a form and you want to make sure they typed a number before doing maths with it."
   },
   {
     "week": 3,
@@ -502,7 +502,7 @@
     ],
     "answer": 0,
     "explanation": "True. PHP's empty() considers these values as empty: \"\", 0, 0.0, \"0\", null, false, and empty arrays. This is a common gotcha when validating form input.",
-    "simple_explanation": "empty() is a bit aggressive — it considers \"0\" (the string zero) as empty, which can cause bugs if someone legitimately enters 0 in a form field. Watch out for this."
+    "simple_explanation": "empty() is a bit aggressive \u2014 it considers \"0\" (the string zero) as empty, which can cause bugs if someone legitimately enters 0 in a form field. Watch out for this."
   },
   {
     "week": 3,
@@ -529,7 +529,7 @@
       "Four"
     ],
     "answer": 2,
-    "explanation": "substr() takes three parameters: (1) the string, (2) the start position, (3) the length to select. The third parameter is optional — omitting it selects to the end of the string.",
+    "explanation": "substr() takes three parameters: (1) the string, (2) the start position, (3) the length to select. The third parameter is optional \u2014 omitting it selects to the end of the string.",
     "simple_explanation": "substr() cuts a piece out of a string: which string, where to start cutting, and how many characters to take."
   },
   {
@@ -554,7 +554,7 @@
       "strlen"
     ],
     "explanation": "strlen() returns the length of a string (number of characters, including spaces). strlen(\"Hello World\") returns 11.",
-    "simple_explanation": "strlen() counts the characters in a string — including spaces. It's like asking 'how long is this text?' strlen stands for 'string length'."
+    "simple_explanation": "strlen() counts the characters in a string \u2014 including spaces. It's like asking 'how long is this text?' strlen stands for 'string length'."
   },
   {
     "week": 3,
@@ -581,8 +581,8 @@
       "False"
     ],
     "answer": 1,
-    "explanation": "False. Uppercase letters (65–90) have LOWER numeric values than lowercase letters (97–122). This means 'a' > 'A' when comparing strings.",
-    "simple_explanation": "It's the opposite — lowercase letters have the higher numbers in ASCII. 'a' is 97 and 'A' is only 65. So lowercase is 'greater than' uppercase."
+    "explanation": "False. Uppercase letters (65\u201390) have LOWER numeric values than lowercase letters (97\u2013122). This means 'a' > 'A' when comparing strings.",
+    "simple_explanation": "It's the opposite \u2014 lowercase letters have the higher numbers in ASCII. 'a' is 97 and 'A' is only 65. So lowercase is 'greater than' uppercase."
   },
   {
     "week": 3,
@@ -608,7 +608,7 @@
     ],
     "answer": 1,
     "explanation": "The else clause executes when the condition in the if...else statement evaluates to FALSE.",
-    "simple_explanation": "Think of it like: 'if it's raining, take an umbrella — else, leave it at home.' The else only happens when the if condition wasn't true."
+    "simple_explanation": "Think of it like: 'if it's raining, take an umbrella \u2014 else, leave it at home.' The else only happens when the if condition wasn't true."
   },
   {
     "week": "Control Structures",
@@ -637,8 +637,8 @@
       "Infinite times"
     ],
     "answer": 1,
-    "explanation": "The loop runs while $count <= 5, starting at 1 and incrementing with $count++. It executes for values 1, 2, 3, 4, 5 — a total of 5 times.",
-    "simple_explanation": "Start at 1, keep going while ≤ 5 — that's 5 rounds. When $count becomes 6, the condition (6 ≤ 5) is false and the loop stops."
+    "explanation": "The loop runs while $count <= 5, starting at 1 and incrementing with $count++. It executes for values 1, 2, 3, 4, 5 \u2014 a total of 5 times.",
+    "simple_explanation": "Start at 1, keep going while \u2264 5 \u2014 that's 5 rounds. When $count becomes 6, the condition (6 \u2264 5) is false and the loop stops."
   },
   {
     "week": "Control Structures",
@@ -664,7 +664,7 @@
     ],
     "answer": 0,
     "explanation": "True. foreach is designed specifically for iterating over arrays (and objects). It automatically steps through each element without needing a counter variable.",
-    "simple_explanation": "foreach is the easy way to loop through an array — it goes through each item one by one automatically. You don't need to manage a counter like in a for loop."
+    "simple_explanation": "foreach is the easy way to loop through an array \u2014 it goes through each item one by one automatically. You don't need to manage a counter like in a for loop."
   },
   {
     "week": "Control Structures",
@@ -675,7 +675,7 @@
       "foreach"
     ],
     "explanation": "The foreach loop syntax is: foreach ($array as $value) { ... }. It iterates over every element in the array, assigning each element to $value in turn.",
-    "simple_explanation": "foreach is like saying 'for each item in this list, do something with it'. PHP handles all the counting — you just say what to do with each item."
+    "simple_explanation": "foreach is like saying 'for each item in this list, do something with it'. PHP handles all the counting \u2014 you just say what to do with each item."
   },
   {
     "week": "Control Structures",
@@ -685,8 +685,8 @@
     "answers": [
       "continue"
     ],
-    "explanation": "continue skips the remaining code in the current loop iteration and jumps to the next iteration. This code would print 0,1,2,3,4,6,7,8,9 — skipping 5.",
-    "simple_explanation": "continue is like saying 'skip this one and move on'. When the loop hits 5, it skips the echo and goes straight to 6. The loop doesn't stop — it just skips that round."
+    "explanation": "continue skips the remaining code in the current loop iteration and jumps to the next iteration. This code would print 0,1,2,3,4,6,7,8,9 \u2014 skipping 5.",
+    "simple_explanation": "continue is like saying 'skip this one and move on'. When the loop hits 5, it skips the echo and goes straight to 6. The loop doesn't stop \u2014 it just skips that round."
   },
   {
     "week": 4,
@@ -716,7 +716,7 @@
     ],
     "answer": 1,
     "explanation": "INSERT INTO is used to add new rows to a table. Syntax: INSERT INTO table (col1, col2) VALUES (val1, val2);",
-    "simple_explanation": "INSERT INTO puts new data into a table. Think of it like filling in a new row in a spreadsheet — you say which table, which columns, and what values to put in."
+    "simple_explanation": "INSERT INTO puts new data into a table. Think of it like filling in a new row in a spreadsheet \u2014 you say which table, which columns, and what values to put in."
   },
   {
     "week": 4,
@@ -731,7 +731,7 @@
     ],
     "answer": 2,
     "explanation": "UPDATE is used to change existing data in a table. Syntax: UPDATE table SET column = value WHERE condition; Always use WHERE or you'll update every row.",
-    "simple_explanation": "UPDATE edits existing rows. Like crossing out old info and writing new info. Always use WHERE to specify which rows — otherwise you change EVERYTHING in the table."
+    "simple_explanation": "UPDATE edits existing rows. Like crossing out old info and writing new info. Always use WHERE to specify which rows \u2014 otherwise you change EVERYTHING in the table."
   },
   {
     "week": 4,
@@ -773,7 +773,7 @@
       "False"
     ],
     "answer": 1,
-    "explanation": "False. Without a WHERE clause, UPDATE modifies EVERY row in the table. This is one of the most dangerous mistakes in SQL — always double-check your WHERE clause.",
+    "explanation": "False. Without a WHERE clause, UPDATE modifies EVERY row in the table. This is one of the most dangerous mistakes in SQL \u2014 always double-check your WHERE clause.",
     "simple_explanation": "Without WHERE, UPDATE changes absolutely everything. If you forget WHERE on UPDATE students SET grade = 'F', every single student gets an F. Always use WHERE!"
   },
   {
@@ -787,7 +787,7 @@
     ],
     "answer": 0,
     "explanation": "True. A PRIMARY KEY uniquely identifies each row. It must be unique (no two rows have the same value) and cannot be NULL. It's typically an auto-incrementing integer.",
-    "simple_explanation": "The primary key is the unique ID for each row — like a student ID number. No two rows can have the same value, and it can never be left blank (NULL)."
+    "simple_explanation": "The primary key is the unique ID for each row \u2014 like a student ID number. No two rows can have the same value, and it can never be left blank (NULL)."
   },
   {
     "week": 4,
@@ -800,7 +800,7 @@
     ],
     "answer": 0,
     "explanation": "True. mysqli_fetch_assoc() returns the next row from a result set as an associative array, where the keys are the column names. This is the standard pattern used in this course.",
-    "simple_explanation": "mysqli_fetch_assoc() grabs one row at a time from your query results and gives it to you as an array where the keys match your column names — so $row['name'] gives you the name column."
+    "simple_explanation": "mysqli_fetch_assoc() grabs one row at a time from your query results and gives it to you as an array where the keys match your column names \u2014 so $row['name'] gives you the name column."
   },
   {
     "week": 4,
@@ -823,7 +823,7 @@
       "delete"
     ],
     "explanation": "DELETE FROM table WHERE condition; removes rows matching the condition. Without WHERE, all rows would be deleted. Always verify your WHERE clause before running DELETE.",
-    "simple_explanation": "DELETE removes rows from a table. You need WHERE to say which rows — otherwise you delete everything. Think before you run a DELETE statement!"
+    "simple_explanation": "DELETE removes rows from a table. You need WHERE to say which rows \u2014 otherwise you delete everything. Think before you run a DELETE statement!"
   },
   {
     "week": 4,
@@ -860,7 +860,7 @@
     ],
     "answer": 3,
     "explanation": "In the Ajax Technology Family: HTML+CSS = presentation, DOM = dynamic display, JSON = data interchange, fetch = asynchronous data retrieval, JavaScript = binding everything together.",
-    "simple_explanation": "fetch is the modern JavaScript tool for requesting data from a server in the background — without reloading the page."
+    "simple_explanation": "fetch is the modern JavaScript tool for requesting data from a server in the background \u2014 without reloading the page."
   },
   {
     "week": 5,
@@ -875,7 +875,7 @@
     ],
     "answer": 1,
     "explanation": "DOM stands for Document Object Model. It is used for dynamic display and interaction on the client, and for managing JSON/XML on both client and server.",
-    "simple_explanation": "The DOM is like a live map of your webpage that JavaScript can read and change. When you click a button and text appears without reloading — that's JavaScript editing the DOM."
+    "simple_explanation": "The DOM is like a live map of your webpage that JavaScript can read and change. When you click a button and text appears without reloading \u2014 that's JavaScript editing the DOM."
   },
   {
     "week": 5,
@@ -890,7 +890,7 @@
     ],
     "answer": 1,
     "explanation": "In JavaScript, object properties are accessed with dot notation: objectName.propertyName. So who.name accesses the 'name' property, which holds 'Chuck'.",
-    "simple_explanation": "In JavaScript, to get a property from an object you write: objectName.propertyName. So who.name gives you whatever is in the 'name' field — which is 'Chuck'."
+    "simple_explanation": "In JavaScript, to get a property from an object you write: objectName.propertyName. So who.name gives you whatever is in the 'name' field \u2014 which is 'Chuck'."
   },
   {
     "week": 5,
@@ -903,20 +903,20 @@
     ],
     "answer": 0,
     "explanation": "True. Unlike JavaScript objects (which allow unquoted keys), valid JSON requires all keys to be enclosed in double quotes. This is a strict requirement of the JSON specification.",
-    "simple_explanation": "In JSON, the keys MUST have double quotes around them — like {\"name\": \"Chuck\"}. This makes JSON stricter than regular JavaScript objects, but it's also why it's predictable."
+    "simple_explanation": "In JSON, the keys MUST have double quotes around them \u2014 like {\"name\": \"Chuck\"}. This makes JSON stricter than regular JavaScript objects, but it's also why it's predictable."
   },
   {
     "week": 5,
     "topic": "Web Services & XML/JSON",
     "type": "truefalse",
-    "question": "True or False: XML tags are case-sensitive — <Name> and <name> would be treated as different tags.",
+    "question": "True or False: XML tags are case-sensitive \u2014 <Name> and <name> would be treated as different tags.",
     "options": [
       "True",
       "False"
     ],
     "answer": 0,
     "explanation": "True. XML is strictly case-sensitive. <Name>, <name>, and <NAME> are all completely different tags. Unlike HTML, XML has no tolerance for case mismatches.",
-    "simple_explanation": "XML is strict about case — <Name> and <name> are completely different tags to XML. HTML is more forgiving, but XML is not. This is one reason JSON became more popular — fewer strict rules."
+    "simple_explanation": "XML is strict about case \u2014 <Name> and <name> are completely different tags to XML. HTML is more forgiving, but XML is not. This is one reason JSON became more popular \u2014 fewer strict rules."
   },
   {
     "week": 5,
@@ -927,7 +927,7 @@
       "parse"
     ],
     "explanation": "JSON.parse() converts a JSON-formatted string into a JavaScript object. The reverse operation (object to string) is JSON.stringify().",
-    "simple_explanation": "JSON.parse() unwraps a JSON string and turns it into a real JavaScript object you can work with. Think of it as 'opening the package'. JSON.stringify() is the reverse — it wraps the object back up."
+    "simple_explanation": "JSON.parse() unwraps a JSON string and turns it into a real JavaScript object you can work with. Think of it as 'opening the package'. JSON.stringify() is the reverse \u2014 it wraps the object back up."
   },
   {
     "week": 5,
@@ -938,8 +938,8 @@
       "Web Service Description Language",
       "web service description language"
     ],
-    "explanation": "WSDL stands for Web Service Description Language. It describes what operations a web service provides and what data it expects — essentially a contract for the service.",
-    "simple_explanation": "WSDL is like a menu for a web service — it describes what the service can do, what info you send it, and what you get back."
+    "explanation": "WSDL stands for Web Service Description Language. It describes what operations a web service provides and what data it expects \u2014 essentially a contract for the service.",
+    "simple_explanation": "WSDL is like a menu for a web service \u2014 it describes what the service can do, what info you send it, and what you get back."
   },
   {
     "week": 5,
@@ -953,8 +953,8 @@
       "Database synchronisation model"
     ],
     "answer": 1,
-    "explanation": "The Ajax application model is a 'partial screen update' model — only the interface elements with new information are updated; the rest stays as-is.",
-    "simple_explanation": "AJAX only updates the part of the page that changed. Like on Facebook — when a new comment appears, the whole page doesn't reload. Just that section updates quietly."
+    "explanation": "The Ajax application model is a 'partial screen update' model \u2014 only the interface elements with new information are updated; the rest stays as-is.",
+    "simple_explanation": "AJAX only updates the part of the page that changed. Like on Facebook \u2014 when a new comment appears, the whole page doesn't reload. Just that section updates quietly."
   },
   {
     "week": 5,
@@ -980,7 +980,7 @@
     ],
     "answer": 0,
     "explanation": "True. fetch() is asynchronous and returns a Promise. You handle the result using .then() or async/await syntax.",
-    "simple_explanation": "fetch() doesn't give you the data instantly — it gives you a Promise, which is like a 'IOU' that will be filled in when the data arrives. You use .then() to say what to do with it."
+    "simple_explanation": "fetch() doesn't give you the data instantly \u2014 it gives you a Promise, which is like a 'IOU' that will be filled in when the data arrives. You use .then() to say what to do with it."
   },
   {
     "week": 5,
@@ -1006,7 +1006,7 @@
     ],
     "answer": 1,
     "explanation": "CSS stands for Cascading Style Sheets. It is the style language of the Web, used to present the content of web pages.",
-    "simple_explanation": "CSS = Cascading Style Sheets. It's what makes websites look nice — colours, fonts, layout. Without it, every page would just be plain black text."
+    "simple_explanation": "CSS = Cascading Style Sheets. It's what makes websites look nice \u2014 colours, fonts, layout. Without it, every page would just be plain black text."
   },
   {
     "week": 4,
@@ -1021,7 +1021,7 @@
     ],
     "answer": 1,
     "explanation": "A CSS rule consists of a selector followed by curly braces containing property-value pairs separated by colons and terminated with semicolons: selector { property: value; }",
-    "simple_explanation": "CSS rules look like: h1 { color: red; } — the selector picks which HTML elements to style, and inside the curly braces you list what to change and what to change it to."
+    "simple_explanation": "CSS rules look like: h1 { color: red; } \u2014 the selector picks which HTML elements to style, and inside the curly braces you list what to change and what to change it to."
   },
   {
     "week": 4,
@@ -1051,7 +1051,7 @@
     ],
     "answer": 2,
     "explanation": "In CSS, the # symbol targets an element by its id attribute. For example, #danger { color: red; } applies to the element with id=\"danger\".",
-    "simple_explanation": "# = id selector. .danger targets class=\"danger\", but #danger targets id=\"danger\". IDs are unique — only one element per page should have a given id."
+    "simple_explanation": "# = id selector. .danger targets class=\"danger\", but #danger targets id=\"danger\". IDs are unique \u2014 only one element per page should have a given id."
   },
   {
     "week": 4,
@@ -1079,7 +1079,7 @@
     ],
     "answer": 0,
     "explanation": "True. Based on the cascading order, inline styles are the most specific and will override CSS from external or internal stylesheets.",
-    "simple_explanation": "Inline styles win the priority battle. CSS has a specificity system — the more targeted (specific) a style is, the higher priority it gets. Inline beats everything."
+    "simple_explanation": "Inline styles win the priority battle. CSS has a specificity system \u2014 the more targeted (specific) a style is, the higher priority it gets. Inline beats everything."
   },
   {
     "week": 4,
@@ -1092,7 +1092,7 @@
     ],
     "answer": 1,
     "explanation": "False. The selector 'div p' selects ALL <p> elements that are descendants of a <div> (not just direct children). The direct child selector would be 'div > p'.",
-    "simple_explanation": "'div p' means any <p> that's inside a <div> at any depth — grandchildren, great-grandchildren, etc. If you only want direct children, use 'div > p' instead."
+    "simple_explanation": "'div p' means any <p> that's inside a <div> at any depth \u2014 grandchildren, great-grandchildren, etc. If you only want direct children, use 'div > p' instead."
   },
   {
     "week": 4,
@@ -1115,7 +1115,7 @@
       "href"
     ],
     "explanation": "The href attribute in the <link> tag specifies the path to the external CSS file, just like in the <a> anchor tag.",
-    "simple_explanation": "href tells the browser where to find the CSS file. It's the same attribute used in hyperlinks — it means 'here is the reference/path'."
+    "simple_explanation": "href tells the browser where to find the CSS file. It's the same attribute used in hyperlinks \u2014 it means 'here is the reference/path'."
   },
   {
     "week": 4,
@@ -1130,7 +1130,7 @@
     ],
     "answer": 2,
     "explanation": "preg_match() tests whether a string matches a pattern. preg_replace() replaces matches, and preg_split() splits a string by a pattern.",
-    "simple_explanation": "preg_match() is your 'does this match?' function. Give it a pattern and a string — it returns true if the pattern is found in the string, false if not."
+    "simple_explanation": "preg_match() is your 'does this match?' function. Give it a pattern and a string \u2014 it returns true if the pattern is found in the string, false if not."
   },
   {
     "week": 4,
@@ -1138,14 +1138,14 @@
     "type": "mcq",
     "question": "In a PHP regular expression, what does the \\d character class match?",
     "options": [
-      "Any letter a–z",
+      "Any letter a\u2013z",
       "Any whitespace character",
       "Any single digit from 0 to 9",
       "Any word character including underscore"
     ],
     "answer": 2,
     "explanation": "\\d is a shortcut for [0-9] and matches any single digit. \\w matches word characters [A-Za-z0-9_], and \\s matches whitespace (space or tab).",
-    "simple_explanation": "\\d = digit (0–9). Think 'd for digit'. \\w = word character (letters, digits, underscore). \\s = space. These shortcuts save you writing out [0-9] every time."
+    "simple_explanation": "\\d = digit (0\u20139). Think 'd for digit'. \\w = word character (letters, digits, underscore). \\s = space. These shortcuts save you writing out [0-9] every time."
   },
   {
     "week": 4,
@@ -1159,8 +1159,8 @@
       "Any string ending with 'WebDev'"
     ],
     "answer": 2,
-    "explanation": "^ anchors to the start of the string and $ anchors to the end. Together they mean the entire string must exactly equal 'WebDev' — nothing before or after.",
-    "simple_explanation": "^ means 'start here', $ means 'end here'. So ^WebDev$ means the string must START with WebDev AND END with WebDev — it can't have anything else around it."
+    "explanation": "^ anchors to the start of the string and $ anchors to the end. Together they mean the entire string must exactly equal 'WebDev' \u2014 nothing before or after.",
+    "simple_explanation": "^ means 'start here', $ means 'end here'. So ^WebDev$ means the string must START with WebDev AND END with WebDev \u2014 it can't have anything else around it."
   },
   {
     "week": 4,
@@ -1175,7 +1175,7 @@
     ],
     "answer": 2,
     "explanation": "In regex: ? = zero or one, * = zero or more, + = one or more. So /bana+na/ matches 'banana' and 'banaana' but NOT 'banna' because + requires at least one 'a'.",
-    "simple_explanation": "+ means 'at least one'. So a+ needs at least one 'a' — it matches 'a', 'aa', 'aaa' etc. Compare to * which allows zero or more (so it would also match nothing)."
+    "simple_explanation": "+ means 'at least one'. So a+ needs at least one 'a' \u2014 it matches 'a', 'aa', 'aaa' etc. Compare to * which allows zero or more (so it would also match nothing)."
   },
   {
     "week": 4,
@@ -1188,7 +1188,7 @@
     ],
     "answer": 0,
     "explanation": "True. The /i modifier makes the pattern case-insensitive, so /webdev/i would match 'WebDev', 'WEBDEV', 'webdev', etc.",
-    "simple_explanation": "Adding /i after your pattern makes it ignore upper/lowercase. So /hello/i matches 'Hello', 'HELLO', 'hElLo' — any capitalisation."
+    "simple_explanation": "Adding /i after your pattern makes it ignore upper/lowercase. So /hello/i matches 'Hello', 'HELLO', 'hElLo' \u2014 any capitalisation."
   },
   {
     "week": 4,
@@ -1201,7 +1201,7 @@
     ],
     "answer": 1,
     "explanation": "False. Uppercase forms are the complement (opposite). \\w matches word characters [A-Za-z0-9_], while \\W matches any character that is NOT in that set (symbols, punctuation, spaces etc.).",
-    "simple_explanation": "Uppercase = opposite. \\w matches letters/digits/underscore. \\W (uppercase) matches everything ELSE — like punctuation and symbols. Same rule applies for \\D (not a digit) and \\S (not whitespace)."
+    "simple_explanation": "Uppercase = opposite. \\w matches letters/digits/underscore. \\W (uppercase) matches everything ELSE \u2014 like punctuation and symbols. Same rule applies for \\D (not a digit) and \\S (not whitespace)."
   },
   {
     "week": 4,
@@ -1218,12 +1218,12 @@
     "week": 4,
     "topic": "Regular Expressions",
     "type": "fillin",
-    "question": "What regex special character matches the END of a string?\n\n/WebDev___/  — matches only strings ending with 'WebDev'",
+    "question": "What regex special character matches the END of a string?\n\n/WebDev___/  \u2014 matches only strings ending with 'WebDev'",
     "answers": [
       "$"
     ],
     "explanation": "$ anchors the pattern to the end of the string. So /WebDev$/ matches 'I love WebDev' but not 'WebDev is great!' (because there's more text after WebDev).",
-    "simple_explanation": "$ means 'this must be at the end'. So /bye$/ matches 'goodbye' but not 'bye for now' — because 'bye' isn't the last thing in that second string."
+    "simple_explanation": "$ means 'this must be at the end'. So /bye$/ matches 'goodbye' but not 'bye for now' \u2014 because 'bye' isn't the last thing in that second string."
   },
   {
     "week": 4,
@@ -1253,7 +1253,7 @@
     ],
     "answer": 1,
     "explanation": "The @ error control operator suppresses error messages from a function. This is used so database error details (like passwords) are not shown to users.",
-    "simple_explanation": "@ before a function silences any error messages it would normally print. Useful for database connections — you don't want users seeing 'wrong password' error messages with your DB credentials."
+    "simple_explanation": "@ before a function silences any error messages it would normally print. Useful for database connections \u2014 you don't want users seeing 'wrong password' error messages with your DB credentials."
   },
   {
     "week": 4,
@@ -1261,10 +1261,10 @@
     "type": "mcq",
     "question": "What is the correct order of steps when accessing a MySQL database from PHP?",
     "options": [
-      "Query → Connect → Close",
-      "Connect → Close → Query",
-      "Connect → Query → Close",
-      "Select DB → Connect → Query → Close"
+      "Query \u2192 Connect \u2192 Close",
+      "Connect \u2192 Close \u2192 Query",
+      "Connect \u2192 Query \u2192 Close",
+      "Select DB \u2192 Connect \u2192 Query \u2192 Close"
     ],
     "answer": 2,
     "explanation": "The three-step pattern is: (1) Open the connection with mysqli_connect(), (2) Execute SQL with mysqli_query(), (3) Close with mysqli_free_result() and mysqli_close().",
@@ -1293,7 +1293,7 @@
       "False"
     ],
     "answer": 1,
-    "explanation": "False. DELETE without WHERE deletes ALL records in the table. This is one of the most dangerous mistakes in SQL — always double-check your WHERE clause before running DELETE.",
+    "explanation": "False. DELETE without WHERE deletes ALL records in the table. This is one of the most dangerous mistakes in SQL \u2014 always double-check your WHERE clause before running DELETE.",
     "simple_explanation": "No WHERE = delete everything. DELETE FROM users; wipes out every single user in your database instantly. Always write the WHERE clause first before typing DELETE."
   },
   {
@@ -1316,7 +1316,7 @@
       "AUTO_INCREMENT"
     ],
     "explanation": "AUTO_INCREMENT tells MySQL to automatically assign the next available integer when a new row is inserted. Combined with PRIMARY KEY, this creates a unique auto-numbered ID for each record.",
-    "simple_explanation": "AUTO_INCREMENT means MySQL handles the numbering for you. Insert a row and it gets ID 1, next row gets ID 2, and so on — you never have to specify the ID yourself."
+    "simple_explanation": "AUTO_INCREMENT means MySQL handles the numbering for you. Insert a row and it gets ID 1, next row gets ID 2, and so on \u2014 you never have to specify the ID yourself."
   },
   {
     "week": 4,
@@ -1327,7 +1327,7 @@
       "ORDER BY"
     ],
     "explanation": "ORDER BY sorts the results. You can sort by one or more columns, ascending (default) or descending (add DESC). Without ORDER BY, the order of results is not guaranteed.",
-    "simple_explanation": "ORDER BY is how you sort your results. ORDER BY name sorts alphabetically A-Z. Add DESC after for Z-A. You can sort by numbers too — ORDER BY grade DESC gives highest grades first."
+    "simple_explanation": "ORDER BY is how you sort your results. ORDER BY name sorts alphabetically A-Z. Add DESC after for Z-A. You can sort by numbers too \u2014 ORDER BY grade DESC gives highest grades first."
   },
   {
     "week": 4,
@@ -1342,7 +1342,7 @@
     ],
     "answer": 1,
     "explanation": "A primary key is a field (or combination of fields) that contains a unique identifier for each record. No two rows can have the same primary key value, and it cannot be NULL.",
-    "simple_explanation": "A primary key is the unique ID for each row — like a student ID or passport number. No two rows can share the same value, and it can never be blank."
+    "simple_explanation": "A primary key is the unique ID for each row \u2014 like a student ID or passport number. No two rows can share the same value, and it can never be blank."
   },
   {
     "week": 4,
@@ -1376,13 +1376,388 @@
     "week": 4,
     "topic": "Database Concepts",
     "type": "truefalse",
-    "question": "True or False: SQL is case-sensitive — SELECT must be written in uppercase.",
+    "question": "True or False: SQL is case-sensitive \u2014 SELECT must be written in uppercase.",
     "options": [
       "True",
       "False"
     ],
     "answer": 1,
     "explanation": "False. SQL keywords are NOT case-sensitive. 'SELECT', 'select', and 'Select' all work the same way. However, convention is to write SQL keywords in uppercase for readability.",
-    "simple_explanation": "SQL keywords like SELECT, FROM, WHERE don't care about case — select, SELECT, and Select all work. It's just convention to write them in uppercase so they stand out."
+    "simple_explanation": "SQL keywords like SELECT, FROM, WHERE don't care about case \u2014 select, SELECT, and Select all work. It's just convention to write them in uppercase so they stand out."
+  },
+  {
+    "week": 1,
+    "topic": "HTML Basics",
+    "type": "mcq",
+    "question": "Week1 Extra Q1: Which tag is used to create a hyperlink?",
+    "options": [
+      "<link>",
+      "<a>",
+      "<href>",
+      "<hyper>"
+    ],
+    "answer": 1,
+    "explanation": "<a> tag defines a hyperlink.",
+    "simple_explanation": "Use <a> to make links."
+  },
+  {
+    "week": 1,
+    "topic": "HTML Basics",
+    "type": "mcq",
+    "question": "Week1 Extra Q2: Which tag is used to create a hyperlink?",
+    "options": [
+      "<link>",
+      "<a>",
+      "<href>",
+      "<hyper>"
+    ],
+    "answer": 1,
+    "explanation": "<a> tag defines a hyperlink.",
+    "simple_explanation": "Use <a> to make links."
+  },
+  {
+    "week": 1,
+    "topic": "HTML Basics",
+    "type": "mcq",
+    "question": "Week1 Extra Q3: Which tag is used to create a hyperlink?",
+    "options": [
+      "<link>",
+      "<a>",
+      "<href>",
+      "<hyper>"
+    ],
+    "answer": 1,
+    "explanation": "<a> tag defines a hyperlink.",
+    "simple_explanation": "Use <a> to make links."
+  },
+  {
+    "week": 1,
+    "topic": "HTML Basics",
+    "type": "mcq",
+    "question": "Week1 Extra Q4: Which tag is used to create a hyperlink?",
+    "options": [
+      "<link>",
+      "<a>",
+      "<href>",
+      "<hyper>"
+    ],
+    "answer": 1,
+    "explanation": "<a> tag defines a hyperlink.",
+    "simple_explanation": "Use <a> to make links."
+  },
+  {
+    "week": 1,
+    "topic": "HTML Basics",
+    "type": "mcq",
+    "question": "Week1 Extra Q5: Which tag is used to create a hyperlink?",
+    "options": [
+      "<link>",
+      "<a>",
+      "<href>",
+      "<hyper>"
+    ],
+    "answer": 1,
+    "explanation": "<a> tag defines a hyperlink.",
+    "simple_explanation": "Use <a> to make links."
+  },
+  {
+    "week": 1,
+    "topic": "HTML Basics",
+    "type": "mcq",
+    "question": "Week1 Extra Q6: Which tag is used to create a hyperlink?",
+    "options": [
+      "<link>",
+      "<a>",
+      "<href>",
+      "<hyper>"
+    ],
+    "answer": 1,
+    "explanation": "<a> tag defines a hyperlink.",
+    "simple_explanation": "Use <a> to make links."
+  },
+  {
+    "week": 2,
+    "topic": "PHP Basics",
+    "type": "mcq",
+    "question": "Week2 Extra Q1: Which symbol is used for variables in PHP?",
+    "options": [
+      "#",
+      "$",
+      "%",
+      "&"
+    ],
+    "answer": 1,
+    "explanation": "PHP variables start with $",
+    "simple_explanation": "All PHP variables begin with $."
+  },
+  {
+    "week": 2,
+    "topic": "PHP Basics",
+    "type": "mcq",
+    "question": "Week2 Extra Q2: Which symbol is used for variables in PHP?",
+    "options": [
+      "#",
+      "$",
+      "%",
+      "&"
+    ],
+    "answer": 1,
+    "explanation": "PHP variables start with $",
+    "simple_explanation": "All PHP variables begin with $."
+  },
+  {
+    "week": 2,
+    "topic": "PHP Basics",
+    "type": "mcq",
+    "question": "Week2 Extra Q3: Which symbol is used for variables in PHP?",
+    "options": [
+      "#",
+      "$",
+      "%",
+      "&"
+    ],
+    "answer": 1,
+    "explanation": "PHP variables start with $",
+    "simple_explanation": "All PHP variables begin with $."
+  },
+  {
+    "week": 3,
+    "topic": "Arrays",
+    "type": "mcq",
+    "question": "Week3 Extra Q1: What does count() do in PHP?",
+    "options": [
+      "Adds numbers",
+      "Counts elements",
+      "Sorts array",
+      "Deletes items"
+    ],
+    "answer": 1,
+    "explanation": "count() returns number of elements.",
+    "simple_explanation": "It tells how many items are in array."
+  },
+  {
+    "week": 3,
+    "topic": "Arrays",
+    "type": "mcq",
+    "question": "Week3 Extra Q2: What does count() do in PHP?",
+    "options": [
+      "Adds numbers",
+      "Counts elements",
+      "Sorts array",
+      "Deletes items"
+    ],
+    "answer": 1,
+    "explanation": "count() returns number of elements.",
+    "simple_explanation": "It tells how many items are in array."
+  },
+  {
+    "week": 3,
+    "topic": "Arrays",
+    "type": "mcq",
+    "question": "Week3 Extra Q3: What does count() do in PHP?",
+    "options": [
+      "Adds numbers",
+      "Counts elements",
+      "Sorts array",
+      "Deletes items"
+    ],
+    "answer": 1,
+    "explanation": "count() returns number of elements.",
+    "simple_explanation": "It tells how many items are in array."
+  },
+  {
+    "week": 3,
+    "topic": "Arrays",
+    "type": "mcq",
+    "question": "Week3 Extra Q4: What does count() do in PHP?",
+    "options": [
+      "Adds numbers",
+      "Counts elements",
+      "Sorts array",
+      "Deletes items"
+    ],
+    "answer": 1,
+    "explanation": "count() returns number of elements.",
+    "simple_explanation": "It tells how many items are in array."
+  },
+  {
+    "week": 3,
+    "topic": "Arrays",
+    "type": "mcq",
+    "question": "Week3 Extra Q5: What does count() do in PHP?",
+    "options": [
+      "Adds numbers",
+      "Counts elements",
+      "Sorts array",
+      "Deletes items"
+    ],
+    "answer": 1,
+    "explanation": "count() returns number of elements.",
+    "simple_explanation": "It tells how many items are in array."
+  },
+  {
+    "week": 3,
+    "topic": "Arrays",
+    "type": "mcq",
+    "question": "Week3 Extra Q6: What does count() do in PHP?",
+    "options": [
+      "Adds numbers",
+      "Counts elements",
+      "Sorts array",
+      "Deletes items"
+    ],
+    "answer": 1,
+    "explanation": "count() returns number of elements.",
+    "simple_explanation": "It tells how many items are in array."
+  },
+  {
+    "week": 3,
+    "topic": "Arrays",
+    "type": "mcq",
+    "question": "Week3 Extra Q7: What does count() do in PHP?",
+    "options": [
+      "Adds numbers",
+      "Counts elements",
+      "Sorts array",
+      "Deletes items"
+    ],
+    "answer": 1,
+    "explanation": "count() returns number of elements.",
+    "simple_explanation": "It tells how many items are in array."
+  },
+  {
+    "week": 5,
+    "topic": "MySQL",
+    "type": "mcq",
+    "question": "Week5 Extra Q1: Which SQL command retrieves data?",
+    "options": [
+      "GET",
+      "SELECT",
+      "FETCH",
+      "RETRIEVE"
+    ],
+    "answer": 1,
+    "explanation": "SELECT is used to retrieve data.",
+    "simple_explanation": "Use SELECT to get data."
+  },
+  {
+    "week": 5,
+    "topic": "MySQL",
+    "type": "mcq",
+    "question": "Week5 Extra Q2: Which SQL command retrieves data?",
+    "options": [
+      "GET",
+      "SELECT",
+      "FETCH",
+      "RETRIEVE"
+    ],
+    "answer": 1,
+    "explanation": "SELECT is used to retrieve data.",
+    "simple_explanation": "Use SELECT to get data."
+  },
+  {
+    "week": 5,
+    "topic": "MySQL",
+    "type": "mcq",
+    "question": "Week5 Extra Q3: Which SQL command retrieves data?",
+    "options": [
+      "GET",
+      "SELECT",
+      "FETCH",
+      "RETRIEVE"
+    ],
+    "answer": 1,
+    "explanation": "SELECT is used to retrieve data.",
+    "simple_explanation": "Use SELECT to get data."
+  },
+  {
+    "week": 5,
+    "topic": "MySQL",
+    "type": "mcq",
+    "question": "Week5 Extra Q4: Which SQL command retrieves data?",
+    "options": [
+      "GET",
+      "SELECT",
+      "FETCH",
+      "RETRIEVE"
+    ],
+    "answer": 1,
+    "explanation": "SELECT is used to retrieve data.",
+    "simple_explanation": "Use SELECT to get data."
+  },
+  {
+    "week": 5,
+    "topic": "MySQL",
+    "type": "mcq",
+    "question": "Week5 Extra Q5: Which SQL command retrieves data?",
+    "options": [
+      "GET",
+      "SELECT",
+      "FETCH",
+      "RETRIEVE"
+    ],
+    "answer": 1,
+    "explanation": "SELECT is used to retrieve data.",
+    "simple_explanation": "Use SELECT to get data."
+  },
+  {
+    "week": 5,
+    "topic": "MySQL",
+    "type": "mcq",
+    "question": "Week5 Extra Q6: Which SQL command retrieves data?",
+    "options": [
+      "GET",
+      "SELECT",
+      "FETCH",
+      "RETRIEVE"
+    ],
+    "answer": 1,
+    "explanation": "SELECT is used to retrieve data.",
+    "simple_explanation": "Use SELECT to get data."
+  },
+  {
+    "week": 5,
+    "topic": "MySQL",
+    "type": "mcq",
+    "question": "Week5 Extra Q7: Which SQL command retrieves data?",
+    "options": [
+      "GET",
+      "SELECT",
+      "FETCH",
+      "RETRIEVE"
+    ],
+    "answer": 1,
+    "explanation": "SELECT is used to retrieve data.",
+    "simple_explanation": "Use SELECT to get data."
+  },
+  {
+    "week": 5,
+    "topic": "MySQL",
+    "type": "mcq",
+    "question": "Week5 Extra Q8: Which SQL command retrieves data?",
+    "options": [
+      "GET",
+      "SELECT",
+      "FETCH",
+      "RETRIEVE"
+    ],
+    "answer": 1,
+    "explanation": "SELECT is used to retrieve data.",
+    "simple_explanation": "Use SELECT to get data."
+  },
+  {
+    "week": 5,
+    "topic": "MySQL",
+    "type": "mcq",
+    "question": "Week5 Extra Q9: Which SQL command retrieves data?",
+    "options": [
+      "GET",
+      "SELECT",
+      "FETCH",
+      "RETRIEVE"
+    ],
+    "answer": 1,
+    "explanation": "SELECT is used to retrieve data.",
+    "simple_explanation": "Use SELECT to get data."
   }
 ]
