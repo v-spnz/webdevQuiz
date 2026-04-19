@@ -992,5 +992,397 @@
     ],
     "explanation": "fetch() is the modern JavaScript API for making HTTP requests. It replaces the older XMLHttpRequest (XHR) approach and returns a Promise.",
     "simple_explanation": "fetch() is how JavaScript asks the server for data without reloading the page. You give it a URL, it goes and gets the data, and .then() tells it what to do with the response."
+  },
+  {
+    "week": 4,
+    "topic": "CSS",
+    "type": "mcq",
+    "question": "What does CSS stand for?",
+    "options": [
+      "Computer Style Sheets",
+      "Cascading Style Sheets",
+      "Creative Style Syntax",
+      "Coloured Style Sheets"
+    ],
+    "answer": 1,
+    "explanation": "CSS stands for Cascading Style Sheets. It is the style language of the Web, used to present the content of web pages.",
+    "simple_explanation": "CSS = Cascading Style Sheets. It's what makes websites look nice — colours, fonts, layout. Without it, every page would just be plain black text."
+  },
+  {
+    "week": 4,
+    "topic": "CSS",
+    "type": "mcq",
+    "question": "What is the correct syntax for a CSS rule?",
+    "options": [
+      "selector: { property = value; }",
+      "selector { property: value; }",
+      "selector { property = value }",
+      "{selector} property: value;"
+    ],
+    "answer": 1,
+    "explanation": "A CSS rule consists of a selector followed by curly braces containing property-value pairs separated by colons and terminated with semicolons: selector { property: value; }",
+    "simple_explanation": "CSS rules look like: h1 { color: red; } — the selector picks which HTML elements to style, and inside the curly braces you list what to change and what to change it to."
+  },
+  {
+    "week": 4,
+    "topic": "CSS",
+    "type": "mcq",
+    "question": "Which of the following is the BEST practice for applying CSS to a website?",
+    "options": [
+      "Inline styles on each element",
+      "Internal <style> tags in each page's <head>",
+      "External stylesheet linked with a <link> element",
+      "Using the style attribute on the <body> tag only"
+    ],
+    "answer": 2,
+    "explanation": "External stylesheets are best practice. The same .css file can be linked and reused across many pages. Inline styles and internal stylesheets should be avoided as they are harder to maintain.",
+    "simple_explanation": "External CSS files are best because one file styles your whole website. Change it once and every page updates. Inline styles are messy and hard to manage."
+  },
+  {
+    "week": 4,
+    "topic": "CSS",
+    "type": "mcq",
+    "question": "Which CSS selector targets an element with a specific id attribute?",
+    "options": [
+      ".myId",
+      "*myId",
+      "#myId",
+      "@myId"
+    ],
+    "answer": 2,
+    "explanation": "In CSS, the # symbol targets an element by its id attribute. For example, #danger { color: red; } applies to the element with id=\"danger\".",
+    "simple_explanation": "# = id selector. .danger targets class=\"danger\", but #danger targets id=\"danger\". IDs are unique — only one element per page should have a given id."
+  },
+  {
+    "week": 4,
+    "topic": "CSS",
+    "type": "mcq",
+    "question": "Which CSS property is used to make a container use Flexbox layout?",
+    "options": [
+      "layout: flex;",
+      "flex: display;",
+      "display: flex;",
+      "position: flex;"
+    ],
+    "answer": 2,
+    "explanation": "Setting display: flex on a container element activates Flexbox layout. Items inside the container then flexibly flow and can be aligned using justify-content and align-items.",
+    "simple_explanation": "To turn on Flexbox, add display: flex to the container div. All the elements inside it become 'flex items' and you can easily align them in rows or columns."
+  },
+  {
+    "week": 4,
+    "topic": "CSS",
+    "type": "truefalse",
+    "question": "True or False: An inline style will override styles defined in an external stylesheet.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 0,
+    "explanation": "True. Based on the cascading order, inline styles are the most specific and will override CSS from external or internal stylesheets.",
+    "simple_explanation": "Inline styles win the priority battle. CSS has a specificity system — the more targeted (specific) a style is, the higher priority it gets. Inline beats everything."
+  },
+  {
+    "week": 4,
+    "topic": "CSS",
+    "type": "truefalse",
+    "question": "True or False: In CSS, the selector 'div p' selects all <p> elements that are direct children of a <div> only.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "explanation": "False. The selector 'div p' selects ALL <p> elements that are descendants of a <div> (not just direct children). The direct child selector would be 'div > p'.",
+    "simple_explanation": "'div p' means any <p> that's inside a <div> at any depth — grandchildren, great-grandchildren, etc. If you only want direct children, use 'div > p' instead."
+  },
+  {
+    "week": 4,
+    "topic": "CSS",
+    "type": "fillin",
+    "question": "Complete the CSS rule to change the colour of all h1 elements to blue:\n\nh1 { ___: blue; }",
+    "answers": [
+      "color",
+      "colour"
+    ],
+    "explanation": "The CSS 'color' property sets the text colour of an element. CSS uses American spelling (color, not colour).",
+    "simple_explanation": "The CSS property for text colour is 'color' (American spelling). So h1 { color: blue; } makes all h1 headings blue."
+  },
+  {
+    "week": 4,
+    "topic": "CSS",
+    "type": "fillin",
+    "question": "Complete the HTML tag to link an external CSS file named 'styles.css':\n\n<link rel=\"stylesheet\" type=\"text/css\" ___=\"styles.css\" />",
+    "answers": [
+      "href"
+    ],
+    "explanation": "The href attribute in the <link> tag specifies the path to the external CSS file, just like in the <a> anchor tag.",
+    "simple_explanation": "href tells the browser where to find the CSS file. It's the same attribute used in hyperlinks — it means 'here is the reference/path'."
+  },
+  {
+    "week": 4,
+    "topic": "Regular Expressions",
+    "type": "mcq",
+    "question": "Which PHP function is used to test whether a string matches a regular expression pattern?",
+    "options": [
+      "preg_split()",
+      "preg_replace()",
+      "preg_match()",
+      "preg_test()"
+    ],
+    "answer": 2,
+    "explanation": "preg_match() tests whether a string matches a pattern. preg_replace() replaces matches, and preg_split() splits a string by a pattern.",
+    "simple_explanation": "preg_match() is your 'does this match?' function. Give it a pattern and a string — it returns true if the pattern is found in the string, false if not."
+  },
+  {
+    "week": 4,
+    "topic": "Regular Expressions",
+    "type": "mcq",
+    "question": "In a PHP regular expression, what does the \\d character class match?",
+    "options": [
+      "Any letter a–z",
+      "Any whitespace character",
+      "Any single digit from 0 to 9",
+      "Any word character including underscore"
+    ],
+    "answer": 2,
+    "explanation": "\\d is a shortcut for [0-9] and matches any single digit. \\w matches word characters [A-Za-z0-9_], and \\s matches whitespace (space or tab).",
+    "simple_explanation": "\\d = digit (0–9). Think 'd for digit'. \\w = word character (letters, digits, underscore). \\s = space. These shortcuts save you writing out [0-9] every time."
+  },
+  {
+    "week": 4,
+    "topic": "Regular Expressions",
+    "type": "mcq",
+    "question": "What does the regular expression pattern /^WebDev$/ match?",
+    "options": [
+      "Any string containing 'WebDev'",
+      "Any string starting with 'WebDev'",
+      "The exact string 'WebDev' and nothing else",
+      "Any string ending with 'WebDev'"
+    ],
+    "answer": 2,
+    "explanation": "^ anchors to the start of the string and $ anchors to the end. Together they mean the entire string must exactly equal 'WebDev' — nothing before or after.",
+    "simple_explanation": "^ means 'start here', $ means 'end here'. So ^WebDev$ means the string must START with WebDev AND END with WebDev — it can't have anything else around it."
+  },
+  {
+    "week": 4,
+    "topic": "Regular Expressions",
+    "type": "mcq",
+    "question": "What does the quantifier + mean in a regular expression?",
+    "options": [
+      "Zero or one of the preceding element",
+      "Zero or more of the preceding element",
+      "One or more of the preceding element",
+      "Exactly two of the preceding element"
+    ],
+    "answer": 2,
+    "explanation": "In regex: ? = zero or one, * = zero or more, + = one or more. So /bana+na/ matches 'banana' and 'banaana' but NOT 'banna' because + requires at least one 'a'.",
+    "simple_explanation": "+ means 'at least one'. So a+ needs at least one 'a' — it matches 'a', 'aa', 'aaa' etc. Compare to * which allows zero or more (so it would also match nothing)."
+  },
+  {
+    "week": 4,
+    "topic": "Regular Expressions",
+    "type": "truefalse",
+    "question": "True or False: The /i modifier in a PHP regular expression makes the pattern case-insensitive.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 0,
+    "explanation": "True. The /i modifier makes the pattern case-insensitive, so /webdev/i would match 'WebDev', 'WEBDEV', 'webdev', etc.",
+    "simple_explanation": "Adding /i after your pattern makes it ignore upper/lowercase. So /hello/i matches 'Hello', 'HELLO', 'hElLo' — any capitalisation."
+  },
+  {
+    "week": 4,
+    "topic": "Regular Expressions",
+    "type": "truefalse",
+    "question": "True or False: The \\W character class (uppercase W) matches the same characters as \\w.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "explanation": "False. Uppercase forms are the complement (opposite). \\w matches word characters [A-Za-z0-9_], while \\W matches any character that is NOT in that set (symbols, punctuation, spaces etc.).",
+    "simple_explanation": "Uppercase = opposite. \\w matches letters/digits/underscore. \\W (uppercase) matches everything ELSE — like punctuation and symbols. Same rule applies for \\D (not a digit) and \\S (not whitespace)."
+  },
+  {
+    "week": 4,
+    "topic": "Regular Expressions",
+    "type": "fillin",
+    "question": "In PHP regular expressions, what function would you use to replace all matches of a pattern in a string?\n\n$result = ___(pattern, replacement, string);",
+    "answers": [
+      "preg_replace"
+    ],
+    "explanation": "preg_replace() replaces all occurrences of the pattern in the string with the replacement string. It's the regex equivalent of str_replace() but with pattern matching.",
+    "simple_explanation": "preg_replace() is like Find & Replace but with regex patterns. You give it what to find (pattern), what to replace it with, and which string to search in."
+  },
+  {
+    "week": 4,
+    "topic": "Regular Expressions",
+    "type": "fillin",
+    "question": "What regex special character matches the END of a string?\n\n/WebDev___/  — matches only strings ending with 'WebDev'",
+    "answers": [
+      "$"
+    ],
+    "explanation": "$ anchors the pattern to the end of the string. So /WebDev$/ matches 'I love WebDev' but not 'WebDev is great!' (because there's more text after WebDev).",
+    "simple_explanation": "$ means 'this must be at the end'. So /bye$/ matches 'goodbye' but not 'bye for now' — because 'bye' isn't the last thing in that second string."
+  },
+  {
+    "week": 4,
+    "topic": "MySQL",
+    "type": "mcq",
+    "question": "Which PHP function returns the number of rows returned by a SELECT query?",
+    "options": [
+      "mysqli_affected_rows()",
+      "mysqli_row_count()",
+      "mysqli_num_rows()",
+      "mysqli_count()"
+    ],
+    "answer": 2,
+    "explanation": "mysqli_num_rows() returns the number of rows in a SELECT query result. For INSERT, UPDATE, and DELETE queries that don't return results, use mysqli_affected_rows() instead.",
+    "simple_explanation": "mysqli_num_rows() tells you how many rows came back from a SELECT. For INSERT/UPDATE/DELETE (which don't return rows), you'd use mysqli_affected_rows() instead."
+  },
+  {
+    "week": 4,
+    "topic": "MySQL",
+    "type": "mcq",
+    "question": "What does the @ operator do when placed before a PHP function call like @mysqli_connect(...)?",
+    "options": [
+      "Makes the function run asynchronously",
+      "Suppresses any error messages the function would generate",
+      "Forces the function to return true",
+      "Logs errors to a file instead of displaying them"
+    ],
+    "answer": 1,
+    "explanation": "The @ error control operator suppresses error messages from a function. This is used so database error details (like passwords) are not shown to users.",
+    "simple_explanation": "@ before a function silences any error messages it would normally print. Useful for database connections — you don't want users seeing 'wrong password' error messages with your DB credentials."
+  },
+  {
+    "week": 4,
+    "topic": "MySQL",
+    "type": "mcq",
+    "question": "What is the correct order of steps when accessing a MySQL database from PHP?",
+    "options": [
+      "Query → Connect → Close",
+      "Connect → Close → Query",
+      "Connect → Query → Close",
+      "Select DB → Connect → Query → Close"
+    ],
+    "answer": 2,
+    "explanation": "The three-step pattern is: (1) Open the connection with mysqli_connect(), (2) Execute SQL with mysqli_query(), (3) Close with mysqli_free_result() and mysqli_close().",
+    "simple_explanation": "Think of it like a phone call: dial (connect), talk (query), hang up (close). You always connect first, do your database work, then clean up and close the connection."
+  },
+  {
+    "week": 4,
+    "topic": "MySQL",
+    "type": "truefalse",
+    "question": "True or False: mysqli_fetch_assoc() and mysqli_fetch_row() both return one row at a time, but mysqli_fetch_assoc() uses column names as keys while mysqli_fetch_row() uses numeric indexes.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 0,
+    "explanation": "True. Both move through the result set one row at a time. mysqli_fetch_row() gives you $row[0], $row[1] etc., while mysqli_fetch_assoc() gives you $row['name'], $row['email'] etc.",
+    "simple_explanation": "Both grab one row at a time. The difference is how you access the data: fetch_row uses numbers ($row[0]), fetch_assoc uses column names ($row['name']). fetch_assoc is usually easier to read."
+  },
+  {
+    "week": 4,
+    "topic": "MySQL",
+    "type": "truefalse",
+    "question": "True or False: Running DELETE FROM users; without a WHERE clause will delete only the first row.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "explanation": "False. DELETE without WHERE deletes ALL records in the table. This is one of the most dangerous mistakes in SQL — always double-check your WHERE clause before running DELETE.",
+    "simple_explanation": "No WHERE = delete everything. DELETE FROM users; wipes out every single user in your database instantly. Always write the WHERE clause first before typing DELETE."
+  },
+  {
+    "week": 4,
+    "topic": "MySQL",
+    "type": "fillin",
+    "question": "Complete the PHP code to close a mysqli database connection:\n\n___(  $conn  );",
+    "answers": [
+      "mysqli_close"
+    ],
+    "explanation": "mysqli_close() closes the connection to the MySQL database server. It's good practice to call this when finished, though PHP automatically closes open connections at the end of a script.",
+    "simple_explanation": "mysqli_close() hangs up the phone call to the database. PHP will close it automatically when the script ends anyway, but calling it explicitly is good clean coding practice."
+  },
+  {
+    "week": 4,
+    "topic": "MySQL",
+    "type": "fillin",
+    "question": "Complete the SQL statement to create a table with an auto-incrementing integer primary key:\n\nCREATE TABLE students (\n  id INT ___ PRIMARY KEY,\n  name VARCHAR(100)\n);",
+    "answers": [
+      "AUTO_INCREMENT"
+    ],
+    "explanation": "AUTO_INCREMENT tells MySQL to automatically assign the next available integer when a new row is inserted. Combined with PRIMARY KEY, this creates a unique auto-numbered ID for each record.",
+    "simple_explanation": "AUTO_INCREMENT means MySQL handles the numbering for you. Insert a row and it gets ID 1, next row gets ID 2, and so on — you never have to specify the ID yourself."
+  },
+  {
+    "week": 4,
+    "topic": "MySQL",
+    "type": "fillin",
+    "question": "Complete the SQL query to retrieve only students with a grade above 80, sorted by name:\n\nSELECT * FROM students WHERE grade > 80 ___ name;",
+    "answers": [
+      "ORDER BY"
+    ],
+    "explanation": "ORDER BY sorts the results. You can sort by one or more columns, ascending (default) or descending (add DESC). Without ORDER BY, the order of results is not guaranteed.",
+    "simple_explanation": "ORDER BY is how you sort your results. ORDER BY name sorts alphabetically A-Z. Add DESC after for Z-A. You can sort by numbers too — ORDER BY grade DESC gives highest grades first."
+  },
+  {
+    "week": 4,
+    "topic": "Database Concepts",
+    "type": "mcq",
+    "question": "What is a PRIMARY KEY in a relational database?",
+    "options": [
+      "A field that stores the most important data in each row",
+      "A field that contains a unique identifier for each record in a table",
+      "A field that links two tables together",
+      "The first column in any database table"
+    ],
+    "answer": 1,
+    "explanation": "A primary key is a field (or combination of fields) that contains a unique identifier for each record. No two rows can have the same primary key value, and it cannot be NULL.",
+    "simple_explanation": "A primary key is the unique ID for each row — like a student ID or passport number. No two rows can share the same value, and it can never be blank."
+  },
+  {
+    "week": 4,
+    "topic": "Database Concepts",
+    "type": "mcq",
+    "question": "What is a FOREIGN KEY in a relational database?",
+    "options": [
+      "A key imported from another database system",
+      "A primary key that is automatically generated",
+      "A field in a related table that refers to the primary key of another table",
+      "A field that stores encrypted data"
+    ],
+    "answer": 2,
+    "explanation": "A foreign key is a field in a related (child) table that references the primary key in a primary (parent) table. Foreign keys link records across multiple tables.",
+    "simple_explanation": "A foreign key is how you link two tables. If an Orders table has a customer_id column that matches the id in a Customers table, that customer_id is a foreign key."
+  },
+  {
+    "week": 4,
+    "topic": "Database Concepts",
+    "type": "truefalse",
+    "question": "True or False: A flat-file database stores information in a single table, while a relational database stores information across multiple related tables.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 0,
+    "explanation": "True. A flat-file database is a single table (like a spreadsheet). A relational database uses multiple tables linked by primary and foreign keys to avoid data duplication.",
+    "simple_explanation": "Flat-file = one big spreadsheet with everything. Relational = multiple connected tables. Relational is better for large data because you don't repeat the same info over and over."
+  },
+  {
+    "week": 4,
+    "topic": "Database Concepts",
+    "type": "truefalse",
+    "question": "True or False: SQL is case-sensitive — SELECT must be written in uppercase.",
+    "options": [
+      "True",
+      "False"
+    ],
+    "answer": 1,
+    "explanation": "False. SQL keywords are NOT case-sensitive. 'SELECT', 'select', and 'Select' all work the same way. However, convention is to write SQL keywords in uppercase for readability.",
+    "simple_explanation": "SQL keywords like SELECT, FROM, WHERE don't care about case — select, SELECT, and Select all work. It's just convention to write them in uppercase so they stand out."
   }
 ]

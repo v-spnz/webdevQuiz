@@ -35,7 +35,6 @@ let maxStreak     = 0;
 let quizMode      = 'all';   // 'all' | 'random'
 let timerEnabled  = false;
 let shuffleEnabled = true;
-let shuffleQuestions = false;
 let activeWeeks   = new Set(['1', '2', '3', '4', 'Control Structures', '5']);
 
 // timer
@@ -148,11 +147,6 @@ document.getElementById('shuffle-toggle').addEventListener('change', e => {
   shuffleEnabled = e.target.checked;
 });
 
-// Shuffle questions toggle
-document.getElementById('shuffle-questions-toggle').addEventListener('change', e => {
-  shuffleQuestions = e.target.checked;
-});
-
 function updateTimerSub() {
   const filteredCount = allQuestions.filter(q => activeWeeks.has(String(q.week))).length;
   const n = quizMode === 'random' ? Math.min(15, filteredCount) : filteredCount;
@@ -182,7 +176,7 @@ function startQuiz() {
 
   let picked = quizMode === 'random'
     ? shuffle([...pool]).slice(0, EXAM_QS)
-    : shuffleQuestions ? shuffle([...pool]) : [...pool];
+    : [...pool];
 
   quizQuestions = picked.map(prepareQuestion);
   answers       = new Array(quizQuestions.length).fill(null);
@@ -199,7 +193,6 @@ function startQuiz() {
   if (timerEnabled) startTimer();
   document.getElementById('timer-display').style.display = timerEnabled ? 'block' : 'none';
   document.getElementById('streak-badge').style.display = 'none';
-  document.getElementById('search-bar-strip').style.display = quizMode === 'all' ? 'block' : 'none';
 }
 
 // ── TIMER ────────────────────────────────────────────
@@ -260,7 +253,11 @@ function renderQuestion() {
   const isAnswered = chosen !== null;
   const qType      = q.type || 'mcq'; // default to mcq for backwards compat
 
-  // Tags
+  // Tags + week colour
+  const weekColors = { '1': '#4f8ef7', '2': '#3ecf8e', '3': '#a78bfa', 'Control Structures': '#f7c44f', '4': '#fb923c', '5': '#f76f6f' };
+  const wColor = weekColors[String(q.week)] || '#4f8ef7';
+  document.getElementById('question-card').style.setProperty('--week-color', wColor);
+  document.querySelector('.quiz-header').style.setProperty('--week-color', wColor);
   document.getElementById('q-week').textContent  = 'Week ' + q.week;
   document.getElementById('q-topic').textContent = q.topic;
 
@@ -268,9 +265,25 @@ function renderQuestion() {
   const typeBadge = qType === 'truefalse' ? ' · T/F' : qType === 'fillin' ? ' · Fill in' : '';
   document.getElementById('q-number').textContent = 'Question ' + (currentIndex + 1) + ' of ' + quizQuestions.length + typeBadge;
 
+  // For fill-in: split on ___ and inject inline input or answered span
   const qTextEl = document.getElementById('q-text');
-  if (qType === 'fillin' && q.question.includes('___')) {
-    renderFillInQuestion(q, chosen, isAnswered, qTextEl);
+  if (qType === 'fillin') {
+    const parts = q.question.split(/_{2,}/);
+    const before = escapeHtml(parts[0] || '');
+    const after  = escapeHtml(parts[1] || '');
+    if (!isAnswered) {
+      qTextEl.innerHTML = before +
+        '<input class="fillin-inline-input" id="fillin-inline-input" type="text" ' +
+        'placeholder="your answer…" autocomplete="off" spellcheck="false">' +
+        after;
+    } else {
+      const gotItRight = chosen === '__correct__';
+      const val = escapeHtml(gotItRight ? q.answers[0] : chosen);
+      const cls = gotItRight ? 'fillin-inline-correct' : 'fillin-inline-wrong';
+      qTextEl.innerHTML = before +
+        '<span class="fillin-inline-val ' + cls + '">' + val + '</span>' +
+        after;
+    }
   } else {
     qTextEl.textContent = q.question;
   }
@@ -342,10 +355,10 @@ function renderQuestion() {
     fb.innerHTML =
       '<span class="feedback-label">' + label + '</span>' +
       wrongHint +
-      '<span class="fb-explanation" id="fb-explanation">' + escapeHtml(q.explanation) + '</span>' +
+      '<span class="fb-explanation" id="fb-explanation">' + q.explanation + '</span>' +
       (hasDumb
         ? '<button class="btn-dumb" id="btn-dumb" data-mode="normal">💡 Explain simply</button>' +
-          '<span class="fb-simple" id="fb-simple" style="display:none">' + escapeHtml(q.simple_explanation) + '</span>'
+          '<span class="fb-simple" id="fb-simple" style="display:none">' + q.simple_explanation + '</span>'
         : '');
 
     const dumbBtn = document.getElementById('btn-dumb');
@@ -377,92 +390,51 @@ function renderQuestion() {
   renderDots();
 }
 
-// ── RENDER FILL-IN QUESTION TEXT (inline blank) ──────
-function renderFillInQuestion(q, chosen, isAnswered, container) {
-  const parts = q.question.split('___');
-  const before = escapeHtml(parts[0]);
-  const after  = parts.length > 1 ? escapeHtml(parts[1]) : '';
-
-  if (!isAnswered) {
-    container.innerHTML =
-      before +
-      '<input type="text" id="fillin-input" class="fillin-input-inline" autocomplete="off" spellcheck="false" placeholder="?">' +
-      after;
-
-    const input = container.querySelector('#fillin-input');
-    input.addEventListener('keydown', e => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        const val = input.value.trim();
-        if (val) handleFillIn(val, q);
-      }
-    });
-    setTimeout(() => input.focus(), 50);
-  } else {
-    const gotItRight = chosen === '__correct__';
-    const displayVal = gotItRight ? q.answers[0] : chosen;
-    const cls = gotItRight ? 'fillin-answer-correct' : 'fillin-answer-wrong';
-    container.innerHTML =
-      before +
-      '<span class="fillin-answer-inline ' + cls + '">' + escapeHtml(displayVal) + '</span>' +
-      after;
-  }
-}
-
-// ── RENDER FILL-IN SUBMIT BUTTON (+ input for no-blank questions) ──
+// ── RENDER FILL-IN INPUT ─────────────────────────────
 function renderFillIn(q, chosen, isAnswered, container) {
-  if (isAnswered && q.question.includes('___')) return; // answered state shown inline
-
-  if (isAnswered) {
-    // No-blank question: show submitted answer in a box
-    const gotItRight = chosen === '__correct__';
-    const wrap = document.createElement('div');
-    wrap.className = 'fillin-submitted ' + (gotItRight ? 'fillin-correct' : 'fillin-wrong');
-    wrap.innerHTML =
-      '<span class="fillin-submitted-label">' + (gotItRight ? '✓ Your answer:' : '✗ Your answer:') + '</span>' +
-      '<span class="fillin-submitted-value">' + escapeHtml(gotItRight ? q.answers[0] : chosen) + '</span>';
-    container.appendChild(wrap);
-    return;
-  }
-
-  const wrap = document.createElement('div');
-  wrap.className = 'fillin-wrap';
-
-  // Questions without ___ need a standalone input here
-  if (!q.question.includes('___')) {
-    const input = document.createElement('input');
-    input.type         = 'text';
-    input.className    = 'fillin-input';
-    input.placeholder  = 'Type your answer here...';
-    input.id           = 'fillin-input';
-    input.autocomplete = 'off';
-    input.spellcheck   = false;
-    input.addEventListener('keydown', e => {
-      if (e.key === 'Enter') {
-        e.preventDefault();
-        const val = input.value.trim();
-        if (val) handleFillIn(val, q);
-      }
-    });
-    wrap.appendChild(input);
-    setTimeout(() => input.focus(), 50);
-  }
+  if (isAnswered) return; // answered state is shown inline in the question text
 
   const submitBtn = document.createElement('button');
   submitBtn.className   = 'fillin-submit';
-  submitBtn.textContent = 'Submit Answer';
+  submitBtn.textContent = 'SUBMIT';
   submitBtn.id          = 'fillin-submit';
+  submitBtn.disabled    = true;
+  container.appendChild(submitBtn);
 
-  submitBtn.addEventListener('click', () => {
-    const input = document.getElementById('fillin-input');
-    if (!input) return;
-    const val = input.value.trim();
-    if (val === '') { input.focus(); return; }
+  // Input lives inline in q-text — wire it up now that it's in the DOM
+  const input = document.getElementById('fillin-inline-input');
+
+  const doSubmit = () => {
+    const val = input ? input.value.trim() : '';
+    if (!val) { input?.focus(); return; }
     handleFillIn(val, q);
-  });
+  };
 
-  wrap.appendChild(submitBtn);
-  container.appendChild(wrap);
+  if (input) {
+    input.addEventListener('input', () => {
+      submitBtn.disabled = input.value.trim().length === 0;
+    });
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Enter' && !submitBtn.disabled) { e.preventDefault(); doSubmit(); }
+    });
+    setTimeout(() => input.focus(), 50);
+  }
+
+  submitBtn.addEventListener('click', doSubmit);
+}
+
+// ── STREAK BADGE ─────────────────────────────────────
+function updateStreakBadge() {
+  const badge = document.getElementById('streak-badge');
+  if (streak >= 2) {
+    badge.style.display = 'block';
+    badge.style.opacity = '1';
+    document.getElementById('streak-num').textContent = streak;
+  } else {
+    badge.style.transition = 'opacity .4s ease';
+    badge.style.opacity = '0';
+    setTimeout(() => { badge.style.display = 'none'; badge.style.transition = ''; }, 400);
+  }
 }
 
 // ── HANDLE MCQ / TRUE-FALSE ANSWER ───────────────────
@@ -479,10 +451,20 @@ function handleAnswer(chosenIndex) {
     streak = 0;
   }
 
-  if (streak >= 2) {
-    document.getElementById('streak-badge').style.display = 'block';
-    document.getElementById('streak-num').textContent = streak;
-  }
+  updateStreakBadge();
+
+  // Fade all options that are neither correct nor the chosen wrong one
+  const allBtns = document.querySelectorAll('.option-btn');
+  allBtns.forEach((btn, i) => {
+    btn.disabled = true;
+    if (i === q.answer) {
+      btn.classList.add('correct');
+    } else if (i === chosenIndex) {
+      btn.classList.add('wrong');
+    } else {
+      btn.classList.add('faded');
+    }
+  });
 
   renderQuestion();
 }
@@ -504,10 +486,7 @@ function handleFillIn(typed, q) {
     streak = 0;
   }
 
-  if (streak >= 2) {
-    document.getElementById('streak-badge').style.display = 'block';
-    document.getElementById('streak-num').textContent = streak;
-  }
+  updateStreakBadge();
 
   renderQuestion();
 }
@@ -552,8 +531,14 @@ function renderDots() {
     strip.appendChild(d);
   });
 
-  const currentDot = strip.children[currentIndex];
-  if (currentDot) currentDot.scrollIntoView({ inline: 'center', block: 'nearest', behavior: 'smooth' });
+  // Only scroll if dots overflow the wrap — otherwise text-align:center handles it
+  requestAnimationFrame(() => {
+    const wrap = strip.parentElement;
+    const currentDot = strip.children[currentIndex];
+    if (!currentDot || strip.scrollWidth <= wrap.clientWidth) return;
+    const dotCenter = currentDot.offsetLeft + currentDot.offsetWidth / 2;
+    wrap.scrollTo({ left: Math.max(0, dotCenter - wrap.clientWidth / 2), behavior: 'smooth' });
+  });
 }
 
 // ── BOOKMARK ─────────────────────────────────────────
@@ -567,7 +552,8 @@ function toggleBookmark(idx) {
 // ── KEYBOARD SHORTCUTS ───────────────────────────────
 document.addEventListener('keydown', e => {
   if (!screens.quiz.classList.contains('active')) return;
-  if (document.activeElement && (document.activeElement.id === 'fillin-input' || document.activeElement.id === 'search-input')) return;
+  // Don't intercept keypresses when the fill-in input is focused
+  if (document.activeElement && document.activeElement.id === 'fillin-input') return;
 
   const isAnswered = answers[currentIndex] !== null;
   const optBtns = document.querySelectorAll('.option-btn');
@@ -602,75 +588,6 @@ document.addEventListener('keydown', e => {
       break;
   }
 });
-
-// ── QUESTION SEARCH ──────────────────────────────────
-document.getElementById('btn-search').addEventListener('click', openSearch);
-document.getElementById('search-close').addEventListener('click', closeSearch);
-document.getElementById('search-overlay').addEventListener('click', e => {
-  if (e.target === document.getElementById('search-overlay')) closeSearch();
-});
-document.getElementById('search-input').addEventListener('input', e => {
-  renderSearchResults(e.target.value);
-});
-document.getElementById('search-input').addEventListener('keydown', e => {
-  if (e.key === 'Escape') closeSearch();
-});
-
-function openSearch() {
-  document.getElementById('search-overlay').style.display = 'flex';
-  const input = document.getElementById('search-input');
-  input.value = '';
-  renderSearchResults('');
-  setTimeout(() => input.focus(), 50);
-}
-
-function closeSearch() {
-  document.getElementById('search-overlay').style.display = 'none';
-}
-
-function renderSearchResults(query) {
-  const list = document.getElementById('search-results');
-  list.innerHTML = '';
-  const q = query.toLowerCase().trim();
-
-  const matches = quizQuestions
-    .map((question, i) => ({ question, i }))
-    .filter(({ question }) =>
-      !q ||
-      question.question.toLowerCase().includes(q) ||
-      question.topic.toLowerCase().includes(q)
-    );
-
-  if (matches.length === 0) {
-    list.innerHTML = '<p class="search-empty">No questions match.</p>';
-    return;
-  }
-
-  matches.forEach(({ question, i }) => {
-    const isAnswered = answers[i] !== null;
-    const isCorrect  = isAnswered && (question.type === 'fillin' ? answers[i] === '__correct__' : answers[i] === question.answer);
-    const statusCls  = !isAnswered ? '' : isCorrect ? 'result-correct' : 'result-wrong';
-    const statusIcon = !isAnswered ? '' : isCorrect ? '✓' : '✗';
-
-    const btn = document.createElement('button');
-    btn.className = 'search-result-item' + (i === currentIndex ? ' result-current' : '');
-    btn.innerHTML =
-      '<div class="result-meta">' +
-        '<span class="result-num">Q' + (i + 1) + '</span>' +
-        '<span class="result-topic-tag">' + escapeHtml(question.topic) + '</span>' +
-        (isAnswered ? '<span class="result-status ' + statusCls + '">' + statusIcon + '</span>' : '') +
-      '</div>' +
-      '<span class="result-text">' + escapeHtml(question.question.replace(/\n/g, ' ').slice(0, 100)) + (question.question.length > 100 ? '…' : '') + '</span>';
-
-    btn.addEventListener('click', () => {
-      currentIndex = i;
-      renderQuestion();
-      scrollCardTop();
-      closeSearch();
-    });
-    list.appendChild(btn);
-  });
-}
 
 // ── FINISH QUIZ ──────────────────────────────────────
 function finishQuiz(timedOut) {
@@ -845,9 +762,9 @@ function buildReview() {
         '<span class="topic-tag">' + q.topic + '</span>' +
         (bookmarks.has(i) ? '<span class="bookmark-marker">⭐</span>' : '') +
       '</div>' +
-      '<p class="question-text">Q' + (i + 1) + '. ' + escapeHtml(q.question) + '</p>' +
+      '<p class="question-text">Q' + (i + 1) + '. ' + q.question + '</p>' +
       answerHTML +
-      '<p class="review-explanation">' + escapeHtml(q.explanation) + '</p>';
+      '<p class="review-explanation">' + q.explanation + '</p>';
 
     list.appendChild(div);
   });
