@@ -551,6 +551,18 @@ function toggleBookmark(idx) {
 
 // ── KEYBOARD SHORTCUTS ───────────────────────────────
 document.addEventListener('keydown', e => {
+  // 🚫 Disable shortcuts when typing in ANY input/textarea/contenteditable
+const active = document.activeElement;
+if (
+  active &&
+  (
+    active.tagName === 'INPUT' ||
+    active.tagName === 'TEXTAREA' ||
+    active.isContentEditable
+  )
+) {
+  return; // let typing behave normally (fixes F + space)
+}
   if (!screens.quiz.classList.contains('active')) return;
   // Don't intercept keypresses when the fill-in input is focused
   if (document.activeElement && document.activeElement.id === 'fillin-input') return;
