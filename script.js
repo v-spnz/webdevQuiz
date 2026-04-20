@@ -118,11 +118,12 @@ let bookmarks     = new Set();  // indices of bookmarked questions
 let streak        = 0;
 let maxStreak     = 0;
 
-// settings (read from UI when starting)
-let quizMode      = 'all';   // 'all' | 'random'
+// settings
+let selectedQuiz  = null;  // '1','2','3','4','Control Structures','5','all','real'
+let randomMode    = false; // random 15 (only for 'all')
 let timerEnabled  = false;
 let shuffleEnabled = true;
-let activeWeeks   = new Set(['1', '2', '3', '4', 'Control Structures', '5', 'Real Quiz']);
+let shuffleQuestionsEnabled = false;
 
 // timer
 let timerInterval = null;
@@ -141,10 +142,12 @@ const screens = {
 };
 
 function showScreen(name) {
-  Object.values(screens).forEach(s => { s.classList.remove('active'); s.style.display = 'none'; });
-  screens[name].style.display = 'flex';
-  requestAnimationFrame(() => requestAnimationFrame(() => screens[name].classList.add('active')));
-  window.scrollTo(0, 0);
+  Object.values(screens).forEach(s => { s.classList.remove('active'); s.style.display = 'none'; s.style.animation = ''; });
+  const el = screens[name];
+  el.style.display = 'flex';
+  el.style.animation = 'fadeUp .35s cubic-bezier(.22,1,.36,1) both';
+  requestAnimationFrame(() => el.classList.add('active'));
+  window.scrollTo({ top: 0, behavior: 'instant' });
 }
 
 // ── CONFIRM DIALOG ───────────────────────────────────
@@ -199,30 +202,35 @@ function prepareQuestion(q) {
 
 // ── START SCREEN SETUP ───────────────────────────────
 
-// Week filter pills
-document.querySelectorAll('.week-pill').forEach(pill => {
-  pill.addEventListener('click', () => {
-    pill.classList.toggle('active');
-    const w = pill.dataset.week;
-    activeWeeks.has(w) ? activeWeeks.delete(w) : activeWeeks.add(w);
-    // Ensure at least one week is always active
-    if (activeWeeks.size === 0) {
-      activeWeeks.add(w);
-      pill.classList.add('active');
+// Quiz card selection
+document.querySelectorAll('.quiz-card').forEach(card => {
+  card.addEventListener('click', () => {
+    document.querySelectorAll('.quiz-card').forEach(c => c.classList.remove('selected'));
+    card.classList.add('selected');
+    selectedQuiz = card.dataset.quiz;
+
+    // Show/hide Random 15 toggle (only for 'all')
+    const randomRow = document.getElementById('random-row');
+    randomRow.style.display = selectedQuiz === 'all' ? '' : 'none';
+    if (selectedQuiz !== 'all') {
+      document.getElementById('random-toggle').checked = false;
+      randomMode = false;
     }
+
+    // Unlock start button
+    const btn = document.getElementById('btn-start');
+    btn.disabled = false;
+    btn.classList.remove('btn-start-idle');
+    btn.textContent = 'Start Quiz →';
+
     updateStartCount();
   });
 });
 
-// Mode buttons
-document.querySelectorAll('.mode-btn').forEach(btn => {
-  btn.addEventListener('click', () => {
-    document.querySelectorAll('.mode-btn').forEach(b => b.classList.remove('active'));
-    btn.classList.add('active');
-    quizMode = btn.dataset.mode;
-    updateTimerSub();
-    updateStartCount();
-  });
+// Random toggle (All mode only)
+document.getElementById('random-toggle').addEventListener('change', e => {
+  randomMode = e.target.checked;
+  updateStartCount();
 });
 
 // Timer toggle
@@ -231,41 +239,73 @@ document.getElementById('timer-toggle').addEventListener('change', e => {
   updateTimerSub();
 });
 
-// Shuffle toggle
+// Shuffle options toggle
 document.getElementById('shuffle-toggle').addEventListener('change', e => {
   shuffleEnabled = e.target.checked;
 });
 
+// Shuffle questions toggle
+document.getElementById('shuffle-questions-toggle').addEventListener('change', e => {
+  shuffleQuestionsEnabled = e.target.checked;
+});
+
+function getPoolForSelected() {
+  if (!selectedQuiz) return [];
+  if (selectedQuiz === 'all') return allQuestions.filter(q => String(q.week) !== 'Real Quiz');
+  if (selectedQuiz === 'real') return allQuestions.filter(q => String(q.week) === 'Real Quiz');
+  return allQuestions.filter(q => String(q.week) === selectedQuiz);
+}
+
 function updateTimerSub() {
-  const filteredCount = allQuestions.filter(q => activeWeeks.has(String(q.week))).length;
-  const n = quizMode === 'random' ? Math.min(15, filteredCount) : filteredCount;
-  const mins = Math.round(EXAM_SECS / EXAM_QS * n / 60);
+  const pool = getPoolForSelected();
+  const n = (selectedQuiz === 'all' && randomMode) ? Math.min(EXAM_QS, pool.length) : pool.length;
   const sub = document.getElementById('timer-sub');
-  if (quizMode === 'random' && n === 15) {
+  if (!selectedQuiz) { sub.textContent = 'Select a quiz above to see timing'; return; }
+  if (selectedQuiz === 'all' && randomMode && n === EXAM_QS) {
     sub.textContent = '40 min for 15 questions — exact exam simulation';
   } else {
-    sub.textContent = '~' + mins + ' min for ' + n + ' questions (scaled from 40 min / 15 q)';
+    const mins = Math.round(EXAM_SECS / EXAM_QS * n / 60);
+    sub.textContent = '~' + mins + ' min for ' + n + ' question' + (n === 1 ? '' : 's') + ' (scaled from 40 min / 15 q)';
   }
 }
 
 function updateStartCount() {
-  const filtered = allQuestions.filter(q => activeWeeks.has(String(q.week)));
-  const n = quizMode === 'random' ? Math.min(15, filtered.length) : filtered.length;
-  document.getElementById('total-count').textContent = n + ' questions selected';
+  const pool = getPoolForSelected();
+  const n = (selectedQuiz === 'all' && randomMode) ? Math.min(EXAM_QS, pool.length) : pool.length;
+  document.getElementById('total-count').textContent = selectedQuiz ? n + ' question' + (n === 1 ? '' : 's') : '';
   updateTimerSub();
+}
+
+function updateCardCounts() {
+  const countMap = {
+    '1': 'qc-1', '2': 'qc-2', '3': 'qc-3', '4': 'qc-4',
+    'Control Structures': 'qc-cs', '5': 'qc-5',
+  };
+  Object.entries(countMap).forEach(([week, id]) => {
+    const n = allQuestions.filter(q => String(q.week) === week).length;
+    const el = document.getElementById(id);
+    if (el) el.textContent = n + ' question' + (n === 1 ? '' : 's');
+  });
+  const allN = allQuestions.filter(q => String(q.week) !== 'Real Quiz').length;
+  const realN = allQuestions.filter(q => String(q.week) === 'Real Quiz').length;
+  const elAll = document.getElementById('qc-all');
+  const elReal = document.getElementById('qc-real');
+  if (elAll)  elAll.textContent  = allN  + ' questions';
+  if (elReal) elReal.textContent = realN + ' questions';
 }
 
 // ── START QUIZ ───────────────────────────────────────
 document.getElementById('btn-start').addEventListener('click', startQuiz);
 
 function startQuiz() {
-  // Filter by active weeks
-  const pool = allQuestions.filter(q => activeWeeks.has(String(q.week)));
-  if (pool.length === 0) { alert('Please select at least one topic.'); return; }
+  const pool = getPoolForSelected();
+  if (pool.length === 0) { alert('No questions found for this selection.'); return; }
 
-  let picked = quizMode === 'random'
+  let picked = (selectedQuiz === 'all' && randomMode)
     ? shuffle([...pool]).slice(0, EXAM_QS)
     : [...pool];
+
+  if (shuffleQuestionsEnabled) shuffle(picked);
 
   quizQuestions = picked.map(prepareQuestion);
   answers       = new Array(quizQuestions.length).fill(null);
@@ -446,13 +486,15 @@ function renderQuestion() {
       wrongHint = '<div class="fillin-correct-hint">Correct answers: <strong>' + cl + '</strong></div>';
     }
 
+    const fmtText = str => escapeHtml(str).replace(/\n/g, '<br>');
+
     fb.innerHTML =
       '<span class="feedback-label">' + label + '</span>' +
       wrongHint +
-      '<span class="fb-explanation" id="fb-explanation">' + q.explanation + '</span>' +
+      '<span class="fb-explanation" id="fb-explanation">' + fmtText(q.explanation) + '</span>' +
       (hasDumb
         ? '<button class="btn-dumb" id="btn-dumb" data-mode="normal">💡 Explain simply</button>' +
-          '<span class="fb-simple" id="fb-simple" style="display:none">' + q.simple_explanation + '</span>'
+          '<div class="fb-simple" id="fb-simple">' + fmtText(q.simple_explanation) + '</div>'
         : '');
 
     const dumbBtn = document.getElementById('btn-dumb');
@@ -461,9 +503,15 @@ function renderQuestion() {
         const expl  = document.getElementById('fb-explanation');
         const simp  = document.getElementById('fb-simple');
         const isNormal = dumbBtn.dataset.mode === 'normal';
-        expl.style.display  = isNormal ? 'none'  : 'block';
-        simp.style.display  = isNormal ? 'block' : 'none';
-        dumbBtn.textContent = isNormal ? '📖 Show original' : '💡 Explain simply';
+        expl.style.display = isNormal ? 'none' : 'block';
+        if (isNormal) {
+          simp.style.display = 'block';
+          simp.style.animation = 'none';
+          requestAnimationFrame(() => { simp.style.animation = ''; });
+        } else {
+          simp.style.display = 'none';
+        }
+        dumbBtn.textContent = isNormal ? '📖 Show full explanation' : '💡 Explain simply';
         dumbBtn.dataset.mode = isNormal ? 'simple' : 'normal';
       });
     }
@@ -749,7 +797,8 @@ function showResults(timedOut = false) {
   if (maxStreak >= 3) addPill(pillsEl, '🔥 Best streak: ' + maxStreak, 'streak');
   if (timerEnabled && !timedOut) addPill(pillsEl, '⏱ Finished in time', 'timer');
   if (timedOut) addPill(pillsEl, '⏱ Timed out', 'mode');
-  addPill(pillsEl, quizMode === 'random' ? 'Random 15' : 'All Questions', 'mode');
+  const modeLabel = selectedQuiz === 'real' ? '⭐ Real Quiz' : (selectedQuiz === 'all' && randomMode) ? 'Random 15' : selectedQuiz === 'all' ? 'All Questions' : 'Week ' + selectedQuiz;
+  addPill(pillsEl, modeLabel, 'mode');
   if (shuffleEnabled) addPill(pillsEl, '🔀 Shuffled', 'mode');
 
   // Topic breakdown
@@ -877,7 +926,7 @@ function buildReview() {
       '</div>' +
       '<p class="question-text">Q' + (i + 1) + '. ' + q.question + '</p>' +
       answerHTML +
-      '<p class="review-explanation">' + q.explanation + '</p>';
+      '<p class="review-explanation">' + escapeHtml(q.explanation).replace(/\n/g, '<br>') + '</p>';
 
     list.appendChild(div);
   });
@@ -905,7 +954,7 @@ function saveSession() {
     score,
     total,
     pct:         Math.round(score / total * 100),
-    mode:        quizMode === 'random' ? 'Random 15' : 'All (' + total + 'q)',
+    mode:        selectedQuiz === 'real' ? 'Real Quiz' : (selectedQuiz === 'all' && randomMode) ? 'Random 15' : selectedQuiz === 'all' ? 'All (' + total + 'q)' : 'Week ' + selectedQuiz,
     timerUsed:   timerEnabled,
     topicScores
   };
@@ -1013,6 +1062,7 @@ function renderRecentScores() {
 (async function init() {
   showScreen('start');
   await loadQuestions();
+  updateCardCounts();
   updateStartCount();
   renderRecentScores();
 })();

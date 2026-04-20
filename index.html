@@ -12,37 +12,78 @@
        START SCREEN
   ══════════════════════════════════════ -->
   <div id="screen-start" class="screen active">
-    <div class="start-card">
+    <div class="start-wrap">
 
-      <div class="badge">COMP721</div>
-      <h1>Quiz Prep</h1>
-      <p class="subtitle">Weeks 1–5 · Multiple Choice</p>
-
-      <!-- Topic Filter -->
-      <p class="section-label">Filter Topics</p>
-      <div class="week-filter" id="week-filter">
-        <button class="week-pill active" data-week="1">Week 1 — HTML &amp; HTTP</button>
-        <button class="week-pill active" data-week="2">Week 2 — PHP Basics</button>
-        <button class="week-pill active" data-week="3">Week 3 — PHP Part 2</button>
-        <button class="week-pill active" data-week="4">Week 4 — MySQL, CSS & Regex</button>
-        <button class="week-pill active" data-week="Control Structures">Control Structures</button>
-        <button class="week-pill active" data-week="5">Week 5 — AJAX &amp; JSON</button>
-        <button class="week-pill" data-week="Real Quiz">⭐ Real Quiz Questions</button>
+      <div class="start-top">
+        <div class="badge">COMP721</div>
+        <h1>Quiz Prep</h1>
+        <p class="subtitle">Weeks 1–5 · Multiple Choice</p>
       </div>
 
-      <!-- Mode -->
-      <p class="section-label">Mode</p>
-      <div class="mode-buttons">
-        <button class="mode-btn active" data-mode="all">All Questions</button>
-        <button class="mode-btn" data-mode="random">Random 15 <span class="exam-badge">EXAM</span></button>
+      <p class="section-label">Choose a Quiz</p>
+
+      <div class="quiz-grid" id="quiz-grid">
+        <button class="quiz-card" data-quiz="1" style="--card-color:#4f8ef7">
+          <span class="qc-label">Week 1</span>
+          <span class="qc-title">HTML &amp; HTTP</span>
+          <span class="qc-count" id="qc-1">—</span>
+        </button>
+        <button class="quiz-card" data-quiz="2" style="--card-color:#3ecf8e">
+          <span class="qc-label">Week 2</span>
+          <span class="qc-title">PHP Basics</span>
+          <span class="qc-count" id="qc-2">—</span>
+        </button>
+        <button class="quiz-card" data-quiz="3" style="--card-color:#a78bfa">
+          <span class="qc-label">Week 3</span>
+          <span class="qc-title">PHP Part 2</span>
+          <span class="qc-count" id="qc-3">—</span>
+        </button>
+        <button class="quiz-card" data-quiz="4" style="--card-color:#fb923c">
+          <span class="qc-label">Week 4</span>
+          <span class="qc-title">MySQL, CSS &amp; Regex</span>
+          <span class="qc-count" id="qc-4">—</span>
+        </button>
+        <button class="quiz-card" data-quiz="Control Structures" style="--card-color:#f7c44f">
+          <span class="qc-label">Bonus</span>
+          <span class="qc-title">Control Structures</span>
+          <span class="qc-count" id="qc-cs">—</span>
+        </button>
+        <button class="quiz-card" data-quiz="5" style="--card-color:#f76f6f">
+          <span class="qc-label">Week 5</span>
+          <span class="qc-title">AJAX &amp; JSON</span>
+          <span class="qc-count" id="qc-5">—</span>
+        </button>
+      </div>
+
+      <div class="quiz-grid quiz-grid-special">
+        <button class="quiz-card" data-quiz="all" style="--card-color:#4f8ef7">
+          <span class="qc-label">All Weeks</span>
+          <span class="qc-title">All Questions</span>
+          <span class="qc-count" id="qc-all">—</span>
+        </button>
+        <button class="quiz-card quiz-card-star" data-quiz="real" style="--card-color:#fbbf24">
+          <span class="qc-label">⭐ Exam Sim</span>
+          <span class="qc-title">Real Quiz Questions</span>
+          <span class="qc-count" id="qc-real">—</span>
+        </button>
       </div>
 
       <!-- Options toggles -->
       <div class="toggle-group">
+        <label class="toggle-row" id="random-row" style="display:none">
+          <div class="toggle-info">
+            <span class="toggle-title">🎲 Random 15 <span class="exam-badge">EXAM</span></span>
+            <span class="toggle-sub">Pick 15 random questions — exam simulation</span>
+          </div>
+          <div class="toggle-switch">
+            <input type="checkbox" id="random-toggle" />
+            <span class="toggle-track"><span class="toggle-thumb"></span></span>
+          </div>
+        </label>
         <label class="toggle-row">
           <div class="toggle-info">
             <span class="toggle-title">⏱ Exam Timer</span>
-            <span class="toggle-sub" id="timer-sub">40 min for 15 questions — as per lecturer</span>
+            <span class="toggle-sub" id="timer-sub">Select a quiz above to see timing</span>
           </div>
           <div class="toggle-switch">
             <input type="checkbox" id="timer-toggle" />
@@ -61,7 +102,7 @@
         </label>
         <label class="toggle-row">
           <div class="toggle-info">
-            <span class="toggle-title">🎲 Shuffle Question Order</span>
+            <span class="toggle-title">🔀 Shuffle Question Order</span>
             <span class="toggle-sub">Randomise question order each session</span>
           </div>
           <div class="toggle-switch">
@@ -71,7 +112,7 @@
         </label>
       </div>
 
-      <button id="btn-start" class="btn-primary">Start Quiz</button>
+      <button id="btn-start" class="btn-primary btn-start-idle" disabled>Select a quiz above to start</button>
       <p class="q-count" id="total-count"></p>
 
       <!-- Recent scores + stats -->
@@ -166,12 +207,10 @@
       <h2 id="results-heading"></h2>
       <p id="results-msg"></p>
 
-      <!-- Highlight pills: streak, timer, etc. -->
       <div class="result-pills" id="result-pills"></div>
 
       <div class="breakdown" id="breakdown"></div>
 
-      <!-- Bookmarked questions -->
       <div id="bookmarked-section" style="display:none">
         <div class="section-divider"></div>
         <p class="section-label" style="text-align:left;margin-bottom:.6rem">⭐ Your Bookmarked Questions</p>
